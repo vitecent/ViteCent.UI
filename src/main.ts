@@ -1,40 +1,18 @@
 import { createApp } from 'vue';
-import './plugins/assets';
-import {
-  setupAppVersionNotification,
-  setupDayjs,
-  setupIconifyOffline,
-  setupLoading,
-  setupNProgress,
-  setupUI
-} from './plugins';
-import { setupStore } from './store';
-import { setupRouter } from './router';
-import { setupI18n } from './locales';
-import App from './App.vue';
+import pinia from '/@/stores/index';
+import App from '/@/App.vue';
+import router from '/@/router';
+import { directive } from '/@/directive/index';
+import { i18n } from '/@/i18n/index';
+import other from '/@/utils/other';
 
-async function setupApp() {
-  setupLoading();
+import ElementPlus from 'element-plus';
+import '/@/theme/index.scss';
+import VueGridLayout from 'vue-grid-layout';
 
-  setupNProgress();
+const app = createApp(App);
 
-  setupIconifyOffline();
+directive(app);
+other.elSvg(app);
 
-  setupDayjs();
-
-  const app = createApp(App);
-
-  setupUI(app);
-
-  setupStore(app);
-
-  await setupRouter(app);
-
-  setupI18n(app);
-
-  setupAppVersionNotification();
-
-  app.mount('#app');
-}
-
-setupApp();
+app.use(pinia).use(router).use(ElementPlus).use(i18n).use(VueGridLayout).mount('#app');
