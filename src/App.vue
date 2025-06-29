@@ -36,7 +36,7 @@ const { themeConfig } = storeToRefs(storesThemeConfig);
 // 设置锁屏时组件显示隐藏
 const setLockScreen = computed(() => {
 	// 防止锁屏后，刷新出现不相关界面
-	// https://gitee.com/lyt-top/vue-next-admin/issues/I6AF8P
+	 
 	return themeConfig.value.isLockScreen ? themeConfig.value.lockScreenTime > 1 : themeConfig.value.lockScreenTime >= 0;
 });
 // 获取全局组件大小
@@ -74,7 +74,7 @@ onMounted(() => {
 });
 // 页面销毁时，关闭监听布局配置/i18n监听
 onUnmounted(() => {
-	mittBus.off('openSetingsDrawer', () => {});
+	mittBus.off('openSetingsDrawer', () => { });
 });
 // 监听路由的变化，设置网站标题
 watch(

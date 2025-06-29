@@ -98,10 +98,10 @@ const state = reactive({
 // 打开弹窗
 const openDialog = (type: string, row: RowDeptType) => {
 	if (type === 'edit') {
-		row.deptLevel = ['vueNextAdmin'];
-		row.person = 'lyt';
+		row.deptLevel = ['ViteCent'];
+		row.person = 'ViteCent';
 		row.phone = '12345678910';
-		row.email = 'vueNextAdmin@123.com';
+		row.email = 'ViteCent@qq.com';
 		state.ruleForm = row;
 		state.dialog.title = '修改部门';
 		state.dialog.submitTxt = '修 改';
@@ -133,7 +133,7 @@ const onSubmit = () => {
 // 初始化部门数据
 const getMenuData = () => {
 	state.deptData.push({
-		deptName: 'vueNextAdmin',
+		deptName: 'ViteCent',
 		createTime: new Date().toLocaleString(),
 		status: true,
 		sort: Math.random(),

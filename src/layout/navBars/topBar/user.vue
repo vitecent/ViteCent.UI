@@ -6,19 +6,19 @@
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
-					<el-dropdown-item command="large" :disabled="state.disabledSize === 'large'">{{ $t('message.user.dropdownLarge') }}</el-dropdown-item>
-					<el-dropdown-item command="default" :disabled="state.disabledSize === 'default'">{{ $t('message.user.dropdownDefault') }}</el-dropdown-item>
-					<el-dropdown-item command="small" :disabled="state.disabledSize === 'small'">{{ $t('message.user.dropdownSmall') }}</el-dropdown-item>
+					<el-dropdown-item command="large" :disabled="state.disabledSize === 'large'">{{
+						$t('message.user.dropdownLarge') }}</el-dropdown-item>
+					<el-dropdown-item command="default" :disabled="state.disabledSize === 'default'">{{
+						$t('message.user.dropdownDefault') }}</el-dropdown-item>
+					<el-dropdown-item command="small" :disabled="state.disabledSize === 'small'">{{
+						$t('message.user.dropdownSmall') }}</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
 		<el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onLanguageChange">
 			<div class="layout-navbars-breadcrumb-user-icon">
-				<i
-					class="iconfont"
-					:class="state.disabledI18n === 'en' ? 'icon-fuhao-yingwen' : 'icon-fuhao-zhongwen'"
-					:title="$t('message.user.title1')"
-				></i>
+				<i class="iconfont" :class="state.disabledI18n === 'en' ? 'icon-fuhao-yingwen' : 'icon-fuhao-zhongwen'"
+					:title="$t('message.user.title1')"></i>
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
@@ -37,30 +37,17 @@
 			<i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon" ref="userNewsBadgeRef" v-click-outside="onUserNewsClick">
-			<el-badge :is-dot="true">
-				<el-icon :title="$t('message.user.title4')">
-					<ele-Bell />
-				</el-icon>
-			</el-badge>
+			<el-icon :title="$t('message.user.title4')">
+				<ele-Bell />
+			</el-icon>
 		</div>
-		<el-popover
-			ref="userNewsRef"
-			:virtual-ref="userNewsBadgeRef"
-			placement="bottom"
-			trigger="click"
-			transition="el-zoom-in-top"
-			virtual-triggering
-			:width="300"
-			:persistent="false"
-		>
+		<el-popover ref="userNewsRef" :virtual-ref="userNewsBadgeRef" placement="bottom" trigger="click"
+			transition="el-zoom-in-top" virtual-triggering :width="300" :persistent="false">
 			<UserNews />
 		</el-popover>
 		<div class="layout-navbars-breadcrumb-user-icon mr10" @click="onScreenfullClick">
-			<i
-				class="iconfont"
-				:title="state.isScreenfull ? $t('message.user.title6') : $t('message.user.title5')"
-				:class="!state.isScreenfull ? 'icon-fullscreen' : 'icon-tuichuquanping'"
-			></i>
+			<i class="iconfont" :title="state.isScreenfull ? $t('message.user.title6') : $t('message.user.title5')"
+				:class="!state.isScreenfull ? 'icon-fullscreen' : 'icon-tuichuquanping'"></i>
 		</div>
 		<el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick">
 			<span class="layout-navbars-breadcrumb-user-link">
@@ -73,10 +60,7 @@
 			<template #dropdown>
 				<el-dropdown-menu>
 					<el-dropdown-item command="/home">{{ $t('message.user.dropdown1') }}</el-dropdown-item>
-					<el-dropdown-item command="wareHouse">{{ $t('message.user.dropdown6') }}</el-dropdown-item>
 					<el-dropdown-item command="/personal">{{ $t('message.user.dropdown2') }}</el-dropdown-item>
-					<el-dropdown-item command="/404">{{ $t('message.user.dropdown3') }}</el-dropdown-item>
-					<el-dropdown-item command="/401">{{ $t('message.user.dropdown4') }}</el-dropdown-item>
 					<el-dropdown-item divided command="logOut">{{ $t('message.user.dropdown5') }}</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
@@ -180,9 +164,7 @@ const onHandleCommandClick = (path: string) => {
 				// 使用 reload 时，不需要调用 resetRoute() 重置路由
 				window.location.reload();
 			})
-			.catch(() => {});
-	} else if (path === 'wareHouse') {
-		window.open('https://gitee.com/lyt-top/vue-next-admin');
+			.catch(() => { });
 	} else {
 		router.push(path);
 	}
@@ -226,17 +208,20 @@ onMounted(() => {
 	display: flex;
 	align-items: center;
 	justify-content: flex-end;
+
 	&-link {
 		height: 100%;
 		display: flex;
 		align-items: center;
 		white-space: nowrap;
+
 		&-photo {
 			width: 25px;
 			height: 25px;
 			border-radius: 100%;
 		}
 	}
+
 	&-icon {
 		padding: 0 10px;
 		cursor: pointer;
@@ -245,23 +230,28 @@ onMounted(() => {
 		line-height: 50px;
 		display: flex;
 		align-items: center;
+
 		&:hover {
 			background: var(--next-color-user-hover);
+
 			i {
 				display: inline-block;
 				animation: logoAnimation 0.3s ease-in-out;
 			}
 		}
 	}
+
 	:deep(.el-dropdown) {
 		color: var(--next-bg-topBarColor);
 	}
+
 	:deep(.el-badge) {
 		height: 40px;
 		line-height: 40px;
 		display: flex;
 		align-items: center;
 	}
+
 	:deep(.el-badge__content.is-fixed) {
 		top: 12px;
 	}
