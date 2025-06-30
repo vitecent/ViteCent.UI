@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
-import Cookies from 'js-cookie';
-import { Session } from '/@/utils/storage';
+import { Session } from '@/utils/storage';
 
 /**
  * 用户信息
@@ -32,7 +31,7 @@ export const useUserInfo = defineStore('userInfo', {
 			return new Promise((resolve) => {
 				setTimeout(() => {
 					// 模拟数据，请求接口时，记得删除多余代码及对应依赖的引入
-					const userName = Cookies.get('userName');
+					const userName = Session.get('userName');
 					// 模拟数据
 					let defaultRoles: Array<string> = [];
 					let defaultAuthBtnList: Array<string> = [];
