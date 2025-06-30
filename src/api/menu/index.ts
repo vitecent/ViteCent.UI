@@ -7,7 +7,7 @@ import request from '@/utils/request';
  *
  * 后端控制路由，isRequestRoutes 为 true，则开启后端控制路由
  * @method getAdminMenu 获取后端动态路由菜单(admin)
- * @method getTestMenu 获取后端动态路由菜单(test)
+ * @method getCommonMenu 获取后端动态路由菜单(test)
  */
 export function useMenuApi() {
 	return {
@@ -18,7 +18,7 @@ export function useMenuApi() {
 				params,
 			});
 		},
-		getTestMenu: (params?: object) => {
+		getCommonMenu: (params?: object) => {
 			return request({
 				url: '/gitee/ViteCent/ViteCent-images/raw/master/menu/testMenu.json',
 				method: 'get',

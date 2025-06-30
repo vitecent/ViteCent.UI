@@ -755,6 +755,21 @@ export const notFoundAndNoPower = [
 			isHide: true,
 		},
 	},
+	{
+		path: '/personal',
+		name: 'personal',
+		component: () => import('@/views/personal/index.vue'),
+		meta: {
+			title: 'message.router.personal',
+			isLink: '',
+			isHide: true,
+			isKeepAlive: true,
+			isAffix: false,
+			isIframe: false,
+			roles: ['admin', 'common'],
+			icon: 'iconfont icon-gerenzhongxin',
+		},
+	},
 ];
 
 /**
@@ -770,21 +785,6 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		component: () => import('@/views/login/index.vue'),
 		meta: {
 			title: '登录',
-		},
-	},
-	{
-		path: '/personal',
-		name: 'personal',
-		component: () => import('@/views/personal/index.vue'),
-		meta: {
-			title: 'message.router.personal',
-			isLink: '',
-			isHide: true,
-			isKeepAlive: true,
-			isAffix: false,
-			isIframe: false,
-			roles: ['admin', 'common'],
-			icon: 'iconfont icon-gerenzhongxin',
 		},
 	},
 ];

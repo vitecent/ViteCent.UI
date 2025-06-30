@@ -555,8 +555,8 @@ onUnmounted(() => {
 				position: relative;
 				overflow: hidden;
 				height: 100%;
-				background-image: linear-gradient(90deg, rgb(156 214 255 / 15%) 10%, rgba(0, 0, 0, 0) 10%),
-					linear-gradient(rgb(156 214 255 / 15%) 10%, rgba(0, 0, 0, 0) 10%);
+				background-image:
+					linear-gradient(90deg, rgb(156 214 255 / 15%) 10%, rgba(0, 0, 0, 0) 10%), linear-gradient(rgb(156 214 255 / 15%) 10%, rgba(0, 0, 0, 0) 10%);
 				background-size: 10px 10px;
 				.workflow-right-clone {
 					position: absolute;

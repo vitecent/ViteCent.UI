@@ -1,129 +1,119 @@
 <template>
-	<div class="system-dic-container layout-padding">
-		<el-card shadow="hover" class="layout-padding-auto">
-			<div class="system-user-search mb15">
-				<el-input size="default" placeholder="请输入字典名称" style="max-width: 180px"> </el-input>
+	<div class="system-menu-container layout-pd">
+		<el-card shadow="hover">
+			<div class="system-menu-search mb15">
+				<el-input size="default" placeholder="请输入菜单名称" style="max-width: 180px"> </el-input>
 				<el-button size="default" type="primary" class="ml10">
 					<el-icon>
 						<ele-Search />
 					</el-icon>
 					查询
 				</el-button>
-				<el-button size="default" type="success" class="ml10" @click="onOpenAddDic('add')">
+				<el-button size="default" type="success" class="ml10" @click="onOpenAddMenu">
 					<el-icon>
 						<ele-FolderAdd />
 					</el-icon>
-					新增字典
+					新增菜单
 				</el-button>
 			</div>
-			<el-table :data="state.tableData.data" v-loading="state.tableData.loading" style="width: 100%">
-				<el-table-column type="index" label="序号" width="50" />
-				<el-table-column prop="dicName" label="字典名称" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="fieldName" label="字段名" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="status" label="字典状态" show-overflow-tooltip>
+			<el-table
+				:data="state.tableData.data"
+				v-loading="state.tableData.loading"
+				style="width: 100%"
+				row-key="path"
+				:tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
+			>
+				<el-table-column label="菜单名称" show-overflow-tooltip>
 					<template #default="scope">
-						<el-tag type="success" v-if="scope.row.status">启用</el-tag>
-						<el-tag type="info" v-else>禁用</el-tag>
+						<SvgIcon :name="scope.row.meta.icon" />
+						<span class="ml10">{{ $t(scope.row.meta.title) }}</span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="describe" label="字典描述" show-overflow-tooltip></el-table-column>
-				<el-table-column prop="createTime" label="创建时间" show-overflow-tooltip></el-table-column>
-				<el-table-column label="操作" width="100">
+				<el-table-column prop="path" label="路由路径" show-overflow-tooltip></el-table-column>
+				<el-table-column label="组件路径" show-overflow-tooltip>
 					<template #default="scope">
-						<el-button size="small" text type="primary" @click="onOpenEditDic('edit', scope.row)">修改</el-button>
-						<el-button size="small" text type="primary" @click="onRowDel(scope.row)">删除</el-button>
+						<span>{{ scope.row.component }}</span>
+					</template>
+				</el-table-column>
+				<el-table-column label="权限标识" show-overflow-tooltip>
+					<template #default="scope">
+						<span>{{ scope.row.meta.roles }}</span>
+					</template>
+				</el-table-column>
+				<el-table-column label="排序" show-overflow-tooltip width="80">
+					<template #default="scope">
+						{{ scope.$index }}
+					</template>
+				</el-table-column>
+				<el-table-column label="类型" show-overflow-tooltip width="80">
+					<template #default="scope">
+						<el-tag type="success" size="small">{{ scope.row.xx }}菜单</el-tag>
+					</template>
+				</el-table-column>
+				<el-table-column label="操作" show-overflow-tooltip width="140">
+					<template #default="scope">
+						<el-button size="small" text type="primary" @click="onOpenAddMenu('add')">新增</el-button>
+						<el-button size="small" text type="primary" @click="onOpenEditMenu('edit', scope.row)">修改</el-button>
+						<el-button size="small" text type="primary" @click="onTabelRowDel(scope.row)">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
-			<el-pagination
-				@size-change="onHandleSizeChange"
-				@current-change="onHandleCurrentChange"
-				class="mt15"
-				:pager-count="5"
-				:page-sizes="[10, 20, 30]"
-				v-model:current-page="state.tableData.param.pageNum"
-				background
-				v-model:page-size="state.tableData.param.pageSize"
-				layout="total, sizes, prev, pager, next, jumper"
-				:total="state.tableData.total"
-			>
-			</el-pagination>
 		</el-card>
-		<DicDialog ref="dicDialogRef" @refresh="getTableData()" />
+		<MenuDialog ref="menuDialogRef" @refresh="getTableData()" />
 	</div>
 </template>
 
-<script setup lang="ts" name="systemDic">
-import { defineAsyncComponent, reactive, onMounted, ref } from 'vue';
+<script setup lang="ts" name="systemMenu">
+import { defineAsyncComponent, ref, onMounted, reactive } from 'vue';
+import { RouteRecordRaw } from 'vue-router';
 import { ElMessageBox, ElMessage } from 'element-plus';
+import { storeToRefs } from 'pinia';
+import { useRoutesList } from '@/stores/routesList';
+// import { setBackEndControlRefreshRoutes } from "@/router/backEnd";
 
 // 引入组件
-const DicDialog = defineAsyncComponent(() => import('@/views/system/dic/dialog.vue'));
+const MenuDialog = defineAsyncComponent(() => import('@/views/system/menu/dialog.vue'));
 
 // 定义变量内容
-const dicDialogRef = ref();
-const state = reactive<SysDicState>({
+const stores = useRoutesList();
+const { routesList } = storeToRefs(stores);
+const menuDialogRef = ref();
+const state = reactive({
 	tableData: {
-		data: [],
-		total: 0,
-		loading: false,
-		param: {
-			pageNum: 1,
-			pageSize: 10,
-		},
+		data: [] as RouteRecordRaw[],
+		loading: true,
 	},
 });
 
-// 初始化表格数据
+// 获取路由数据，真实请从接口获取
 const getTableData = () => {
 	state.tableData.loading = true;
-	const data = [];
-	for (let i = 0; i < 2; i++) {
-		data.push({
-			dicName: i === 0 ? '角色标识' : '用户性别',
-			fieldName: i === 0 ? 'SYS_ROLE' : 'SYS_UERINFO',
-			describe: i === 0 ? '这是角色字典' : '这是用户性别字典',
-			status: true,
-			createTime: new Date().toLocaleString(),
-			list: [],
-		});
-	}
-	state.tableData.data = data;
-	state.tableData.total = state.tableData.data.length;
+	state.tableData.data = routesList.value;
 	setTimeout(() => {
 		state.tableData.loading = false;
 	}, 500);
 };
-// 打开新增字典弹窗
-const onOpenAddDic = (type: string) => {
-	dicDialogRef.value.openDialog(type);
+// 打开新增菜单弹窗
+const onOpenAddMenu = (type: string) => {
+	menuDialogRef.value.openDialog(type);
 };
-// 打开修改字典弹窗
-const onOpenEditDic = (type: string, row: RowDicType) => {
-	dicDialogRef.value.openDialog(type, row);
+// 打开编辑菜单弹窗
+const onOpenEditMenu = (type: string, row: RouteRecordRaw) => {
+	menuDialogRef.value.openDialog(type, row);
 };
-// 删除字典
-const onRowDel = (row: RowDicType) => {
-	ElMessageBox.confirm(`此操作将永久删除字典名称：“${row.dicName}”，是否继续?`, '提示', {
-		confirmButtonText: '确认',
+// 删除当前行
+const onTabelRowDel = (row: RouteRecordRaw) => {
+	ElMessageBox.confirm(`此操作将永久删除路由：${row.path}, 是否继续?`, '提示', {
+		confirmButtonText: '删除',
 		cancelButtonText: '取消',
 		type: 'warning',
 	})
 		.then(() => {
-			getTableData();
 			ElMessage.success('删除成功');
+			getTableData();
+			//await setBackEndControlRefreshRoutes() // 刷新菜单，未进行后端接口测试
 		})
 		.catch(() => {});
-};
-// 分页改变
-const onHandleSizeChange = (val: number) => {
-	state.tableData.param.pageSize = val;
-	getTableData();
-};
-// 分页改变
-const onHandleCurrentChange = (val: number) => {
-	state.tableData.param.pageNum = val;
-	getTableData();
 };
 // 页面加载时
 onMounted(() => {

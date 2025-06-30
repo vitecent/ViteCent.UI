@@ -35,7 +35,7 @@ const state = reactive({
 	formRulesOneData: {
 		name: 'ViteCent',
 		email: 'ViteCent123@.com',
-		autograph: 'ViteCent123456',
+		autograph: 'ViteCent',
 		occupation: '1',
 	},
 });

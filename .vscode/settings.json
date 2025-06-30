@@ -1,3 +1,25 @@
 {
-	"i18n-ally.localesPaths": ["src/i18n", "src/i18n/lang"]
+	"i18n-ally.localesPaths": ["src/i18n", "src/i18n/lang"],
+	//js 使用prettier格式化代码
+	"[javascript]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	//json 使用prettier格式化代码
+	"[json]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	//html 使用prettier格式化代码
+	"[html]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	//css 使用prettier格式化代码
+	"[css]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	//vue 使用prettier格式化代码
+	"[vue]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	//保存时自动格式化
+	"editor.formatOnSave": true
 }

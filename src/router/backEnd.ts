@@ -39,12 +39,12 @@ export async function initBackEndControlRoutes() {
 	// 无 token 停止执行下一步
 	if (!Session.get('token')) return false;
 	// 触发初始化用户信息 pinia
-	 
+
 	await useUserInfo().setUserInfos();
 	// 获取路由菜单数据
 	const res = await getBackEndControlRoutes();
 	// 无登录权限时，添加判断
-	 
+
 	if (res.data.length <= 0) return Promise.resolve(true);
 	// 存储接口原始路由（未处理component），根据需求选择使用
 	useRequestOldRoutes().setRequestOldRoutes(JSON.parse(JSON.stringify(res.data)));
@@ -114,7 +114,7 @@ export function getBackEndControlRoutes() {
 	// 管理员 admin
 	if (auth === 'admin') return menuApi.getAdminMenu();
 	// 其它用户 test
-	else return menuApi.getTestMenu();
+	else return menuApi.getCommonMenu();
 }
 
 /**

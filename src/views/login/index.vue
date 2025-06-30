@@ -8,17 +8,13 @@
 					<span class="login-left-logo-text-msg">{{ getThemeConfig.globalViceTitleMsg }}</span>
 				</div>
 			</div>
-			<div class="login-left-img">
-				<img :src="loginMain" />
-			</div>
-			<img :src="loginBg" class="login-left-waves" />
 		</div>
 		<div class="login-right flex">
 			<div class="login-right-warp flex-margin">
 				<span class="login-right-warp-one"></span>
 				<span class="login-right-warp-two"></span>
 				<div class="login-right-warp-mian">
-					<div class="login-right-warp-main-title">{{ getThemeConfig.globalTitle }} 欢迎您！</div>
+					<div class="login-right-warp-main-title">{{ getThemeConfig.globalTitle }}</div>
 					<div class="login-right-warp-main-form">
 						<div v-if="!state.isScan">
 							<el-tabs v-model="state.tabsActiveName">
@@ -48,8 +44,6 @@ import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '@/stores/themeConfig';
 import { NextLoading } from '@/utils/loading';
 import logoMini from '@/assets/logo-mini.svg';
-import loginMain from '@/assets/login-main.svg';
-import loginBg from '@/assets/login-bg.svg';
 import { Session } from '@/utils/storage';
 
 // 引入组件
@@ -81,12 +75,10 @@ onMounted(() => {
 <style scoped lang="scss">
 .login-container {
 	height: 100%;
-	background: var(--el-color-white);
 
 	.login-left {
 		flex: 1;
 		position: relative;
-		background-color: rgba(211, 239, 255, 1);
 		margin-right: 100px;
 
 		.login-left-logo {
@@ -152,7 +144,6 @@ onMounted(() => {
 			height: 500px;
 			position: relative;
 			overflow: hidden;
-			background-color: var(--el-color-white);
 
 			.login-right-warp-one,
 			.login-right-warp-two {
