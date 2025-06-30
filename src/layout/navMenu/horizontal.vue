@@ -108,7 +108,7 @@ onBeforeMount(() => {
 });
 // 路由更新时
 onBeforeRouteUpdate((to) => {
-	
+
 	setCurrentRouterHighlight(to);
 	// 修复经典布局开启切割菜单时，点击tagsView后左侧导航菜单数据不变的问题
 	let { layout, isClassicSplitMenu } = themeConfig.value;
@@ -123,17 +123,31 @@ onBeforeRouteUpdate((to) => {
 	flex: 1;
 	overflow: hidden;
 	margin-right: 30px;
+
 	:deep(.el-scrollbar__bar.is-vertical) {
 		display: none;
 	}
+
 	:deep(a) {
 		width: 100%;
 	}
+
 	.el-menu.el-menu--horizontal {
 		display: flex;
+		justify-content: flex-end;
 		height: 100%;
 		width: 100%;
 		box-sizing: border-box;
+	}
+}
+
+:deep {
+
+	.el-menu-item:hover,
+	.el-menu-item.is-active,
+	.el-sub-menu.is-active .el-sub-menu__title,
+	.el-sub-menu:not(.is-opened):hover .el-sub-menu__title {
+		background-color: transparent !important;
 	}
 }
 </style>

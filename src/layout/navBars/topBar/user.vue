@@ -49,10 +49,11 @@
 			<i class="iconfont" :title="state.isScreenfull ? $t('message.user.title6') : $t('message.user.title5')"
 				:class="!state.isScreenfull ? 'icon-fullscreen' : 'icon-tuichuquanping'"></i>
 		</div>
-		<el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick">
+		<el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick"
+			v-if="userInfos.userName !== 'common'">
 			<span class="layout-navbars-breadcrumb-user-link">
 				<img :src="userInfos.photo" class="layout-navbars-breadcrumb-user-link-photo mr5" />
-				{{ userInfos.userName === '' ? 'common' : userInfos.userName }}
+				{{ userInfos.userName }}
 				<el-icon class="el-icon--right">
 					<ele-ArrowDown />
 				</el-icon>
@@ -65,6 +66,10 @@
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
+		<div class="layout-navbars-breadcrumb-user-icon" v-else>
+			<img :src="userInfos.photo" class="layout-navbars-breadcrumb-user-link-photo mr5" @click="onLogin" />
+		</div>
+
 		<Search ref="searchRef" />
 	</div>
 </template>
@@ -80,7 +85,7 @@ import { useUserInfo } from '@/stores/userInfo';
 import { useThemeConfig } from '@/stores/themeConfig';
 import other from '@/utils/other';
 import mittBus from '@/utils/mitt';
-import { Session, Local } from '@/utils/storage';
+import { Local } from '@/utils/storage';
 
 // 引入组件
 const UserNews = defineAsyncComponent(() => import('@/layout/navBars/topBar/userNews.vue'));
@@ -159,10 +164,8 @@ const onHandleCommandClick = (path: string) => {
 			},
 		})
 			.then(async () => {
-				// 清除缓存/token等
-				Session.clear();
 				// 使用 reload 时，不需要调用 resetRoute() 重置路由
-				window.location.reload();
+				onLogin();
 			})
 			.catch(() => { });
 	} else {
@@ -201,6 +204,10 @@ onMounted(() => {
 		initI18nOrSize('globalI18n', 'disabledI18n');
 	}
 });
+//登陆
+const onLogin = () => {
+	router.push('/login');
+}
 </script>
 
 <style scoped lang="scss">

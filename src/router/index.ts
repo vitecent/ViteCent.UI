@@ -93,36 +93,37 @@ export function formatTwoStageRoutes(arr: any) {
 router.beforeEach(async (to, from, next) => {
 	NProgress.configure({ showSpinner: false });
 	if (to.meta.title) NProgress.start();
-	const token = Session.get('token');
-	if (to.path === '/login' && !token) {
+	var token = Session.get('token');
+
+	if (!token) {
+		token = Math.random().toString(36).substr(0);
+		// 存储 token 到浏览器缓存
+		Session.set('token', token);
+		// 模拟数据，对接接口时，记得删除多余代码及对应依赖的引入。用于 `/src/stores/userInfo.ts` 中不同用户登录判断（模拟数据）
+		Session.set('userName', "common");
+	}
+
+	if (to.path === '/login') {
 		next();
 		NProgress.done();
 	} else {
-		if (!token) {
-			next(`/login?redirect=${to.path}&params=${JSON.stringify(to.query ? to.query : to.params)}`);
-			Session.clear();
-			NProgress.done();
-		} else if (token && to.path === '/login') {
-			next('/home');
-			NProgress.done();
-		} else {
-			const storesRoutesList = useRoutesList(pinia);
-			const { routesList } = storeToRefs(storesRoutesList);
-			if (routesList.value.length === 0) {
-				if (isRequestRoutes) {
-					// 后端控制路由：路由数据初始化，防止刷新时丢失
-					await initBackEndControlRoutes();
-					// 解决刷新时，一直跳 404 页面问题，关联问题 No match found for location with path 'xxx'
-					// to.query 防止页面刷新时，普通路由带参数时，参数丢失。动态路由（xxx/:id/:name"）isDynamic 无需处理
-					next({ path: to.path, query: to.query });
-				} else {
-					 
-					await initFrontEndControlRoutes();
-					next({ path: to.path, query: to.query });
-				}
+
+		const storesRoutesList = useRoutesList(pinia);
+		const { routesList } = storeToRefs(storesRoutesList);
+		if (routesList.value.length === 0) {
+			if (isRequestRoutes) {
+				// 后端控制路由：路由数据初始化，防止刷新时丢失
+				await initBackEndControlRoutes();
+				// 解决刷新时，一直跳 404 页面问题，关联问题 No match found for location with path 'xxx'
+				// to.query 防止页面刷新时，普通路由带参数时，参数丢失。动态路由（xxx/:id/:name"）isDynamic 无需处理
+				next({ path: to.path, query: to.query });
 			} else {
-				next();
+
+				await initFrontEndControlRoutes();
+				next({ path: to.path, query: to.query });
 			}
+		} else {
+			next();
 		}
 	}
 });

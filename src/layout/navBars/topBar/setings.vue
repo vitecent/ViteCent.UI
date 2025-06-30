@@ -409,21 +409,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="copy-config">
-					<el-alert :title="$t('message.layout.tipText')" type="warning" :closable="false"> </el-alert>
-					<el-button size="default" class="copy-config-btn" type="primary" ref="copyConfigBtnRef" @click="onCopyConfigClick">
-						<el-icon class="mr5">
-							<ele-CopyDocument />
-						</el-icon>
-						{{ $t('message.layout.copyText') }}
-					</el-button>
-					<el-button size="default" class="copy-config-btn-reset" type="info" @click="onResetConfigClick">
-						<el-icon class="mr5">
-							<ele-RefreshRight />
-						</el-icon>
-						{{ $t('message.layout.resetText') }}
-					</el-button>
-				</div>
 			</el-scrollbar>
 		</el-drawer>
 	</div>
@@ -620,21 +605,6 @@ const setLocalThemeConfig = () => {
 // 存储布局配置全局主题样式（html根标签）
 const setLocalThemeConfigStyle = () => {
 	Local.set('themeConfigStyle', document.documentElement.style.cssText);
-};
-// 一键复制配置
-const onCopyConfigClick = () => {
-	let copyThemeConfig = Local.get('themeConfig');
-	copyThemeConfig.isDrawer = false;
-	copyText(JSON.stringify(copyThemeConfig)).then(() => {
-		getThemeConfig.value.isDrawer = false;
-	});
-};
-// 一键恢复默认
-const onResetConfigClick = () => {
-	Local.clear();
-	window.location.reload();
-	// @ts-ignore
-	Local.set('version', __NEXT_VERSION__);
 };
 // 初始化菜单样式等
 const initSetStyle = () => {
