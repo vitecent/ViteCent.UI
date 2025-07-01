@@ -13,14 +13,14 @@ export function useMenuApi() {
 	return {
 		getAdminMenu: (params?: object) => {
 			return request({
-				url: '/gitee/ViteCent/ViteCent-images/raw/master/menu/adminMenu.json',
+				url: '/adminMenu.json',
 				method: 'get',
 				params,
 			});
 		},
 		getCommonMenu: (params?: object) => {
 			return request({
-				url: '/gitee/ViteCent/ViteCent-images/raw/master/menu/testMenu.json',
+				url: '//CommonMenu.json',
 				method: 'get',
 				params,
 			});

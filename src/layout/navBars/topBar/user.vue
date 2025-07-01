@@ -2,55 +2,64 @@
 	<div class="layout-navbars-breadcrumb-user pr15" :style="{ flex: layoutUserFlexNum }">
 		<el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onComponentSizeChange">
 			<div class="layout-navbars-breadcrumb-user-icon">
-				<i class="iconfont icon-ziti" :title="$t('message.user.title0')"></i>
+				<i class="iconfont icon-ziti" :title="$t('message.user.size')"></i>
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
-					<el-dropdown-item command="large" :disabled="state.disabledSize === 'large'">{{
-						$t('message.user.dropdownLarge') }}</el-dropdown-item>
-					<el-dropdown-item command="default" :disabled="state.disabledSize === 'default'">{{
-						$t('message.user.dropdownDefault') }}</el-dropdown-item>
-					<el-dropdown-item command="small" :disabled="state.disabledSize === 'small'">{{
-						$t('message.user.dropdownSmall') }}</el-dropdown-item>
+					<el-dropdown-item command="large" :disabled="state.disabledSize === 'large'">{{ $t('message.user.dropdownLarge') }}</el-dropdown-item>
+					<el-dropdown-item command="default" :disabled="state.disabledSize === 'default'">{{ $t('message.user.dropdownDefault') }}</el-dropdown-item>
+					<el-dropdown-item command="small" :disabled="state.disabledSize === 'small'">{{ $t('message.user.dropdownSmall') }}</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
 		<el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onLanguageChange">
 			<div class="layout-navbars-breadcrumb-user-icon">
-				<i class="iconfont" :class="state.disabledI18n === 'en' ? 'icon-fuhao-yingwen' : 'icon-fuhao-zhongwen'"
-					:title="$t('message.user.title1')"></i>
+				<i
+					class="iconfont"
+					:class="state.disabledI18n === 'en' ? 'icon-fuhao-yingwen' : 'icon-fuhao-zhongwen'"
+					:title="$t('message.user.language')"
+				></i>
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
 					<el-dropdown-item command="zh-cn" :disabled="state.disabledI18n === 'zh-cn'">简体中文</el-dropdown-item>
 					<el-dropdown-item command="en" :disabled="state.disabledI18n === 'en'">English</el-dropdown-item>
-					<el-dropdown-item command="zh-tw" :disabled="state.disabledI18n === 'zh-tw'">繁體中文</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
 		<div class="layout-navbars-breadcrumb-user-icon" @click="onSearchClick">
-			<el-icon :title="$t('message.user.title2')">
+			<el-icon :title="$t('message.user.search')">
 				<ele-Search />
 			</el-icon>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSetingClick">
-			<i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
+			<i class="icon-skin iconfont" :title="$t('message.user.layout')"></i>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon" ref="userNewsBadgeRef" v-click-outside="onUserNewsClick">
-			<el-icon :title="$t('message.user.title4')">
+			<el-icon :title="$t('message.user.news')">
 				<ele-Bell />
 			</el-icon>
 		</div>
-		<el-popover ref="userNewsRef" :virtual-ref="userNewsBadgeRef" placement="bottom" trigger="click"
-			transition="el-zoom-in-top" virtual-triggering :width="300" :persistent="false">
+		<el-popover
+			ref="userNewsRef"
+			:virtual-ref="userNewsBadgeRef"
+			placement="bottom"
+			trigger="click"
+			transition="el-zoom-in-top"
+			virtual-triggering
+			:width="300"
+			:persistent="false"
+		>
 			<UserNews />
 		</el-popover>
 		<div class="layout-navbars-breadcrumb-user-icon mr10" @click="onScreenfullClick">
-			<i class="iconfont" :title="state.isScreenfull ? $t('message.user.title6') : $t('message.user.title5')"
-				:class="!state.isScreenfull ? 'icon-fullscreen' : 'icon-tuichuquanping'"></i>
+			<i
+				class="iconfont"
+				:title="state.isScreenfull ? $t('message.user.fullscreenOff') : $t('message.user.fullscreenOn')"
+				:class="!state.isScreenfull ? 'icon-fullscreen' : 'icon-tuichuquanping'"
+			></i>
 		</div>
-		<el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick"
-			v-if="userInfos.userName !== 'common'">
+		<el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick" v-if="userInfos.userName !== 'common'">
 			<span class="layout-navbars-breadcrumb-user-link">
 				<img :src="userInfos.photo" class="layout-navbars-breadcrumb-user-link-photo mr5" />
 				{{ userInfos.userName }}
@@ -60,9 +69,9 @@
 			</span>
 			<template #dropdown>
 				<el-dropdown-menu>
-					<el-dropdown-item command="/home">{{ $t('message.user.dropdown1') }}</el-dropdown-item>
-					<el-dropdown-item command="/personal">{{ $t('message.user.dropdown2') }}</el-dropdown-item>
-					<el-dropdown-item divided command="logOut">{{ $t('message.user.dropdown5') }}</el-dropdown-item>
+					<el-dropdown-item command="/home">{{ $t('message.user.home') }}</el-dropdown-item>
+					<el-dropdown-item command="/personal">{{ $t('message.user.personal') }}</el-dropdown-item>
+					<el-dropdown-item divided command="logOut">{{ $t('message.user.logout') }}</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
@@ -86,6 +95,7 @@ import { useThemeConfig } from '@/stores/themeConfig';
 import other from '@/utils/other';
 import mittBus from '@/utils/mitt';
 import { Local } from '@/utils/storage';
+import { useLoginApi } from '@/api/login/index';
 
 // 引入组件
 const UserNews = defineAsyncComponent(() => import('@/layout/navBars/topBar/userNews.vue'));
@@ -101,6 +111,8 @@ const storesThemeConfig = useThemeConfig();
 const { userInfos } = storeToRefs(stores);
 const { themeConfig } = storeToRefs(storesThemeConfig);
 const searchRef = ref();
+var api = useLoginApi();
+
 const state = reactive({
 	isScreenfull: false,
 	disabledI18n: 'zh-cn',
@@ -164,10 +176,9 @@ const onHandleCommandClick = (path: string) => {
 			},
 		})
 			.then(async () => {
-				// 使用 reload 时，不需要调用 resetRoute() 重置路由
 				onLogin();
 			})
-			.catch(() => { });
+			.catch(() => {});
 	} else {
 		router.push(path);
 	}
@@ -206,8 +217,15 @@ onMounted(() => {
 });
 //登陆
 const onLogin = () => {
-	router.push('/login');
-}
+	api
+		.loginout()
+		.then(() => {
+			router.push('/login');
+		})
+		.catch(() => {
+			router.push('/login');
+		});
+};
 </script>
 
 <style scoped lang="scss">

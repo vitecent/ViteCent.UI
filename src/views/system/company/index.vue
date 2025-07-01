@@ -2,7 +2,7 @@
 	<div class="system-menu-container layout-pd">
 		<el-card shadow="hover">
 			<div class="system-menu-search mb15">
-				<el-input size="default" placeholder="请输入菜单名称" style="max-width: 180px"> </el-input>
+				<el-input size="default" placeholder="请输入公司名称" style="max-width: 180px"> </el-input>
 				<el-button size="default" type="primary" class="ml10">
 					<el-icon>
 						<ele-Search />
@@ -13,7 +13,7 @@
 					<el-icon>
 						<ele-FolderAdd />
 					</el-icon>
-					新增菜单
+					新增公司
 				</el-button>
 			</div>
 			<el-table
@@ -23,7 +23,7 @@
 				row-key="path"
 				:tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
 			>
-				<el-table-column label="菜单名称" show-overflow-tooltip>
+				<el-table-column label="公司名称" show-overflow-tooltip>
 					<template #default="scope">
 						<SvgIcon :name="scope.row.meta.icon" />
 						<span class="ml10">{{ $t(scope.row.meta.title) }}</span>
@@ -47,14 +47,18 @@
 				</el-table-column>
 				<el-table-column label="类型" show-overflow-tooltip width="80">
 					<template #default="scope">
-						<el-tag type="success" size="small">{{ scope.row.xx }}菜单</el-tag>
+						<el-tag type="success" size="small">{{ scope.row.xx }}公司</el-tag>
 					</template>
 				</el-table-column>
 				<el-table-column label="操作" show-overflow-tooltip width="140">
 					<template #default="scope">
 						<el-button size="small" text type="primary" @click="onOpenAddMenu('add')">新增</el-button>
 						<el-button size="small" text type="primary" @click="onOpenEditMenu('edit', scope.row)">修改</el-button>
-						<el-button size="small" text type="primary" @click="onTabelRowDel(scope.row)">删除</el-button>
+						<el-popconfirm :title="`此操作将永久删除路由：${$t(scope.row.meta.title)}, 是否继续?`" @confirm="onTabelRowDel(scope.row)">
+							<template #reference>
+								<el-button size="small" text type="primary">删除</el-button>
+							</template>
+						</el-popconfirm>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -72,7 +76,7 @@ import { useRoutesList } from '@/stores/routesList';
 // import { setBackEndControlRefreshRoutes } from "@/router/backEnd";
 
 // 引入组件
-const MenuDialog = defineAsyncComponent(() => import('@/views/system/menu/dialog.vue'));
+const MenuDialog = defineAsyncComponent(() => import('@/views/system/company/dialog.vue'));
 
 // 定义变量内容
 const stores = useRoutesList();
@@ -93,27 +97,18 @@ const getTableData = () => {
 		state.tableData.loading = false;
 	}, 500);
 };
-// 打开新增菜单弹窗
+// 打开新增公司弹窗
 const onOpenAddMenu = (type: string) => {
 	menuDialogRef.value.openDialog(type);
 };
-// 打开编辑菜单弹窗
+// 打开编辑公司弹窗
 const onOpenEditMenu = (type: string, row: RouteRecordRaw) => {
 	menuDialogRef.value.openDialog(type, row);
 };
 // 删除当前行
 const onTabelRowDel = (row: RouteRecordRaw) => {
-	ElMessageBox.confirm(`此操作将永久删除路由：${row.path}, 是否继续?`, '提示', {
-		confirmButtonText: '删除',
-		cancelButtonText: '取消',
-		type: 'warning',
-	})
-		.then(() => {
-			ElMessage.success('删除成功');
-			getTableData();
-			//await setBackEndControlRefreshRoutes() // 刷新菜单，未进行后端接口测试
-		})
-		.catch(() => {});
+	ElMessage.success('删除成功');
+	getTableData();
 };
 // 页面加载时
 onMounted(() => {

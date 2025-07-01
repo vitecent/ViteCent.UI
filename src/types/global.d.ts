@@ -9,7 +9,6 @@ declare module 'qs';
 declare module 'sortablejs';
 declare module 'element-plus/dist/locale/en';
 declare module 'element-plus/dist/locale/zh-cn';
-declare module 'element-plus/dist/locale/zh-tw';
 
 // 声明一个模块，防止引入文件时报错
 declare module '*.json';

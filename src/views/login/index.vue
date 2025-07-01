@@ -14,14 +14,29 @@
 				<span class="login-right-warp-one"></span>
 				<span class="login-right-warp-two"></span>
 				<div class="login-right-warp-mian">
+					<el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onLanguageChange">
+						<div class="layout-navbars-breadcrumb-user-icon">
+							<i
+								class="iconfont"
+								:class="state.disabledI18n === 'en' ? 'icon-fuhao-yingwen' : 'icon-fuhao-zhongwen'"
+								:title="$t('message.user.language')"
+							></i>
+						</div>
+						<template #dropdown>
+							<el-dropdown-menu>
+								<el-dropdown-item command="zh-cn" :disabled="state.disabledI18n === 'zh-cn'">简体中文</el-dropdown-item>
+								<el-dropdown-item command="en" :disabled="state.disabledI18n === 'en'">English</el-dropdown-item>
+							</el-dropdown-menu>
+						</template>
+					</el-dropdown>
 					<div class="login-right-warp-main-title">{{ getThemeConfig.globalTitle }}</div>
 					<div class="login-right-warp-main-form">
 						<div v-if="!state.isScan">
 							<el-tabs v-model="state.tabsActiveName">
-								<el-tab-pane :label="$t('message.label.one1')" name="account">
+								<el-tab-pane :label="$t('message.label.account')" name="account">
 									<Account />
 								</el-tab-pane>
-								<el-tab-pane :label="$t('message.label.two2')" name="mobile">
+								<el-tab-pane :label="$t('message.label.mobile')" name="mobile">
 									<Mobile />
 								</el-tab-pane>
 							</el-tabs>
@@ -45,6 +60,10 @@ import { useThemeConfig } from '@/stores/themeConfig';
 import { NextLoading } from '@/utils/loading';
 import logoMini from '@/assets/logo-mini.svg';
 import { Session } from '@/utils/storage';
+import { Local } from '@/utils/storage';
+import { useI18n } from 'vue-i18n';
+import other from '@/utils/other';
+const { locale } = useI18n();
 
 // 引入组件
 const Account = defineAsyncComponent(() => import('@/views/login/component/account.vue'));
@@ -54,20 +73,36 @@ const Scan = defineAsyncComponent(() => import('@/views/login/component/scan.vue
 // 定义变量内容
 const storesThemeConfig = useThemeConfig();
 const { themeConfig } = storeToRefs(storesThemeConfig);
+
 const state = reactive({
 	tabsActiveName: 'account',
 	isScan: false,
+	disabledI18n: 'zh-cn',
 });
 
 // 获取布局配置信息
 const getThemeConfig = computed(() => {
 	return themeConfig.value;
 });
+
+// 语言切换
+const onLanguageChange = (lang: string) => {
+	Local.remove('themeConfig');
+	themeConfig.value.globalI18n = lang;
+	Local.set('themeConfig', themeConfig.value);
+	locale.value = lang;
+	other.useTitle();
+	initI18nOrSize('globalI18n', 'disabledI18n');
+};
+// 初始化组件大小/i18n
+const initI18nOrSize = (value: string, attr: string) => {
+	(<any>state)[attr] = Local.get('themeConfig')[value];
+};
 // 页面加载时
 onMounted(() => {
 	// 清除缓存/token等
 	Session.clear();
-
+	initI18nOrSize('globalI18n', 'disabledI18n');
 	NextLoading.done();
 });
 </script>
@@ -75,6 +110,11 @@ onMounted(() => {
 <style scoped lang="scss">
 .login-container {
 	height: 100%;
+
+	.layout-navbars-breadcrumb-user-icon {
+		padding-left: 5px;
+		padding-top: 5px;
+	}
 
 	.login-left {
 		flex: 1;

@@ -105,30 +105,30 @@ declare interface SysUserState {
 	tableData: SysUserTableType;
 }
 
-declare type DeptTreeType = {
-	deptName: string;
+declare type companyTreeType = {
+	companyName: string;
 	createTime: string;
 	status: boolean;
 	sort: number;
 	describe: string;
 	id: number | string;
-	children?: DeptTreeType[];
+	children?: companyTreeType[];
 };
 
-// dept
-declare interface RowDeptType extends DeptTreeType {
-	deptLevel: string[];
+// company
+declare interface RowcompanyType extends companyTreeType {
+	companyLevel: string[];
 	person: string;
 	phone: string;
 	email: string;
 }
 
-interface SysDeptTableType extends TableType {
-	data: DeptTreeType[];
+interface SyscompanyTableType extends TableType {
+	data: companyTreeType[];
 }
 
-declare interface SysDeptState {
-	tableData: SysDeptTableType;
+declare interface SyscompanyState {
+	tableData: SyscompanyTableType;
 }
 
 // dic

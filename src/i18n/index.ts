@@ -16,15 +16,14 @@ import { useThemeConfig } from '@/stores/themeConfig';
 // element plus 自带国际化
 import enLocale from 'element-plus/dist/locale/en';
 import zhcnLocale from 'element-plus/dist/locale/zh-cn';
-import zhtwLocale from 'element-plus/dist/locale/zh-tw';
 
 // 定义变量内容
 const messages: any = {};
-const element: any = { en: enLocale, 'zh-cn': zhcnLocale, 'zh-tw': zhtwLocale };
-const itemize: any = { en: [], 'zh-cn': [], 'zh-tw': [] };
+const element: any = { en: enLocale, 'zh-cn': zhcnLocale };
+const itemize: any = { en: [], 'zh-cn': [] };
 const modules: Record<string, any> = import.meta.glob('./**/*.ts', { eager: true });
 
-// 对自动引入的 modules 进行分类 en、zh-cn、zh-tw
+// 对自动引入的 modules 进行分类 en、zh-cn
 // https://vitejs.cn/vite3-cn/guide/features.html#glob-import
 for (const path in modules) {
 	const key = path.match(/(\S+)\/(\S+).ts/);

@@ -3,11 +3,12 @@
 		<el-form-item class="login-animation1">
 			<el-input
 				text
-				:placeholder="$t('message.account.accountPlaceholder1')"
+				:placeholder="$t('message.account.usernamePlaceholder')"
 				v-model="state.ruleForm.userName"
 				prop="userName"
 				clearable
 				autocomplete="off"
+				@keyup.enter="onSignIn"
 			>
 				<template #prefix>
 					<el-icon class="el-input__icon"><ele-User /></el-icon>
@@ -17,11 +18,12 @@
 		<el-form-item class="login-animation2">
 			<el-input
 				:type="state.isShowPassword ? 'text' : 'password'"
-				:placeholder="$t('message.account.accountPlaceholder2')"
+				:placeholder="$t('message.account.passwordPlaceholder')"
 				v-model="state.ruleForm.password"
 				prop="password"
 				clearable
 				autocomplete="off"
+				@keyup.enter="onSignIn"
 			>
 				<template #prefix>
 					<el-icon class="el-input__icon"><ele-Unlock /></el-icon>
@@ -41,11 +43,12 @@
 				<el-input
 					text
 					maxlength="4"
-					:placeholder="$t('message.account.accountPlaceholder3')"
+					:placeholder="$t('message.account.codePlaceholder')"
 					v-model="state.ruleForm.code"
 					prop="code"
 					clearable
 					autocomplete="off"
+					@keyup.enter="onSignIn"
 				>
 					<template #prefix>
 						<el-icon class="el-input__icon"><ele-Position /></el-icon>
@@ -77,7 +80,7 @@ import { initBackEndControlRoutes } from '@/router/backEnd';
 import { Session } from '@/utils/storage';
 import { formatAxis } from '@/utils/formatTime';
 import { NextLoading } from '@/utils/loading';
-import { signIn } from '@/api/login/index';
+import { useLoginApi } from '@/api/login/index';
 
 // 定义变量内容
 const { t } = useI18n();
@@ -85,6 +88,7 @@ const storesThemeConfig = useThemeConfig();
 const { themeConfig } = storeToRefs(storesThemeConfig);
 const route = useRoute();
 const router = useRouter();
+var api = useLoginApi();
 
 const state = reactive({
 	isShowPassword: false,
@@ -110,26 +114,30 @@ const currentTime = computed(() => {
 // 登录
 const onSignIn = async () => {
 	state.loading.signIn = true;
-	signIn(state.ruleForm).then(async (res: any) => {
-		var data = res.Data;
+	api
+		.login(state.ruleForm)
+		.then(async (res) => {
+			var data = res.data;
+			// 存储 token 到浏览器缓存
+			Session.set('token', data.token);
+			Session.set('refreshToken', data.refreshToken);
+			Session.set('expireTime', data.expireTime);
 
-		// 存储 token 到浏览器缓存
-		Session.set('token', data.Token);
-		// 模拟数据,对接接口时,记得删除多余代码及对应依赖的引入.用于 `/src/stores/userInfo.ts` 中不同用户登录判断(模拟数据)
-		Session.set('username', data.Name);
-
-		if (!themeConfig.value.isRequestRoutes) {
-			// 前端控制路由，2、请注意执行顺序
-			const isNoPower = await initFrontEndControlRoutes();
-			signInSuccess(isNoPower);
-		} else {
-			// 模拟后端控制路由，isRequestRoutes 为 true，则开启后端控制路由
-			// 添加完动态路由，再进行 router 跳转，否则可能报错 No match found for location with path "/"
-			const isNoPower = await initBackEndControlRoutes();
-			// 执行完 initBackEndControlRoutes，再执行 signInSuccess
-			signInSuccess(isNoPower);
-		}
-	});
+			if (!themeConfig.value.isRequestRoutes) {
+				// 前端控制路由，2、请注意执行顺序
+				const isNoPower = await initFrontEndControlRoutes();
+				signInSuccess(isNoPower);
+			} else {
+				// 模拟后端控制路由，isRequestRoutes 为 true，则开启后端控制路由
+				// 添加完动态路由，再进行 router 跳转，否则可能报错 No match found for location with path "/"
+				const isNoPower = await initBackEndControlRoutes();
+				// 执行完 initBackEndControlRoutes，再执行 signInSuccess
+				signInSuccess(isNoPower);
+			}
+		})
+		.catch(() => {
+			state.loading.signIn = false;
+		});
 };
 // 登录成功后的跳转
 const signInSuccess = (isNoPower: boolean | undefined) => {
