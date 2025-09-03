@@ -102,7 +102,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			// 是否开启水印
 			isWartermark: false,
 			// 水印文案
-			wartermarkText: 'ViteCent',
+			wartermarkText: '模板',
 
 			/**
 			 * 其它设置
@@ -135,11 +135,11 @@ export const useThemeConfig = defineStore('themeConfig', {
 			 * 全局网站标题 / 副标题
 			 */
 			// 网站主标题（菜单导航、浏览器当前网页标题）
-			globalTitle: 'ViteCent',
+			globalTitle: '模板',
 			// 网站副标题（登录页顶部文字）
-			globalViceTitle: 'ViteCent',
+			globalViceTitle: '模板',
 			// 网站副标题（登录页顶部文字）
-			globalViceTitleMsg: 'Welcome To ViteCent',
+			globalViceTitleMsg: '欢迎使用模板',
 			// 默认初始语言，可选值"<zh-cn|en>"，默认 zh-cn
 			globalI18n: 'zh-cn',
 			// 默认全局组件大小，可选值"<large|'default'|small>"，默认 'large'

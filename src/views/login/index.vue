@@ -1,7 +1,7 @@
 <template>
 	<div class="login-container flex">
 		<div class="login-left">
-			<div class="login-left-logo">
+			<div class="login-left-logo" @click="onHome">
 				<img :src="logoMini" />
 				<div class="login-left-logo-text">
 					<span>{{ getThemeConfig.globalViceTitle }}</span>
@@ -62,8 +62,10 @@ import logoMini from '@/assets/logo-mini.svg';
 import { Session } from '@/utils/storage';
 import { Local } from '@/utils/storage';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 import other from '@/utils/other';
 const { locale } = useI18n();
+const router = useRouter();
 
 // 引入组件
 const Account = defineAsyncComponent(() => import('@/views/login/component/account.vue'));
@@ -98,6 +100,9 @@ const onLanguageChange = (lang: string) => {
 const initI18nOrSize = (value: string, attr: string) => {
 	(<any>state)[attr] = Local.get('themeConfig')[value];
 };
+const onHome = () => {
+	router.push('/');
+};
 // 页面加载时
 onMounted(() => {
 	// 清除缓存/token等
@@ -129,6 +134,7 @@ onMounted(() => {
 			left: 80px;
 			z-index: 1;
 			animation: logoAnimation 0.3s ease;
+			cursor: pointer;
 
 			img {
 				width: 52px;

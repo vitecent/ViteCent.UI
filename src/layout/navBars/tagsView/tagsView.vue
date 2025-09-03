@@ -1,6 +1,6 @@
 <template>
 	<div class="layout-navbars-tagsview" :class="{ 'layout-navbars-tagsview-shadow': getThemeConfig.layout === 'classic' }">
-		<el-scrollbar ref="scrollbarRef" @wheel.prevent="onHandleScroll">
+		<el-scrollbar ref="scrollbarRef" @wheel.prevent="onScroll">
 			<ul class="layout-navbars-tagsview-ul" :class="setTagsStyle" ref="tagsUlRef">
 				<li
 					v-for="(v, k) in state.tagsViewList"
@@ -113,7 +113,7 @@ const isActive = (v: RouteItem) => {
 			return v.url ? v.url === state.routeActive : v.path === state.routeActive;
 		} else {
 			// 通过 name 传参，params 取值，刷新页面参数消失
-			 
+
 			return v.path === state.routePath;
 		}
 	}
@@ -192,7 +192,6 @@ const singleAddTagsView = (path: string, to?: RouteToFrom) => {
 const addTagsView = (path: string, to?: RouteToFrom) => {
 	// 防止拿取不到路由信息
 	nextTick(async () => {
-		
 		let item: RouteItem;
 		if (to?.meta?.isDynamic) {
 			// 动态路由（xxx/:id/:name"）：参数不同，开启多个 tagsview
@@ -318,7 +317,7 @@ const openCurrenFullscreen = async (path: string) => {
 };
 // 当前项右键菜单点击，拿 `当前点击的路由路径` 对比 `tagsView 路由数组`，取当前点击项的详细路由信息
 // 防止 tagsView 非当前页演示时，操作异常
- 
+
 const getCurrentRouteItem = (item: RouteItem): any => {
 	let resItem: RouteToFrom = {};
 	state.tagsViewList.forEach((v: RouteItem) => {
@@ -391,8 +390,7 @@ const onTagsClick = (v: RouteItem, k: number) => {
 	}
 };
 // 处理 url，地址栏链接有参数时，tagsview 右键菜单刷新功能失效问题，感谢 @ZzZz-RIPPER、@dejavuuuuu
- 
- 
+
 const transUrlParams = (v: RouteItem) => {
 	let params = v.query && Object.keys(v.query).length > 0 ? v.query : v.params;
 	if (!params) return '';
@@ -408,7 +406,7 @@ const transUrlParams = (v: RouteItem) => {
 		 * isFnClick 用于判断是通过方法调用，还是直接右键菜单点击（此处只针对动态路由）
 		 * 原因：
 		 * 1、右键菜单点击时，路由的 path 还是原始定义的路由格式，如：/params/dynamic/details/:t/:id/:tagsViewName
-		 * 2、通过事件调用时，路由的 path 不是原始定义的路由格式，如：/params/dynamic/details/ViteCent/111/我是动态路由测试tagsViewName(非国际化)
+		 * 2、通过事件调用时，路由的 path 不是原始定义的路由格式，如：/params/dynamic/details/xxxx/111/我是动态路由测试tagsViewName(非国际化)
 		 *
 		 * 所以右侧菜单点击时，需要处理路径拼接 v.path.split(':')[0]，得到路径 + 参数的完整路径
 		 */
@@ -429,7 +427,7 @@ const setTagsViewHighlight = (v: RouteToFrom) => {
 	return `${v.meta?.isDynamic ? v.meta.isDynamicPath : v.path}-${path}`;
 };
 // 鼠标滚轮滚动
-const onHandleScroll = (e: WheelEventType) => {
+const onScroll = (e: WheelEventType) => {
 	scrollbarRef.value.$refs.wrapRef.scrollLeft += e.wheelDelta / 4;
 };
 // tagsView 横向滚动
@@ -520,7 +518,7 @@ const initSortable = async () => {
 		},
 	});
 };
- 
+
 const onSortableResize = async () => {
 	await initSortable();
 	if (other.isMobile()) state.sortable.el && state.sortable.destroy();
@@ -529,7 +527,7 @@ const onSortableResize = async () => {
 onBeforeMount(() => {
 	// 初始化，防止手机端直接访问时还可以拖拽
 	onSortableResize();
- 
+
 	window.addEventListener('resize', onSortableResize);
 	// 监听非本页面调用 0 刷新当前，1 关闭当前，2 关闭其它，3 关闭全部 4 当前页全屏
 	mittBus.on('onCurrentContextmenuClick', (data: RouteItem) => {
@@ -692,11 +690,18 @@ watch(
 	.tags-style-five {
 		align-items: flex-end;
 		.tags-style-five-svg {
-			-webkit-mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAiIGhlaWdodD0iNzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0ibm9uZSI+CgogPGc+CiAgPHRpdGxlPkxheWVyIDE8L3RpdGxlPgogIDxwYXRoIHRyYW5zZm9ybT0icm90YXRlKC0wLjEzMzUwNiA1MC4xMTkyIDUwKSIgaWQ9InN2Z18xIiBkPSJtMTAwLjExOTE5LDEwMGMtNTUuMjI4LDAgLTEwMCwtNDQuNzcyIC0xMDAsLTEwMGwwLDEwMGwxMDAsMHoiIG9wYWNpdHk9InVuZGVmaW5lZCIgc3Ryb2tlPSJudWxsIiBmaWxsPSIjRjhFQUU3Ii8+CiAgPHBhdGggZD0ibS0wLjYzNzY2LDcuMzEyMjhjMC4xMTkxOSwwIDAuMjE3MzcsMC4wNTc5NiAwLjQ3Njc2LDAuMTE5MTljMC4yMzIsMC4wNTQ3NyAwLjI3MzI5LDAuMDM0OTEgMC4zNTc1NywwLjExOTE5YzAuMDg0MjgsMC4wODQyOCAwLjM1NzU3LDAgMC40NzY3NiwwbDAuMTE5MTksMGwwLjIzODM4LDAiIGlkPSJzdmdfMiIgc3Ryb2tlPSJudWxsIiBmaWxsPSJub25lIi8+CiAgPHBhdGggZD0ibTI4LjkyMTM0LDY5LjA1MjQ0YzAsMC4xMTkxOSAwLDAuMjM4MzggMCwwLjM1NzU3bDAsMC4xMTkxOWwwLDAuMTE5MTkiIGlkPSJzdmdfMyIgc3Ryb2tlPSJudWxsIiBmaWxsPSJub25lIi8+CiAgPHJlY3QgaWQ9InN2Z180IiBoZWlnaHQ9IjAiIHdpZHRoPSIxLjMxMTA4IiB5PSI2LjgzNTUyIiB4PSItMC4wNDE3MSIgc3Ryb2tlPSJudWxsIiBmaWxsPSJub25lIi8+CiAgPHJlY3QgaWQ9InN2Z181IiBoZWlnaHQ9IjEuNzg3ODQiIHdpZHRoPSIwLjExOTE5IiB5PSI2OC40NTY1IiB4PSIyOC45MjEzNCIgc3Ryb2tlPSJudWxsIiBmaWxsPSJub25lIi8+CiAgPHJlY3QgaWQ9InN2Z182IiBoZWlnaHQ9IjQuODg2NzciIHdpZHRoPSIxOS4wNzAzMiIgeT0iNTEuMjkzMjEiIHg9IjM2LjY2ODY2IiBzdHJva2U9Im51bGwiIGZpbGw9Im5vbmUiLz4KIDwvZz4KPC9zdmc+'),
+			-webkit-mask-image:
+				url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAiIGhlaWdodD0iNzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0ibm9uZSI+CgogPGc+CiAgPHRpdGxlPkxheWVyIDE8L3RpdGxlPgogIDxwYXRoIHRyYW5zZm9ybT0icm90YXRlKC0wLjEzMzUwNiA1MC4xMTkyIDUwKSIgaWQ9InN2Z18xIiBkPSJtMTAwLjExOTE5LDEwMGMtNTUuMjI4LDAgLTEwMCwtNDQuNzcyIC0xMDAsLTEwMGwwLDEwMGwxMDAsMHoiIG9wYWNpdHk9InVuZGVmaW5lZCIgc3Ryb2tlPSJudWxsIiBmaWxsPSIjRjhFQUU3Ii8+CiAgPHBhdGggZD0ibS0wLjYzNzY2LDcuMzEyMjhjMC4xMTkxOSwwIDAuMjE3MzcsMC4wNTc5NiAwLjQ3Njc2LDAuMTE5MTljMC4yMzIsMC4wNTQ3NyAwLjI3MzI5LDAuMDM0OTEgMC4zNTc1NywwLjExOTE5YzAuMDg0MjgsMC4wODQyOCAwLjM1NzU3LDAgMC40NzY3NiwwbDAuMTE5MTksMGwwLjIzODM4LDAiIGlkPSJzdmdfMiIgc3Ryb2tlPSJudWxsIiBmaWxsPSJub25lIi8+CiAgPHBhdGggZD0ibTI4LjkyMTM0LDY5LjA1MjQ0YzAsMC4xMTkxOSAwLDAuMjM4MzggMCwwLjM1NzU3bDAsMC4xMTkxOWwwLDAuMTE5MTkiIGlkPSJzdmdfMyIgc3Ryb2tlPSJudWxsIiBmaWxsPSJub25lIi8+CiAgPHJlY3QgaWQ9InN2Z180IiBoZWlnaHQ9IjAiIHdpZHRoPSIxLjMxMTA4IiB5PSI2LjgzNTUyIiB4PSItMC4wNDE3MSIgc3Ryb2tlPSJudWxsIiBmaWxsPSJub25lIi8+CiAgPHJlY3QgaWQ9InN2Z181IiBoZWlnaHQ9IjEuNzg3ODQiIHdpZHRoPSIwLjExOTE5IiB5PSI2OC40NTY1IiB4PSIyOC45MjEzNCIgc3Ryb2tlPSJudWxsIiBmaWxsPSJub25lIi8+CiAgPHJlY3QgaWQ9InN2Z182IiBoZWlnaHQ9IjQuODg2NzciIHdpZHRoPSIxOS4wNzAzMiIgeT0iNTEuMjkzMjEiIHg9IjM2LjY2ODY2IiBzdHJva2U9Im51bGwiIGZpbGw9Im5vbmUiLz4KIDwvZz4KPC9zdmc+'),
 				url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzAiIGhlaWdodD0iNzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZmlsbD0ibm9uZSI+CiA8Zz4KICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+CiAgPHBhdGggdHJhbnNmb3JtPSJyb3RhdGUoLTg5Ljc2MjQgNy4zMzAxNCA1NS4xMjUyKSIgc3Ryb2tlPSJudWxsIiBpZD0ic3ZnXzEiIGZpbGw9IiNGOEVBRTciIGQ9Im02Mi41NzQ0OSwxMTcuNTIwODZjLTU1LjIyOCwwIC0xMDAsLTQ0Ljc3MiAtMTAwLC0xMDBsMCwxMDBsMTAwLDB6IiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPgogIDxwYXRoIGQ9Im0tMC42Mzc2Niw3LjMxMjI4YzAuMTE5MTksMCAwLjIxNzM3LDAuMDU3OTYgMC40NzY3NiwwLjExOTE5YzAuMjMyLDAuMDU0NzcgMC4yNzMyOSwwLjAzNDkxIDAuMzU3NTcsMC4xMTkxOWMwLjA4NDI4LDAuMDg0MjggMC4zNTc1NywwIDAuNDc2NzYsMGwwLjExOTE5LDBsMC4yMzgzOCwwIiBpZD0ic3ZnXzIiIHN0cm9rZT0ibnVsbCIgZmlsbD0ibm9uZSIvPgogIDxwYXRoIGQ9Im0yOC45MjEzNCw2OS4wNTI0NGMwLDAuMTE5MTkgMCwwLjIzODM4IDAsMC4zNTc1N2wwLDAuMTE5MTlsMCwwLjExOTE5IiBpZD0ic3ZnXzMiIHN0cm9rZT0ibnVsbCIgZmlsbD0ibm9uZSIvPgogIDxyZWN0IGlkPSJzdmdfNCIgaGVpZ2h0PSIwIiB3aWR0aD0iMS4zMTEwOCIgeT0iNi44MzU1MiIgeD0iLTAuMDQxNzEiIHN0cm9rZT0ibnVsbCIgZmlsbD0ibm9uZSIvPgogIDxyZWN0IGlkPSJzdmdfNSIgaGVpZ2h0PSIxLjc4Nzg0IiB3aWR0aD0iMC4xMTkxOSIgeT0iNjguNDU2NSIgeD0iMjguOTIxMzQiIHN0cm9rZT0ibnVsbCIgZmlsbD0ibm9uZSIvPgogIDxyZWN0IGlkPSJzdmdfNiIgaGVpZ2h0PSI0Ljg4Njc3IiB3aWR0aD0iMTkuMDcwMzIiIHk9IjUxLjI5MzIxIiB4PSIzNi42Njg2NiIgc3Ryb2tlPSJudWxsIiBmaWxsPSJub25lIi8+CiA8L2c+Cjwvc3ZnPg=='),
 				url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'><rect rx='8' width='100%' height='100%' fill='%23F8EAE7'/></svg>");
-			-webkit-mask-size: 18px 30px, 20px 30px, calc(100% - 30px) calc(100% + 17px);
-			-webkit-mask-position: right bottom, left bottom, center top;
+			-webkit-mask-size:
+				18px 30px,
+				20px 30px,
+				calc(100% - 30px) calc(100% + 17px);
+			-webkit-mask-position:
+				right bottom,
+				left bottom,
+				center top;
 			-webkit-mask-repeat: no-repeat;
 		}
 		.layout-navbars-tagsview-ul-li {

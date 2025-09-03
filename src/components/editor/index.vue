@@ -60,11 +60,11 @@ const state = reactive({
 	editorVal: props.getHtml,
 });
 
-// 编辑器回调函数
+// 修改器回调函数
 const handleCreated = (editor: IDomEditor) => {
 	editorRef.value = editor;
 };
-// 编辑器内容改变时
+// 修改器内容改变时
 const handleChange = (editor: IDomEditor) => {
 	emit('update:getHtml', editor.getHtml());
 	emit('update:getText', editor.getText());
@@ -76,7 +76,7 @@ onBeforeUnmount(() => {
 	editor.destroy();
 });
 // 监听是否禁用改变
- 
+
 watch(
 	() => props.disable,
 	(bool) => {

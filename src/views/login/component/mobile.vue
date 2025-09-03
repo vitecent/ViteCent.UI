@@ -1,5 +1,5 @@
 <template>
-	<el-form size="large" class="login-content-form">
+	<el-form class="login-content-form">
 		<el-form-item class="login-animation1">
 			<el-input text :placeholder="$t('message.mobile.mobilePlaceholder')" v-model="state.ruleForm.userName" clearable autocomplete="off">
 				<template #prefix>

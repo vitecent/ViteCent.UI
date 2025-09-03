@@ -95,7 +95,6 @@ onUnmounted(() => {
 	mittBus.off('onTagsViewRefreshRouterView', () => {});
 });
 // 监听路由变化，防止 tagsView 多标签时，切换动画消失
-// https://toscode.gitee.com/ViteCent/ViteCent/pulls/38/files
 watch(
 	() => route.fullPath,
 	() => {

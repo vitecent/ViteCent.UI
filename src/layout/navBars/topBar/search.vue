@@ -7,7 +7,7 @@
 					:fetch-suggestions="menuSearch"
 					:placeholder="$t('message.user.searchPlaceholder')"
 					ref="layoutMenuAutocompleteRef"
-					@select="onHandleSelect"
+					@select="onSelect"
 					:fit-input-width="true"
 				>
 					<template #prefix>
@@ -84,7 +84,7 @@ const initTageView = () => {
 	});
 };
 // 当前菜单选中时
-const onHandleSelect = (item: RouteItem) => {
+const onSelect = (item: RouteItem) => {
 	let { path, redirect } = item;
 	if (item.meta?.isLink && !item.meta?.isIframe) window.open(item.meta?.isLink);
 	else if (redirect) router.push(redirect);

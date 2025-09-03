@@ -8,12 +8,12 @@
 						<div class="left-item-animation left-item-title">{{ $t('message.noAccess.accessTitle') }}</div>
 						<div class="left-item-animation left-item-msg">{{ $t('message.noAccess.accessMsg') }}</div>
 						<div class="left-item-animation left-item-btn">
-							<el-button type="primary" size="default" round @click="onSetAuth">{{ $t('message.noAccess.accessBtn') }}</el-button>
+							<el-button type="primary" round @click="onSetAuth">{{ $t('message.noAccess.accessBtn') }}</el-button>
 						</div>
 					</div>
 				</div>
 				<div class="right">
-					<img src="https://i.hd-r.cn/2cf0d2e192660eec23eb9d0655753e7d.png" />
+					<img src="@/assets/logo-mini.svg" />
 				</div>
 			</div>
 		</div>
@@ -21,14 +21,11 @@
 </template>
 
 <script setup lang="ts" name="noPower">
-import { Session } from '@/utils/storage';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 const onSetAuth = () => {
-	 
-	// 清除缓存/token等
-	Session.clear();
-	// 使用 reload 时，不需要调用 resetRoute() 重置路由
-	window.location.reload();
+	router.push('/login');
 };
 </script>
 

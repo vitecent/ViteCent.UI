@@ -59,7 +59,7 @@
 				:class="!state.isScreenfull ? 'icon-fullscreen' : 'icon-tuichuquanping'"
 			></i>
 		</div>
-		<el-dropdown :show-timeout="70" :hide-timeout="50" @command="onHandleCommandClick" v-if="userInfos.userName !== 'common'">
+		<el-dropdown :show-timeout="70" :hide-timeout="50" @command="onCommandClick" v-if="userInfos.userName !== 'common'">
 			<span class="layout-navbars-breadcrumb-user-link">
 				<img :src="userInfos.photo" class="layout-navbars-breadcrumb-user-link-photo mr5" />
 				{{ userInfos.userName }}
@@ -149,7 +149,7 @@ const onLayoutSetingClick = () => {
 	mittBus.emit('openSetingsDrawer');
 };
 // 下拉菜单点击时
-const onHandleCommandClick = (path: string) => {
+const onCommandClick = (path: string) => {
 	if (path === 'logOut') {
 		ElMessageBox({
 			closeOnClickModal: false,

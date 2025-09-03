@@ -1,5 +1,5 @@
 <template>
-	<el-form size="large" :rules="state.rules" ref="formRef" class="login-content-form">
+	<el-form :rules="state.rules" ref="formRef" class="login-content-form">
 		<el-form-item class="login-animation1">
 			<el-input
 				text

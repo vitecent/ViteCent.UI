@@ -1,5 +1,7 @@
 <template>
-	<section class="layout-pd">home</section>
+	<section class="layout-pd">
+		<el-button link>{{ $t('message.router.home') }} </el-button>
+	</section>
 </template>
 
 <script setup lang="ts" name="home"></script>

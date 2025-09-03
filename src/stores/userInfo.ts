@@ -55,7 +55,7 @@ export const useUserInfo = defineStore('userInfo', {
 					// 用户信息模拟数据
 					const userInfos = {
 						userName: userName,
-						photo:'https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500',
+						photo: '/src/assets/logo-mini.svg',
 						time: new Date().getTime(),
 						roles: defaultRoles,
 						authBtnList: defaultAuthBtnList,
@@ -72,7 +72,7 @@ export const useUserInfo = defineStore('userInfo', {
 					// 用户信息模拟数据
 					const userInfos = {
 						userName: 'common',
-						photo: 'https://img2.baidu.com/it/u=1978192862,2048448374&fm=253&fmt=auto&app=138&f=JPEG?w=504&h=500',
+						photo: '/src/assets/logo-mini.svg',
 						time: new Date().getTime(),
 						roles: commonRoles,
 						authBtnList: authBtnList,
