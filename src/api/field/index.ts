@@ -14,6 +14,13 @@ export function useFieldApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Database/BaseField/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

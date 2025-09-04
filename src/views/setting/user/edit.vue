@@ -1,72 +1,214 @@
 <template>
-	<section class="database-container">
+	<section class="user-container">
+		<h3 class="mb30">{{ $t('message.router.editUser') }}</h3>
 		<el-form :model="state.form" :rules="state.rules" label-position="top" label-width="100px" ref="formRef">
-			<el-form-item :label="$t('message.database.type')" prop="type">
-				<el-input v-model="state.form.type" :placeholder="$t('message.database.typePlaceholder')" clearable></el-input>
-			</el-form-item>
-			<el-form-item :label="$t('message.database.code')" prop="code">
-				<el-input v-model="state.form.code" :placeholder="$t('message.database.codePlaceholder')" clearable></el-input>
-			</el-form-item>
-			<el-form-item :label="$t('message.database.name')" prop="name">
-				<el-input v-model="state.form.name" :placeholder="$t('message.database.namePlaceholder')" clearable></el-input>
-			</el-form-item>
-			<el-form-item :label="$t('message.database.abbreviation')" prop="abbreviation">
-				<el-input v-model="state.form.abbreviation" :placeholder="$t('message.database.abbreviationPlaceholder')" clearable></el-input>
-			</el-form-item>
-			<el-form-item :label="$t('message.database.server')" prop="server">
-				<el-input v-model="state.form.server" :placeholder="$t('message.database.serverPlaceholder')" clearable></el-input>
-			</el-form-item>
-			<el-form-item :label="$t('message.database.port')" prop="port">
-				<el-input v-model="state.form.port" :placeholder="$t('message.database.portPlaceholder')" clearable></el-input>
-			</el-form-item>
-			<el-form-item :label="$t('message.database.user')" prop="user">
-				<el-input v-model="state.form.user" :placeholder="$t('message.database.userPlaceholder')" clearable></el-input>
-			</el-form-item>
-			<el-form-item :label="$t('message.database.password')" prop="password">
-				<el-input v-model="state.form.password" :placeholder="$t('message.database.passwordPlaceholder')" clearable></el-input>
-			</el-form-item>
-			<el-form-item :label="$t('message.database.charSet')" prop="charSet">
-				<el-input v-model="state.form.charSet" :placeholder="$t('message.database.charSetPlaceholder')" clearable></el-input>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary">{{ $t('message.common.edit') }}</el-button>
-				<el-button type="info">{{ $t('message.common.cancel') }}</el-button>
-			</el-form-item>
+			<el-row :gutter="10">
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.type')" prop="type">
+						<el-select
+							v-model="state.form.type"
+							:placeholder="$t('message.user.typePlaceholder')"
+							:options="state.options"
+							filterable
+							clearable
+						></el-select>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.code')" prop="code">
+						<el-input v-model="state.form.code" :placeholder="$t('message.user.codePlaceholder')" maxlength="50" show-word-limit clearable></el-input>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.name')" prop="name">
+						<el-input v-model="state.form.name" :placeholder="$t('message.user.namePlaceholder')" maxlength="50" show-word-limit clearable></el-input>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.abbreviation')" prop="abbreviation">
+						<el-input
+							v-model="state.form.abbreviation"
+							:placeholder="$t('message.user.abbreviationPlaceholder')"
+							maxlength="50"
+							show-word-limit
+							clearable
+						></el-input>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.server')" prop="server">
+						<el-input
+							v-model="state.form.server"
+							:placeholder="$t('message.user.serverPlaceholder')"
+							maxlength="50"
+							show-word-limit
+							clearable
+						></el-input>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.port')" prop="port">
+						<el-input v-model="state.form.port" :placeholder="$t('message.user.portPlaceholder')" maxlength="50" show-word-limit clearable></el-input>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.user')" prop="user">
+						<el-input v-model="state.form.user" :placeholder="$t('message.user.userPlaceholder')" maxlength="50" show-word-limit clearable></el-input>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.password')" prop="password">
+						<el-input
+							v-model="state.form.password"
+							type="password"
+							:placeholder="$t('message.user.passwordPlaceholder')"
+							maxlength="50"
+							show-password
+							show-word-limit
+							clearable
+						></el-input>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.charSet')" prop="charSet">
+						<el-select
+							v-model="state.form.charSet"
+							:placeholder="$t('message.user.charSetPlaceholder')"
+							:options="state.options"
+							filterable
+							clearable
+						></el-select>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.color')" prop="color">
+						<el-color-picker v-model="state.form.color" :predefine="state.colors"></el-color-picker>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.sort')" prop="sort">
+						<el-input-number
+							:min="1"
+							:max="99"
+							v-model="state.form.sort"
+							:placeholder="$t('message.user.sortPlaceholder')"
+							clearable
+						></el-input-number>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" :md="12" class="mb15">
+					<el-form-item :label="$t('message.user.status')" prop="status">
+						<el-switch
+							v-model="state.form.status"
+							:active-text="$t('message.common.enable')"
+							:inactive-text="$t('message.common.disable')"
+							:active-value="1"
+							:inactive-value="0"
+							inline-prompt
+						>
+							<template #active-action>
+								<SvgIcon name="ele-Check" />
+							</template>
+							<template #inactive-action>
+								<SvgIcon name="ele-Close" />
+							</template>
+						</el-switch>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24" class="mb30">
+					<el-form-item :label="$t('message.user.description')" prop="description">
+						<el-input
+							:rows="3"
+							type="textarea"
+							v-model="state.form.description"
+							maxlength="100"
+							show-word-limit
+							:placeholder="$t('message.user.descriptionPlaceholder')"
+							clearable
+						></el-input>
+					</el-form-item>
+				</el-col>
+				<el-col :sm="24">
+					<el-form-item>
+						<el-button type="primary">{{ $t('message.common.edit') }}</el-button>
+						<el-button type="info">{{ $t('message.common.cancel') }}</el-button>
+					</el-form-item>
+				</el-col>
+			</el-row>
 		</el-form>
 	</section>
 </template>
 
-<script setup lang="ts" name="addDatabase">
-import { reactive, ref } from 'vue';
+<script setup lang="ts" name="addUser">
+import { reactive, ref, onMounted } from 'vue';
 
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
-import { useDatabaseApi } from '@/api/database';
-var api = useDatabaseApi();
+import { useUserApi } from '@/api/user';
+var api = useUserApi();
+
+import { useRoute } from 'vue-router';
+const route = useRoute();
 
 // 定义变量内容
 const formRef = ref<RefType>();
 const state = reactive({
-	form: { type: '', code: '', name: '', abbreviation: '', server: '', port: '', user: '', password: '', charSet: '' },
+	form: {} as User,
 	rules: {
-		type: { required: true, message: t('message.database.typePlaceholder'), trigger: 'blur' },
-		code: { required: true, message: t('message.database.codePlaceholder'), trigger: 'blur' },
-		name: { required: true, message: t('message.database.namePlaceholder'), trigger: 'blur' },
-		abbreviation: { required: true, message: t('message.database.abbreviationPlaceholder'), trigger: 'blur' },
-		server: { required: true, message: t('message.database.serverPlaceholder'), trigger: 'blur' },
-		port: { required: true, message: t('message.database.portPlaceholder'), trigger: 'blur' },
-		user: { required: true, message: t('message.database.userPlaceholder'), trigger: 'blur' },
-		password: { required: true, message: t('message.database.passwordPlaceholder'), trigger: 'blur' },
-		charSet: { required: true, message: t('message.database.charSetPlaceholder'), trigger: 'blur' },
+		type: { required: true, message: t('message.user.typePlaceholder'), trigger: 'blur' },
+		code: { required: true, message: t('message.user.codePlaceholder'), trigger: 'blur' },
+		name: { required: true, message: t('message.user.namePlaceholder'), trigger: 'blur' },
+		abbreviation: { required: true, message: t('message.user.abbreviationPlaceholder'), trigger: 'blur' },
+		server: { required: true, message: t('message.user.serverPlaceholder'), trigger: 'blur' },
+		port: { required: true, message: t('message.user.portPlaceholder'), trigger: 'blur' },
+		user: { required: true, message: t('message.user.userPlaceholder'), trigger: 'blur' },
+		password: { required: true, message: t('message.user.passwordPlaceholder'), trigger: 'blur' },
+		charSet: { required: true, message: t('message.user.charSetPlaceholder'), trigger: 'blur' },
+		description: { required: true, message: t('message.user.descriptionPlaceholder'), trigger: 'blur' },
 	},
+	colors: ['#009688', '#409EFF', '#67C23A', '#E6A23C', '#F56C6C', '#909399'],
+	options: [
+		{
+			value: '1',
+			label: 'Option1',
+		},
+		{
+			value: '2',
+			label: 'Option2',
+		},
+		{
+			value: '3',
+			label: 'Option3',
+		},
+		{
+			value: '4',
+			label: 'Option4',
+		},
+		{
+			value: '5',
+			label: 'Option5',
+		},
+	],
+});
+// 页面加载时
+onMounted(() => {
+	const id = route.params.id;
+
+	api
+		.get({ id: id })
+		.then((res) => {
+			state.form = res.data;
+		})
+		.catch((error) => {});
 });
 </script>
 
 <style scoped lang="scss">
-.database-container {
-	max-width: 800px;
+.user-container {
+	max-width: 1000px;
 	margin: 0 auto;
 	padding: 15px;
+	color: var(--el-text-color-primary);
 }
 </style>

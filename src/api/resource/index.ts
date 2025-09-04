@@ -14,6 +14,13 @@ export function useResourceApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Auth/BaseResource/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

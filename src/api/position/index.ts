@@ -14,6 +14,13 @@ export function usePositionApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Auth/BasePosition/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

@@ -14,6 +14,13 @@ export function useOperationApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Auth/Baseoperation/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

@@ -14,6 +14,13 @@ export function useUserApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Auth/BaseUser/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

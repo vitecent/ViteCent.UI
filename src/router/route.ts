@@ -126,7 +126,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							icon: 'iconfont icon-caidan',
 						},
 					},
-
+					{
+						path: '/data/table/add',
+						name: 'addTable',
+						component: () => import('@/views/data/table/add.vue'),
+						meta: {
+							title: 'message.router.addTable',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/data/table/edit/:id',
+						name: 'editTable',
+						component: () => import('@/views/data/table/edit.vue'),
+						meta: {
+							title: 'message.router.editTable',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/data/table/details/:id',
+						name: 'tableDetails',
+						component: () => import('@/views/data/table/details.vue'),
+						meta: {
+							title: 'message.router.tableDetails',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
 					{
 						path: '/data/field',
 						name: 'dataField',
@@ -134,6 +166,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						meta: {
 							title: 'message.router.dataField',
 							isKeepAlive: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/data/field/add',
+						name: 'addField',
+						component: () => import('@/views/data/field/add.vue'),
+						meta: {
+							title: 'message.router.addField',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/data/field/edit/:id',
+						name: 'editField',
+						component: () => import('@/views/data/field/edit.vue'),
+						meta: {
+							title: 'message.router.editField',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/data/field/details/:id',
+						name: 'fieldDetails',
+						component: () => import('@/views/data/field/details.vue'),
+						meta: {
+							title: 'message.router.fieldDetails',
+							isHide: true,
 							roles: ['admin'],
 							icon: 'iconfont icon-caidan',
 						},
@@ -164,6 +229,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
+						path: '/data/service/add',
+						name: 'addService',
+						component: () => import('@/views/microservice/service/add.vue'),
+						meta: {
+							title: 'message.router.addService',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/microservice/service/edit/:id',
+						name: 'editService',
+						component: () => import('@/views/microservice/service/edit.vue'),
+						meta: {
+							title: 'message.router.editService',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/microservice/service/details/:id',
+						name: 'serviceDetails',
+						component: () => import('@/views/microservice/service/details.vue'),
+						meta: {
+							title: 'message.router.serviceDetails',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
 						path: '/microservice/resource',
 						name: 'microserviceResource',
 						component: () => import('@/views/microservice/resource/index.vue'),
@@ -174,7 +272,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							icon: 'iconfont icon-caidan',
 						},
 					},
-
+					{
+						path: '/microservice/resource/add',
+						name: 'addResource',
+						component: () => import('@/views/microservice/resource/add.vue'),
+						meta: {
+							title: 'message.router.addResource',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/microservice/resource/edit/:id',
+						name: 'editResource',
+						component: () => import('@/views/microservice/resource/edit.vue'),
+						meta: {
+							title: 'message.router.editResource',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/microservice/resource/details/:id',
+						name: 'resourceDetails',
+						component: () => import('@/views/microservice/resource/details.vue'),
+						meta: {
+							title: 'message.router.resourceDetails',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
 					{
 						path: '/microservice/operation',
 						name: 'microserviceOperation',
@@ -182,6 +312,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						meta: {
 							title: 'message.router.microserviceOperation',
 							isKeepAlive: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/microservice/operation/add',
+						name: 'addOperation',
+						component: () => import('@/views/microservice/operation/add.vue'),
+						meta: {
+							title: 'message.router.addOperation',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/microservice/operation/edit/:id',
+						name: 'editOperation',
+						component: () => import('@/views/microservice/operation/edit.vue'),
+						meta: {
+							title: 'message.router.editOperation',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/microservice/operation/details/:id',
+						name: 'operationDetails',
+						component: () => import('@/views/microservice/operation/details.vue'),
+						meta: {
+							title: 'message.router.operationDetails',
+							isHide: true,
 							roles: ['admin'],
 							icon: 'iconfont icon-caidan',
 						},
@@ -212,6 +375,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
+						path: '/setting/company/add',
+						name: 'addCompany',
+						component: () => import('@/views/setting/company/add.vue'),
+						meta: {
+							title: 'message.router.addCompany',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/company/edit/:id',
+						name: 'editCompany',
+						component: () => import('@/views/setting/company/edit.vue'),
+						meta: {
+							title: 'message.router.editCompany',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/company/details/:id',
+						name: 'companyDetails',
+						component: () => import('@/views/setting/company/details.vue'),
+						meta: {
+							title: 'message.router.companyDetails',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
 						path: '/setting/department',
 						name: 'settingDepartment',
 						component: () => import('@/views/setting/department/index.vue'),
@@ -222,7 +418,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							icon: 'iconfont icon-shuxingtu',
 						},
 					},
-
+					{
+						path: '/setting/department/add',
+						name: 'addDepartment',
+						component: () => import('@/views/setting/department/add.vue'),
+						meta: {
+							title: 'message.router.addDepartment',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/department/edit/:id',
+						name: 'editDepartment',
+						component: () => import('@/views/setting/department/edit.vue'),
+						meta: {
+							title: 'message.router.editDepartment',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/department/details/:id',
+						name: 'departmentDetails',
+						component: () => import('@/views/setting/department/details.vue'),
+						meta: {
+							title: 'message.router.departmentDetails',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
 					{
 						path: '/setting/position',
 						name: 'settingPosition',
@@ -230,6 +458,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						meta: {
 							title: 'message.router.settingPosition',
 							isKeepAlive: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/position/add',
+						name: 'addPosition',
+						component: () => import('@/views/setting/position/add.vue'),
+						meta: {
+							title: 'message.router.addPosition',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/position/edit/:id',
+						name: 'editPosition',
+						component: () => import('@/views/setting/position/edit.vue'),
+						meta: {
+							title: 'message.router.editPosition',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/position/details/:id',
+						name: 'positionDetails',
+						component: () => import('@/views/setting/position/details.vue'),
+						meta: {
+							title: 'message.router.positionDetails',
+							isHide: true,
 							roles: ['admin'],
 							icon: 'iconfont icon-caidan',
 						},
@@ -246,6 +507,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
+						path: '/setting/role/add',
+						name: 'addRole',
+						component: () => import('@/views/setting/role/add.vue'),
+						meta: {
+							title: 'message.router.addRole',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/role/edit/:id',
+						name: 'editRole',
+						component: () => import('@/views/setting/role/edit.vue'),
+						meta: {
+							title: 'message.router.editRole',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/role/details/:id',
+						name: 'roleDetails',
+						component: () => import('@/views/setting/role/details.vue'),
+						meta: {
+							title: 'message.router.roleDetails',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
 						path: '/setting/user',
 						name: 'settingUser',
 						component: () => import('@/views/setting/user/index.vue'),
@@ -257,6 +551,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
+						path: '/setting/user/add',
+						name: 'addUser',
+						component: () => import('@/views/setting/user/add.vue'),
+						meta: {
+							title: 'message.router.addUser',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/user/edit/:id',
+						name: 'editUser',
+						component: () => import('@/views/setting/user/edit.vue'),
+						meta: {
+							title: 'message.router.editUser',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/user/details/:id',
+						name: 'userDetails',
+						component: () => import('@/views/setting/user/details.vue'),
+						meta: {
+							title: 'message.router.userDetails',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
 						path: '/setting/dictionary',
 						name: 'settingDictionary',
 						component: () => import('@/views/setting/dictionary/index.vue'),
@@ -265,6 +592,39 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							isKeepAlive: true,
 							roles: ['admin'],
 							icon: 'iconfont icon-zhongduancanshuchaxun',
+						},
+					},
+					{
+						path: '/setting/dictionary/add',
+						name: 'addDictionary',
+						component: () => import('@/views/setting/dictionary/add.vue'),
+						meta: {
+							title: 'message.router.addDictionary',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/dictionary/edit/:id',
+						name: 'editDictionary',
+						component: () => import('@/views/setting/dictionary/edit.vue'),
+						meta: {
+							title: 'message.router.editDictionary',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
+						},
+					},
+					{
+						path: '/setting/dictionary/details/:id',
+						name: 'dictionaryDetails',
+						component: () => import('@/views/setting/dictionary/details.vue'),
+						meta: {
+							title: 'message.router.dictionaryDetails',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'iconfont icon-caidan',
 						},
 					},
 					{

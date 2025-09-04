@@ -1,44 +1,61 @@
 <template>
-	<div class="database-container layout-padding">
-		<div class="database-padding layout-padding-view layout-padding-auto">
-			<Table v-bind="state.tableData" class="database" @pageChange="onTablePageChange" @sortHeader="onSortHeader">
+	<div class="resource-container layout-padding">
+		<div class="resource-padding layout-padding-view layout-padding-auto">
+			<Table v-bind="state.tableData" class="resource" @pageChange="onTablePageChange" @sortHeader="onSortHeader">
 				<template v-slot:search>
 					<el-form :model="state.form" inline>
 						<el-form-item :label="$t('message.common.query')">
 							<el-input v-model="state.form.name" :placeholder="$t('message.common.queryPlaceholder')" clearable></el-input>
 						</el-form-item>
 						<el-form-item>
-							<el-button link><SvgIcon name="ele-RefreshLeft" /></el-button>
-							<el-button link><SvgIcon name="ele-Search" /></el-button>
-							<el-button link><SvgIcon name="ele-Refresh" /></el-button>
-							<el-button link><SvgIcon name="ele-Plus" /></el-button>
-							<el-button link><SvgIcon name="ele-Delete" /></el-button>
+							<el-tooltip :content="$t('message.common.query')"
+								><el-button link type="primary"><SvgIcon name="ele-Search" /></el-button
+							></el-tooltip>
+							<el-tooltip :content="$t('message.common.reset')"
+								><el-button link type="primary"><SvgIcon name="ele-RefreshLeft" /></el-button
+							></el-tooltip>
+							<el-tooltip :content="$t('message.common.refresh')"
+								><el-button link type="primary"><SvgIcon name="ele-Refresh" /></el-button
+							></el-tooltip>
+							<el-tooltip :content="$t('message.common.add')"
+								><el-button link type="primary" @click="onAdd"><SvgIcon name="ele-Plus" /></el-button
+							></el-tooltip>
+							<el-tooltip :content="$t('message.common.delete')"
+								><el-button link type="primary"><SvgIcon name="ele-Delete" /></el-button
+							></el-tooltip>
 						</el-form-item>
 					</el-form>
 				</template>
 				<template v-slot:operate="scope: EmptyObjectType">
-					<el-button text type="primary"> <SvgIcon name="ele-Edit" /></el-button>
-					<el-popconfirm :title="$t('message.common.deleteConfirm')" @confirm="onTableDelRow(scope.row)">
-						<template #reference>
-							<el-button text type="primary"> <SvgIcon name="ele-Delete" /></el-button>
+					<el-tooltip :content="$t('message.common.edit')"
+						><el-button text type="primary" @click="onEdit(scope)"> <SvgIcon name="ele-Edit" /></el-button
+					></el-tooltip>
+					<el-popconfirm :title="$t('message.common.deleteConfirm')" @confirm="onDelete(scope)">
+						<template #reference
+							><el-button text type="primary"> <SvgIcon name="ele-Delete" /></el-button>
 						</template>
 					</el-popconfirm>
-					<el-button text type="primary"> <SvgIcon name="ele-Document" /></el-button>
+					<el-tooltip :content="$t('message.common.details')"
+						><el-button text type="primary" @click="onDetails(scope)"> <SvgIcon name="ele-Document" /></el-button
+					></el-tooltip>
 				</template>
 			</Table>
 		</div>
 	</div>
 </template>
 
-<script setup lang="ts" name="database">
-import { defineAsyncComponent, reactive, ref, onMounted } from 'vue';
+<script setup lang="ts" name="resource">
+import { defineAsyncComponent, reactive, onMounted } from 'vue';
 import { ElMessage } from 'element-plus';
 
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
 
-import { useDatabaseApi } from '@/api/database';
-var api = useDatabaseApi();
+import { useResourceApi } from '@/api/resource';
+var api = useResourceApi();
+
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
 // 引入组件
 const Table = defineAsyncComponent(() => import('@/components/table/index.vue'));
@@ -56,19 +73,19 @@ const state = reactive<EmptyObjectType>({
 			isOperate: true, // 是否显示表格操作栏
 		},
 		header: [
-			{ key: 'type', title: t('message.database.type'), type: 'text', isCheck: true },
-			{ key: 'code', title: t('message.database.code'), type: 'text', isCheck: true },
-			{ key: 'name', title: t('message.database.name'), type: 'text', isCheck: true },
-			{ key: 'abbreviation', title: t('message.database.abbreviation'), type: 'text', isCheck: true },
-			{ key: 'server', title: t('message.database.server'), type: 'text', isCheck: true },
-			{ key: 'port', title: t('message.database.port'), type: 'text', isCheck: true },
-			{ key: 'user', title: t('message.database.user'), type: 'text', isCheck: true },
-			{ key: 'password', title: t('message.database.password'), type: 'text', isCheck: true },
-			{ key: 'charSet', title: t('message.database.charSet'), type: 'text', isCheck: true },
+			{ key: 'type', title: t('message.resource.type'), type: 'text', isCheck: true },
+			{ key: 'code', title: t('message.resource.code'), type: 'text', isCheck: true },
+			{ key: 'name', title: t('message.resource.name'), type: 'text', isCheck: true },
+			{ key: 'abbreviation', title: t('message.resource.abbreviation'), type: 'text', isCheck: true },
+			{ key: 'server', title: t('message.resource.server'), type: 'text', isCheck: true },
+			{ key: 'port', title: t('message.resource.port'), type: 'text', isCheck: true },
+			{ key: 'user', title: t('message.resource.user'), type: 'text', isCheck: true },
+			{ key: 'password', title: t('message.resource.password'), type: 'text', isCheck: true },
+			{ key: 'charSet', title: t('message.resource.charSet'), type: 'text', isCheck: true },
 		],
-		data: [] as Database[],
+		data: [] as Resource[],
 		// 打印标题
-		printName: t('message.router.dataDatabase'),
+		printName: t('message.router.dataResource'),
 	},
 	form: {
 		name: '',
@@ -105,10 +122,22 @@ const getTableData = () => {
 			state.tableData.config.loading = false;
 		});
 };
-// 删除当前项回调
-const onTableDelRow = (row: EmptyObjectType) => {
+// 新增
+const onAdd = () => {
+	router.push({ name: 'addResource' });
+};
+// 修改
+const onEdit = (row: EmptyObjectType) => {
+	router.push({ name: 'editResource', params: { id: row.scope.id } });
+};
+// 删除
+const onDelete = (row: EmptyObjectType) => {
 	ElMessage.success(t('message.common.deleteSuccess'));
 	getTableData();
+};
+// 详情
+const onDetails = (row: EmptyObjectType) => {
+	router.push({ name: 'resourceDetails', params: { id: row.scope.id } });
 };
 // 分页改变时回调
 const onTablePageChange = (page: EmptyObjectType) => {
@@ -127,12 +156,11 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.database-container {
-	.database-padding {
+.resource-container {
+	.resource-padding {
 		padding: 15px;
-		.database {
+		.resource {
 			flex: 1;
-			overflow: hidden;
 		}
 	}
 	.el-form {

@@ -14,6 +14,13 @@ export function useRoleApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Auth/BaseRole/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

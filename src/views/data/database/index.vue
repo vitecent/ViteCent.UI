@@ -1,7 +1,7 @@
 <template>
-	<div class="database-container layout-padding">
+	<section class="database-container layout-padding">
 		<div class="database-padding layout-padding-view layout-padding-auto">
-			<Table v-bind="state.tableData" class="database" @pageChange="onTablePageChange" @sortHeader="onSortHeader">
+			<Table v-bind="state.tableData" @pageChange="onTablePageChange" @sortHeader="onSortHeader">
 				<template v-slot:search>
 					<el-form :model="state.form" inline>
 						<el-form-item :label="$t('message.common.query')">
@@ -41,11 +41,11 @@
 				</template>
 			</Table>
 		</div>
-	</div>
+	</section>
 </template>
 
 <script setup lang="ts" name="database">
-import { defineAsyncComponent, reactive, ref, onMounted } from 'vue';
+import { defineAsyncComponent, reactive, onMounted } from 'vue';
 import { ElMessage } from 'element-plus';
 
 import { useI18n } from 'vue-i18n';
@@ -118,7 +118,7 @@ const getTableData = () => {
 			state.tableData.config.total = res.total;
 			state.tableData.config.loading = false;
 		})
-		.catch(() => {
+		.catch((error) => {
 			state.tableData.config.loading = false;
 		});
 };
@@ -159,13 +159,12 @@ onMounted(() => {
 .database-container {
 	.database-padding {
 		padding: 15px;
-		.database {
+		.table-container {
 			flex: 1;
 		}
-	}
-	.el-form {
-		display: flex;
-		justify-content: flex-end;
+		.el-form {
+			text-align: right;
+		}
 	}
 }
 </style>

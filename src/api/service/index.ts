@@ -14,6 +14,13 @@ export function useServiceApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Auth/BaseSystem/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

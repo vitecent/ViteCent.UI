@@ -2,9 +2,9 @@
 export default {
 	database: {
 		type: '类型',
-		typePlaceholder: '请输入类型',
-		code: '编码',
-		codePlaceholder: '请输入编码',
+		typePlaceholder: '请选择类型',
+		code: '编号',
+		codePlaceholder: '请输入编号',
 		name: '名称',
 		namePlaceholder: '请输入名称',
 		abbreviation: '简称',
@@ -18,6 +18,14 @@ export default {
 		password: '密码',
 		passwordPlaceholder: '请输入密码',
 		charSet: '编码',
-		charSetPlaceholder: '请输入编码',
+		charSetPlaceholder: '请选择编码',
+		color: '颜色',
+		colorPlaceholder: '请输入颜色',
+		sort: '排序',
+		sortPlaceholder: '请输入排序',
+		status: '状态',
+		statusPlaceholder: '请输入状态',
+		description: '描述',
+		descriptionPlaceholder: '请输入描述'
 	}
 };

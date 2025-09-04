@@ -14,6 +14,13 @@ export function useDepartmentApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Auth/BaseDepartment/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

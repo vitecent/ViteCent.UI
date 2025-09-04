@@ -14,6 +14,13 @@ export function useDatabaseApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Database/BaseDatabase/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

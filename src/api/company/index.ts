@@ -14,6 +14,13 @@ export function useCompanyApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Auth/BaseCompany/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

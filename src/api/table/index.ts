@@ -14,6 +14,13 @@ export function useTableApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Database/BaseTable/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

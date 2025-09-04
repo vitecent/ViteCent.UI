@@ -14,6 +14,13 @@ export function useDictionaryApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        get: (params?: object) => {
+            return request({
+                url: '/api/Auth/BaseDictionary/Get',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

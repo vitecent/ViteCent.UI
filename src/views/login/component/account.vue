@@ -102,6 +102,29 @@ const state = reactive({
 		password: { required: true, message: t('message.account.password'), trigger: 'blur' },
 		code: { required: true, message: t('message.account.code'), trigger: 'blur' },
 	},
+	colors: ['#009688', '#409EFF', '#67C23A', '#E6A23C', '#F56C6C', '#909399'],
+	options: [
+		{
+			value: '1',
+			label: 'Option1',
+		},
+		{
+			value: '2',
+			label: 'Option2',
+		},
+		{
+			value: '3',
+			label: 'Option3',
+		},
+		{
+			value: '4',
+			label: 'Option4',
+		},
+		{
+			value: '5',
+			label: 'Option5',
+		},
+	],
 	loading: {
 		signIn: false,
 	},

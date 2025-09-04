@@ -2,7 +2,7 @@
 export default {
 	database: {
 		type: 'Type',
-		typePlaceholder: 'Please enter type',
+		typePlaceholder: 'Please select type',
 		code: 'Code',
 		codePlaceholder: 'Please enter code',
 		name: 'Name',
@@ -18,6 +18,14 @@ export default {
 		password: 'Password',
 		passwordPlaceholder: 'Please enter password',
 		charSet: 'CharSet',
-		charSetPlaceholder: 'Please enter charSet',
+		charSetPlaceholder: 'Please select charSet',
+		color: 'Color',
+		colorPlaceholder: 'Please enter color',
+		sort: 'Sort',
+		sortPlaceholder: 'Please enter sort',
+		status: 'Status',
+		statusPlaceholder: 'Please enter status',
+		description: 'Description',
+		descriptionPlaceholder: 'Please enter description'
 	}
 };

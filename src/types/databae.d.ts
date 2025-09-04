@@ -1,15 +1,24 @@
 declare type Database = {
+    id: string,
+    companyId: string,
+    companyName: string,
     type: string,
     code: string,
     name: string,
-    abbreviation: string,
     server: string,
-    port: string | number,
+    port: number | string,
     user: string,
     password: string,
     charSet: string,
+    abbreviation: string,
     description: string,
-    sort: number,
     color: string,
-    status: number
+    sort: number | string,
+    creator: string,
+    createTime: string,
+    updater: string,
+    updateTime: string,
+    version: string,
+    status: number | string,
+
 };
