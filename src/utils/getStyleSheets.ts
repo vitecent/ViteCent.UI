@@ -23,12 +23,12 @@ const getAlicdnIconfont = () => {
 				}
 			}
 			if (sheetsIconList.length > 0) resolve(sheetsIconList);
-			else reject('未获取到值，请刷新重试');
+			else reject('未获取到值,请刷新重试');
 		});
 	});
 };
 
-// 初始化获取 css 样式，获取 element plus 自带 svg 图标，增加了 ele- 前缀，使用时：ele-Aim
+// 初始化获取 css 样式,获取 element plus 自带 svg 图标,增加了 ele- 前缀,使用时:ele-Aim
 const getElementPlusIconfont = () => {
 	return new Promise((resolve, reject) => {
 		nextTick(() => {
@@ -38,12 +38,12 @@ const getElementPlusIconfont = () => {
 				sheetsIconList.push(`ele-${icons[i].name}`);
 			}
 			if (sheetsIconList.length > 0) resolve(sheetsIconList);
-			else reject('未获取到值，请刷新重试');
+			else reject('未获取到值,请刷新重试');
 		});
 	});
 };
 
-// 初始化获取 css 样式，这里使用 fontawesome 的图标
+// 初始化获取 css 样式,这里使用 fontawesome 的图标
 const getAwesomeIconfont = () => {
 	return new Promise((resolve, reject) => {
 		nextTick(() => {
@@ -71,7 +71,7 @@ const getAwesomeIconfont = () => {
 				}
 			}
 			if (sheetsIconList.length > 0) resolve(sheetsIconList.reverse());
-			else reject('未获取到值，请刷新重试');
+			else reject('未获取到值,请刷新重试');
 		});
 	});
 };

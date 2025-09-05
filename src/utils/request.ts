@@ -1,7 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
-import { ElMessage, ElMessageBox } from 'element-plus';
+import { ElMessage, ElLoading } from 'element-plus';
 import { Session } from '@/utils/storage';
 import qs from 'qs';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
+let count = 0;
+let loading: any = null;
 
 // 配置新建一个 axios 实例
 const service: AxiosInstance = axios.create({
@@ -15,17 +20,40 @@ const service: AxiosInstance = axios.create({
 	},
 });
 
+// 显示loading
+const showLoading = () => {
+	if (count === 0) {
+		loading = ElLoading.service({
+			lock: true,
+			background: 'rgba(0, 0, 0, 0.35)',
+		});
+	}
+	count++;
+	NProgress.start();
+};
+
+// 隐藏loading
+const hideLoading = () => {
+	count--;
+	if (count === 0) {
+		loading?.close();
+	}
+	NProgress.done();
+};
+
 // 添加请求拦截器
 service.interceptors.request.use(
 	(config) => {
-		// 在发送请求之前做些什么 token
+		// 在发送请求之前做些什么
+		showLoading();
 		if (Session.get('token')) {
 			config.headers!['Authorization'] = `${Session.get('token')}`;
 		}
 		return config;
 	},
-	(error) => {
+	error => {
 		// 对请求错误做些什么
+		showLoading();
 		return Promise.reject(error);
 	}
 );
@@ -33,6 +61,7 @@ service.interceptors.request.use(
 // 添加响应拦截器
 service.interceptors.response.use(
 	(response) => {
+		hideLoading();
 		// 对响应数据做点什么
 		const res = response.data;
 		if (res.code && res.code !== 200) {
@@ -41,8 +70,9 @@ service.interceptors.response.use(
 			return res;
 		}
 	},
-	(error) => {
+	error => {
 		// 对响应错误做点什么
+		hideLoading();
 		if (error.message.indexOf('timeout') != -1) {
 			ElMessage.error('网络超时');
 		} else if (error.message == 'Network Error') {

@@ -1,9 +1,9 @@
 <template>
-	<div class="layout-logo" v-if="setShowLogo" @click="onThemeConfigChange">
+	<div class="layout-logo" v-if="setShowLogo" @click.native.prevent="onThemeConfigChange">
 		<img :src="logoMini" class="layout-logo-medium-img" />
 		<span>{{ themeConfig.globalTitle }}</span>
 	</div>
-	<div class="layout-logo-size" v-else @click="onThemeConfigChange">
+	<div class="layout-logo-size" v-else @click.native.prevent="onThemeConfigChange">
 		<img :src="logoMini" class="layout-logo-size-img" />
 	</div>
 </template>

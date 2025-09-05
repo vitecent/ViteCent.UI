@@ -54,7 +54,6 @@ const storesThemeConfig = useThemeConfig();
 const { themeConfig } = storeToRefs(storesThemeConfig);
 const route = useRoute();
 const state = reactive({
-	
 	defaultActive: route.meta.isDynamic ? route.meta.isDynamicPath : route.path,
 	isCollapse: false,
 });
@@ -67,7 +66,7 @@ const menuLists = computed(() => {
 const getThemeConfig = computed(() => {
 	return themeConfig.value;
 });
-// 菜单高亮（详情时，父级高亮）
+// 菜单高亮（详情时,父级高亮）
 const setParentHighlight = (currentRoute: RouteToFrom) => {
 	const { path, meta } = currentRoute;
 	const pathSplit = meta?.isDynamic ? meta.isDynamicPath!.split('/') : path!.split('/');
@@ -84,7 +83,6 @@ onMounted(() => {
 });
 // 路由更新时
 onBeforeRouteUpdate((to) => {
-	
 	state.defaultActive = setParentHighlight(to);
 	const clientWidth = document.body.clientWidth;
 	if (clientWidth < 1000) themeConfig.value.isCollapse = false;

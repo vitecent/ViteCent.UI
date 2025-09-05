@@ -108,9 +108,8 @@ onBeforeMount(() => {
 });
 // 路由更新时
 onBeforeRouteUpdate((to) => {
-
 	setCurrentRouterHighlight(to);
-	// 修复经典布局开启切割菜单时，点击tagsView后左侧导航菜单数据不变的问题
+	// 修复经典布局开启切割菜单时,点击tagsView后左侧导航菜单数据不变的问题
 	let { layout, isClassicSplitMenu } = themeConfig.value;
 	if (layout === 'classic' && isClassicSplitMenu) {
 		mittBus.emit('setSendClassicChildren', setSendClassicChildren(to.path));
@@ -142,7 +141,6 @@ onBeforeRouteUpdate((to) => {
 }
 
 :deep {
-
 	.el-menu-item:hover,
 	.el-menu-item.is-active,
 	.el-sub-menu.is-active .el-sub-menu__title,

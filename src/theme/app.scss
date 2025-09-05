@@ -31,7 +31,14 @@ body,
 	padding: 0;
 	width: 100%;
 	height: 100%;
-	font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+	font-family:
+		Helvetica Neue,
+		Helvetica,
+		PingFang SC,
+		Hiragino Sans GB,
+		Microsoft YaHei,
+		SimSun,
+		sans-serif;
 	font-weight: 400;
 	-webkit-font-smoothing: antialiased;
 	-webkit-tap-highlight-color: transparent;
@@ -78,7 +85,7 @@ body,
 		background-color: var(--next-bg-main-color);
 		display: flex;
 		flex-direction: column;
-		// 内层 el-scrollbar样式，用于界面高度自适应（main.vue）
+		// 内层 el-scrollbar样式,用于界面高度自适应（main.vue）
 		.layout-main-scroll {
 			@extend .layout-flex;
 			.layout-parent {
@@ -109,7 +116,7 @@ body,
 			overflow: hidden;
 		}
 	}
-	// 用于界面高度自适应，主视图区 main 的内边距，用于 iframe
+	// 用于界面高度自适应,主视图区 main 的内边距,用于 iframe
 	.layout-padding-unset {
 		padding: 0 !important;
 		&-view {

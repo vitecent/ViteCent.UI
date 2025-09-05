@@ -2,7 +2,7 @@
 	<div class="icon-selector-warp-row">
 		<el-scrollbar ref="selectorScrollbarRef">
 			<el-row :gutter="10" v-if="props.list.length > 0">
-				<el-col :xs="6" :sm="4" :md="4" :lg="4" :xl="4" v-for="(v, k) in list" :key="k" @click="onColClick(v)">
+				<el-col :xs="6" :sm="4" :md="4" :lg="4" :xl="4" v-for="(v, k) in list" :key="k" @click.native.prevent="onColClick(v)">
 					<div class="icon-selector-warp-item" :class="{ 'icon-selector-active': prefix === v }">
 						<SvgIcon :name="v" />
 					</div>

@@ -27,12 +27,12 @@
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
-		<div class="layout-navbars-breadcrumb-user-icon" @click="onSearchClick">
+		<div class="layout-navbars-breadcrumb-user-icon" @click.native.prevent="onSearchClick">
 			<el-icon :title="$t('message.user.search')">
 				<ele-Search />
 			</el-icon>
 		</div>
-		<div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSetingClick">
+		<div class="layout-navbars-breadcrumb-user-icon" @click.native.prevent="onLayoutSetingClick">
 			<i class="icon-skin iconfont" :title="$t('message.user.layout')"></i>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon" ref="userNewsBadgeRef" v-click-outside="onUserNewsClick">
@@ -52,7 +52,7 @@
 		>
 			<UserNews />
 		</el-popover>
-		<div class="layout-navbars-breadcrumb-user-icon mr10" @click="onScreenfullClick">
+		<div class="layout-navbars-breadcrumb-user-icon mr10" @click.native.prevent="onScreenfullClick">
 			<i
 				class="iconfont"
 				:title="state.isScreenfull ? $t('message.user.fullscreenOff') : $t('message.user.fullscreenOn')"
@@ -76,7 +76,7 @@
 			</template>
 		</el-dropdown>
 		<div class="layout-navbars-breadcrumb-user-icon" v-else>
-			<img :src="userInfos.photo" class="layout-navbars-breadcrumb-user-link-photo mr5" @click="onLogin" />
+			<img :src="userInfos.photo" class="layout-navbars-breadcrumb-user-link-photo mr5" @click.native.prevent="onLogin" />
 		</div>
 
 		<Search ref="searchRef" />
@@ -162,13 +162,9 @@ const onCommandClick = (path: string) => {
 			buttonSize: 'default',
 			beforeClose: (action, instance, done) => {
 				if (action === 'confirm') {
-					instance.confirmButtonLoading = true;
 					instance.confirmButtonText = t('message.user.logOutExit');
 					setTimeout(() => {
 						done();
-						setTimeout(() => {
-							instance.confirmButtonLoading = false;
-						}, 300);
 					}, 700);
 				} else {
 					done();

@@ -16,12 +16,12 @@
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
 					<el-form-item :label="$t('message.role.code')" prop="code">
-						<el-input v-model="state.form.code" :placeholder="$t('message.role.codePlaceholder')" maxlength="50" show-word-limit clearable></el-input>
+						<el-input v-model="state.form.code" :placeholder="$t('message.role.codePlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
 					<el-form-item :label="$t('message.role.name')" prop="name">
-						<el-input v-model="state.form.name" :placeholder="$t('message.role.namePlaceholder')" maxlength="50" show-word-limit clearable></el-input>
+						<el-input v-model="state.form.name" :placeholder="$t('message.role.namePlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
@@ -32,28 +32,22 @@
 							maxlength="50"
 							show-word-limit
 							clearable
-						></el-input>
+						/>
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
 					<el-form-item :label="$t('message.role.server')" prop="server">
-						<el-input
-							v-model="state.form.server"
-							:placeholder="$t('message.role.serverPlaceholder')"
-							maxlength="50"
-							show-word-limit
-							clearable
-						></el-input>
+						<el-input v-model="state.form.server" :placeholder="$t('message.role.serverPlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
 					<el-form-item :label="$t('message.role.port')" prop="port">
-						<el-input v-model="state.form.port" :placeholder="$t('message.role.portPlaceholder')" maxlength="50" show-word-limit clearable></el-input>
+						<el-input v-model="state.form.port" :placeholder="$t('message.role.portPlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
 					<el-form-item :label="$t('message.role.user')" prop="user">
-						<el-input v-model="state.form.user" :placeholder="$t('message.role.userPlaceholder')" maxlength="50" show-word-limit clearable></el-input>
+						<el-input v-model="state.form.user" :placeholder="$t('message.role.userPlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
@@ -64,9 +58,8 @@
 							:placeholder="$t('message.role.passwordPlaceholder')"
 							maxlength="50"
 							show-password
-							show-word-limit
 							clearable
-						></el-input>
+						/>
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
@@ -125,13 +118,14 @@
 							show-word-limit
 							:placeholder="$t('message.role.descriptionPlaceholder')"
 							clearable
-						></el-input>
+						/>
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24">
 					<el-form-item>
-						<el-button type="primary">{{ $t('message.common.edit') }}</el-button>
-						<el-button type="info">{{ $t('message.common.cancel') }}</el-button>
+						<el-button type="info" @click.native.prevent="onCancel">{{ $t('message.common.cancel') }}</el-button>
+						<el-button type="primary" @click.native.prevent="onEdit">{{ $t('message.common.edit') }}</el-button>
+						<el-checkbox v-model="state.flag" class="ml10 mr10" />跳转到列表
 					</el-form-item>
 				</el-col>
 			</el-row>
@@ -141,6 +135,7 @@
 
 <script setup lang="ts" name="addRole">
 import { reactive, ref, onMounted } from 'vue';
+import { ElMessage } from 'element-plus';
 
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -148,12 +143,16 @@ const { t } = useI18n();
 import { useRoleApi } from '@/api/role';
 var api = useRoleApi();
 
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
+const router = useRouter();
 
 // 定义变量内容
 const formRef = ref<RefType>();
 const state = reactive({
+	flag: true,
+
+	id: '',
 	form: {} as Role,
 	rules: {
 		type: { required: true, message: t('message.role.typePlaceholder'), trigger: 'blur' },
@@ -191,17 +190,51 @@ const state = reactive({
 		},
 	],
 });
+
+//新增
+const onEdit = () => {
+	if (!formRef.value) return;
+	formRef.value.validate((valid: boolean) => {
+		if (valid) {
+			api
+				.edit(state.form)
+				.then((res) => {
+					ElMessage.success(t('message.common.editSuccess'));
+
+					state.form = {} as Role;
+
+					if (state.flag) router.push({ name: 'dataRole' });
+					else initData();
+				})
+				.catch((error) => {
+					ElMessage.error(t('message.common.editError'));
+				});
+		}
+	});
+};
+
+//取消
+const onCancel = () => {
+	router.push({ name: 'dataRole' });
+};
+
 // 页面加载时
 onMounted(() => {
-	const id = route.params.id;
+	const id = route.params.id as string;
+	state.id = id;
 
+	initData();
+});
+
+//加载数据
+const initData = () => {
 	api
-		.get({ id: id })
+		.get({ id: state.id })
 		.then((res) => {
 			state.form = res.data;
 		})
 		.catch((error) => {});
-});
+};
 </script>
 
 <style scoped lang="scss">

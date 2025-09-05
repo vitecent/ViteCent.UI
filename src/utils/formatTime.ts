@@ -1,12 +1,12 @@
 /**
  * 时间日期转换
- * @param date 当前时间，new Date() 格式
+ * @param date 当前时间,new Date() 格式
  * @param format 需要转换的时间格式字符串
- * @description format 字符串随意，如 `YYYY-mm、YYYY-mm-dd`
- * @description format 季度："YYYY-mm-dd HH:MM:SS QQQQ"
- * @description format 星期："YYYY-mm-dd HH:MM:SS WWW"
- * @description format 几周："YYYY-mm-dd HH:MM:SS ZZZ"
- * @description format 季度 + 星期 + 几周："YYYY-mm-dd HH:MM:SS WWW QQQQ ZZZ"
+ * @description format 字符串随意,如 `YYYY-mm、YYYY-mm-dd`
+ * @description format 季度:"YYYY-mm-dd HH:MM:SS QQQQ"
+ * @description format 星期:"YYYY-mm-dd HH:MM:SS WWW"
+ * @description format 几周:"YYYY-mm-dd HH:MM:SS ZZZ"
+ * @description format 季度 + 星期 + 几周:"YYYY-mm-dd HH:MM:SS WWW QQQQ ZZZ"
  * @returns 返回拼接后的时间字符串
  */
 export function formatDate(date: Date, format: string): string {
@@ -15,7 +15,7 @@ export function formatDate(date: Date, format: string): string {
 	let qut = Math.floor((date.getMonth() + 3) / 3).toString(); // 季度
 	const opt: { [key: string]: string } = {
 		'Y+': date.getFullYear().toString(), // 年
-		'm+': (date.getMonth() + 1).toString(), // 月(月份从0开始，要+1)
+		'm+': (date.getMonth() + 1).toString(), // 月(月份从0开始,要+1)
 		'd+': date.getDate().toString(), // 日
 		'H+': date.getHours().toString(), // 时
 		'M+': date.getMinutes().toString(), // 分
@@ -45,7 +45,7 @@ export function formatDate(date: Date, format: string): string {
 	if (/(Z+)/.test(format)) format = format.replace(RegExp.$1, RegExp.$1.length == 3 ? '第' + z + '周' : z + '');
 	for (let k in opt) {
 		let r = new RegExp('(' + k + ')').exec(format);
-		// 若输入的长度不为1，则前面补零
+		// 若输入的长度不为1,则前面补零
 		if (r) format = format.replace(r[1], RegExp.$1.length == 1 ? opt[k] : opt[k].padStart(RegExp.$1.length, '0'));
 	}
 	return format;
@@ -74,13 +74,13 @@ export function getWeek(dateTime: Date): number {
 
 /**
  * 将时间转换为 `几秒前`、`几分钟前`、`几小时前`、`几天前`
- * @param param 当前时间，new Date() 格式或者字符串时间格式
+ * @param param 当前时间,new Date() 格式或者字符串时间格式
  * @param format 需要转换的时间格式字符串
- * @description param 10秒：  10 * 1000
- * @description param 1分：   60 * 1000
- * @description param 1小时： 60 * 60 * 1000
- * @description param 24小时：60 * 60 * 24 * 1000
- * @description param 3天：   60 * 60* 24 * 1000 * 3
+ * @description param 10秒:  10 * 1000
+ * @description param 1分:   60 * 1000
+ * @description param 1小时: 60 * 60 * 1000
+ * @description param 24小时:60 * 60 * 24 * 1000
+ * @description param 3天:   60 * 60* 24 * 1000 * 3
  * @returns 返回拼接后的时间字符串
  */
 export function formatPast(param: string | Date, format: string = 'YYYY-mm-dd'): string {
@@ -120,7 +120,7 @@ export function formatPast(param: string | Date, format: string = 'YYYY-mm-dd'):
 
 /**
  * 时间问候语
- * @param param 当前时间，new Date() 格式
+ * @param param 当前时间,new Date() 格式
  * @description param 调用 `formatAxis(new Date())` 输出 `上午好`
  * @returns 返回拼接后的时间字符串
  */

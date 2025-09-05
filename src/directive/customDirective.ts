@@ -2,8 +2,8 @@ import type { App } from 'vue';
 
 /**
  * 按钮波浪指令
- * @directive 默认方式：v-waves，如 `<div v-waves></div>`
- * @directive 参数方式：v-waves=" |light|red|orange|purple|green|teal"，如 `<div v-waves="'light'"></div>`
+ * @directive 默认方式:v-waves,如 `<div v-waves></div>`
+ * @directive 参数方式:v-waves=" |light|red|orange|purple|green|teal",如 `<div v-waves="'light'"></div>`
  */
 export function wavesDirective(app: App) {
 	app.directive('waves', {
@@ -48,17 +48,17 @@ export function wavesDirective(app: App) {
 			el.addEventListener('mousedown', onCurrentClick, false);
 		},
 		unmounted(el) {
-			el.addEventListener('mousedown', () => {});
+			el.addEventListener('mousedown', () => { });
 		},
 	});
 }
 
 /**
  * 自定义拖动指令
- * @description  使用方式：v-drag="[dragDom,dragHeader]"，如 `<div v-drag="['.drag-container .el-dialog', '.drag-container .el-dialog__header']"></div>`
- * @description dragDom 要拖动的元素，dragHeader 要拖动的 Header 位置
- * @link 注意：https://github.com/element-plus/element-plus/issues/522
- * @lick 参考：https://blog.csdn.net/weixin_46391323/article/details/105228020?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-10&spm=1001.2101.3001.4242
+ * @description  使用方式:v-drag="[dragDom,dragHeader]",如 `<div v-drag="['.drag-container .el-dialog', '.drag-container .el-dialog__header']"></div>`
+ * @description dragDom 要拖动的元素,dragHeader 要拖动的 Header 位置
+ * @link 注意:https://github.com/element-plus/element-plus/issues/522
+ * @lick 参考:https://blog.csdn.net/weixin_46391323/article/details/105228020?utm_medium=distribute.pc_relevant.none-task-blog-baidujs_title-10&spm=1001.2101.3001.4242
  */
 export function dragDirective(app: App) {
 	app.directive('drag', {
@@ -71,13 +71,13 @@ export function dragDirective(app: App) {
 			dragHeader.onmouseover = () => (dragHeader.style.cursor = `move`);
 
 			function down(e: any, type: string) {
-				// 鼠标按下，计算当前元素距离可视区的距离
+				// 鼠标按下,计算当前元素距离可视区的距离
 				const disX = type === 'pc' ? e.clientX - dragHeader.offsetLeft : e.touches[0].clientX - dragHeader.offsetLeft;
 				const disY = type === 'pc' ? e.clientY - dragHeader.offsetTop : e.touches[0].clientY - dragHeader.offsetTop;
 
 				// body当前宽度
 				const screenWidth = document.body.clientWidth;
-				// 可见区域高度(应为body高度，可某些环境下无法获取)
+				// 可见区域高度(应为body高度,可某些环境下无法获取)
 				const screenHeight = document.documentElement.clientHeight;
 
 				// 对话框宽度
@@ -119,7 +119,7 @@ export function dragDirective(app: App) {
 			function move(e: any, type: string, obj: any) {
 				let { disX, disY, minDragDomLeft, maxDragDomLeft, minDragDomTop, maxDragDomTop, styL, styT } = obj;
 
-				// 通过事件委托，计算移动的距离
+				// 通过事件委托,计算移动的距离
 				let left = type === 'pc' ? e.clientX - disX : e.touches[0].clientX - disX;
 				let top = type === 'pc' ? e.clientY - disY : e.touches[0].clientY - disY;
 
@@ -159,9 +159,9 @@ export function dragDirective(app: App) {
 
 			/**
 			 * 移动端
-			 * ontouchstart 当按下手指时，触发ontouchstart
-			 * ontouchmove 当移动手指时，触发ontouchmove
-			 * ontouchend 当移走手指时，触发ontouchend
+			 * ontouchstart 当按下手指时,触发ontouchstart
+			 * ontouchmove 当移动手指时,触发ontouchmove
+			 * ontouchend 当移走手指时,触发ontouchend
 			 */
 			dragHeader.ontouchstart = (e) => {
 				const obj = down(e, 'app');

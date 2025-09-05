@@ -23,8 +23,8 @@
 			</div>
 			<template #footer>
 				<span class="dialog-footer">
-					<el-button @click="onCancel">取 消</el-button>
-					<el-button type="primary" @click="onSubmit">更 换</el-button>
+					<el-button @click.native.prevent="onCancel">取消</el-button>
+					<el-button type="primary" @click.native.prevent="onSubmit">更换</el-button>
 				</span>
 			</template>
 		</el-dialog>

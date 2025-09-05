@@ -9,6 +9,9 @@ import other from '@/utils/other';
 import ElementPlus from 'element-plus';
 import '@/theme/index.scss';
 
+import Particles from "@tsparticles/vue3";
+import { loadSlim } from "@tsparticles/slim";
+
 const app = createApp(App);
 
 directive(app);
@@ -18,4 +21,9 @@ app.use(pinia)
     .use(router)
     .use(ElementPlus)
     .use(i18n)
+    .use(Particles, {
+        init: async engine => {
+            await loadSlim(engine);
+        },
+    })
     .mount('#app');

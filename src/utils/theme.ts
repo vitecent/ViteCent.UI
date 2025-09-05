@@ -32,7 +32,7 @@ export function useChangeColor() {
 		for (let i = 0; i < 3; i++) if (hexs[i].length == 1) hexs[i] = `0${hexs[i]}`;
 		return `#${hexs.join('')}`;
 	};
-	// color 颜色值字符串 | level 变浅的程度，限0-1之间
+	// color 颜色值字符串 | level 变浅的程度,限0-1之间
 	const getDarkColor = (color: string, level: number): string => {
 		let reg = /^\#?[0-9A-Fa-f]{6}$/;
 		if (!reg.test(color)) {
@@ -43,7 +43,7 @@ export function useChangeColor() {
 		for (let i = 0; i < 3; i++) rgb[i] = Math.floor(rgb[i] * (1 - level));
 		return useChangeColor().rgbToHex(rgb[0], rgb[1], rgb[2]);
 	};
-	// color 颜色值字符串 | level 加深的程度，限0-1之间
+	// color 颜色值字符串 | level 加深的程度,限0-1之间
 	const getLightColor = (color: string, level: number): string => {
 		let reg = /^\#?[0-9A-Fa-f]{6}$/;
 		if (!reg.test(color)) {

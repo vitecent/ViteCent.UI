@@ -68,6 +68,7 @@ const route = useRoute();
 const state = reactive({
 	form: {} as Department,
 });
+
 // 页面加载时
 onMounted(() => {
 	const id = route.params.id;

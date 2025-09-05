@@ -52,7 +52,7 @@ const setFilterRoutes = () => {
 		state.menuList = filterRoutesFun(routesList.value);
 	}
 };
-// 设置了分割菜单时，删除底下 children
+// 设置了分割菜单时,删除底下 children
 const delClassicChildren = <T extends ChilType>(arr: T[]): T[] => {
 	arr.map((v: T) => {
 		if (v.children) delete v.children;

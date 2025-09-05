@@ -16,24 +16,12 @@
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
 					<el-form-item :label="$t('message.position.code')" prop="code">
-						<el-input
-							v-model="state.form.code"
-							:placeholder="$t('message.position.codePlaceholder')"
-							maxlength="50"
-							show-word-limit
-							clearable
-						></el-input>
+						<el-input v-model="state.form.code" :placeholder="$t('message.position.codePlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
 					<el-form-item :label="$t('message.position.name')" prop="name">
-						<el-input
-							v-model="state.form.name"
-							:placeholder="$t('message.position.namePlaceholder')"
-							maxlength="50"
-							show-word-limit
-							clearable
-						></el-input>
+						<el-input v-model="state.form.name" :placeholder="$t('message.position.namePlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
@@ -44,40 +32,22 @@
 							maxlength="50"
 							show-word-limit
 							clearable
-						></el-input>
+						/>
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
 					<el-form-item :label="$t('message.position.server')" prop="server">
-						<el-input
-							v-model="state.form.server"
-							:placeholder="$t('message.position.serverPlaceholder')"
-							maxlength="50"
-							show-word-limit
-							clearable
-						></el-input>
+						<el-input v-model="state.form.server" :placeholder="$t('message.position.serverPlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
 					<el-form-item :label="$t('message.position.port')" prop="port">
-						<el-input
-							v-model="state.form.port"
-							:placeholder="$t('message.position.portPlaceholder')"
-							maxlength="50"
-							show-word-limit
-							clearable
-						></el-input>
+						<el-input v-model="state.form.port" :placeholder="$t('message.position.portPlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
 					<el-form-item :label="$t('message.position.user')" prop="user">
-						<el-input
-							v-model="state.form.user"
-							:placeholder="$t('message.position.userPlaceholder')"
-							maxlength="50"
-							show-word-limit
-							clearable
-						></el-input>
+						<el-input v-model="state.form.user" :placeholder="$t('message.position.userPlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
@@ -88,9 +58,8 @@
 							:placeholder="$t('message.position.passwordPlaceholder')"
 							maxlength="50"
 							show-password
-							show-word-limit
 							clearable
-						></el-input>
+						/>
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24" :md="12" class="mb15">
@@ -149,13 +118,14 @@
 							show-word-limit
 							:placeholder="$t('message.position.descriptionPlaceholder')"
 							clearable
-						></el-input>
+						/>
 					</el-form-item>
 				</el-col>
 				<el-col :sm="24">
 					<el-form-item>
-						<el-button type="primary">{{ $t('message.common.add') }}</el-button>
-						<el-button type="info">{{ $t('message.common.cancel') }}</el-button>
+						<el-button type="info" @click.native.prevent="onCancel">{{ $t('message.common.cancel') }}</el-button>
+						<el-button type="primary" @click.native.prevent="onAdd">{{ $t('message.common.add') }}</el-button>
+						<el-checkbox v-model="state.flag" class="ml10 mr10" />跳转到列表
 					</el-form-item>
 				</el-col>
 			</el-row>
@@ -165,6 +135,7 @@
 
 <script setup lang="ts" name="addPosition">
 import { reactive, ref } from 'vue';
+import { ElMessage } from 'element-plus';
 
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -172,24 +143,16 @@ const { t } = useI18n();
 import { usePositionApi } from '@/api/position';
 var api = usePositionApi();
 
-// 定义变量内容
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
 const formRef = ref<RefType>();
+
+// 定义变量内容
 const state = reactive({
+	flag: true,
+
 	form: {
-		id: '',
-		companyId: '',
-		companyName: '',
-		type: '',
-		code: '',
-		name: '',
-		server: '',
-		port: '',
-		user: '',
-		password: '',
-		charSet: '',
-		abbreviation: '',
-		description: '',
-		color: '',
 		sort: 1,
 		status: 0,
 	} as Position,
@@ -229,6 +192,35 @@ const state = reactive({
 		},
 	],
 });
+
+//新增
+const onAdd = () => {
+	if (!formRef.value) return;
+	formRef.value.validate((valid: boolean) => {
+		if (valid) {
+			api
+				.add(state.form)
+				.then((res) => {
+					ElMessage.success(t('message.common.addSuccess'));
+
+					state.form = {
+						sort: 1,
+						status: 0,
+					} as Position;
+
+					if (state.flag) router.push({ name: 'dataPosition' });
+				})
+				.catch((error) => {
+					ElMessage.error(t('message.common.addError'));
+				});
+		}
+	});
+};
+
+//取消
+const onCancel = () => {
+	router.push({ name: 'dataPosition' });
+};
 </script>
 
 <style scoped lang="scss">

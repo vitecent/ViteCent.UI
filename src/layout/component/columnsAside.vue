@@ -5,7 +5,7 @@
 				<li
 					v-for="(v, k) in state.columnsAsideList"
 					:key="k"
-					@click="onColumnsAsideMenuClick(v)"
+					@click.native.prevent="onColumnsAsideMenuClick(v)"
 					@mouseenter="onColumnsAsideMenuMouseenter(v, k)"
 					:ref="
 						(el) => {
@@ -97,11 +97,11 @@ const onColumnsAsideMenuClick = async (v: RouteItem) => {
 	}
 
 	// 一个路由设置自动收起菜单
-	 
+
 	if (!v.children) themeConfig.value.isCollapse = true;
 	else if (v.children.length > 1) themeConfig.value.isCollapse = false;
 };
-// 鼠标移入时，显示当前的子级菜单
+// 鼠标移入时,显示当前的子级菜单
 const onColumnsAsideMenuMouseenter = (v: RouteRecordRaw, k: number) => {
 	if (!themeConfig.value.isColumnsMenuHoverPreload) return false;
 	let { path } = v;
@@ -112,11 +112,11 @@ const onColumnsAsideMenuMouseenter = (v: RouteRecordRaw, k: number) => {
 	stores.setColumnsMenuHover(false);
 	stores.setColumnsNavHover(true);
 };
-// 鼠标移走时，显示原来的子级菜单
+// 鼠标移走时,显示原来的子级菜单
 const onColumnsAsideMenuMouseleave = async () => {
 	if (!themeConfig.value.isColumnsMenuHoverPreload) return false;
 	await stores.setColumnsNavHover(false);
-	// 添加延时器，防止拿到的 store.state.routesList 值不是最新的
+	// 添加延时器,防止拿到的 store.state.routesList 值不是最新的
 	setTimeout(() => {
 		if (!isColumnsMenuHover && !isColumnsNavHover) mittBus.emit('restoreDefault');
 	}, 100);
@@ -128,10 +128,10 @@ const onColumnsAsideDown = (k: number) => {
 	});
 };
 // 设置只有一个路由时设置自动收起菜单
- 
+
 const setMenuAutoCollaps = (path: string) => {
 	const resData: MittMenu = setSendChildren(path);
-	 
+
 	resData.children.length <= 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false);
 	return resData;
 };
@@ -140,7 +140,7 @@ const setFilterRoutes = () => {
 	state.columnsAsideList = filterRoutesFun(routesList.value);
 	const resData: MittMenu = setMenuAutoCollaps(route.path);
 	onColumnsAsideDown(resData.item?.k);
-	// 延迟 500 毫秒更新，防止 aside.vue 组件 setSendColumnsChildren 还没有注册
+	// 延迟 500 毫秒更新,防止 aside.vue 组件 setSendColumnsChildren 还没有注册
 	setTimeout(() => {
 		mittBus.emit('setSendColumnsChildren', resData);
 	}, 500);
@@ -169,14 +169,14 @@ const filterRoutesFun = <T extends RouteItem>(arr: T[]): T[] => {
 			return item;
 		});
 };
-// tagsView 点击时，根据路由查找下标 columnsAsideList，实现左侧菜单高亮
+// tagsView 点击时,根据路由查找下标 columnsAsideList,实现左侧菜单高亮
 const setColumnsMenuHighlight = (path: string) => {
 	state.routeSplit = path.split('/');
 	state.routeSplit.shift();
 	const routeFirst = `/${state.routeSplit[0]}`;
 	const currentSplitRoute = state.columnsAsideList.find((v: RouteItem) => v.path === routeFirst);
 	if (!currentSplitRoute) return false;
-	// 延迟拿值，防止取不到
+	// 延迟拿值,防止取不到
 	setTimeout(() => {
 		onColumnsAsideDown(currentSplitRoute.k);
 	}, 0);
@@ -184,7 +184,7 @@ const setColumnsMenuHighlight = (path: string) => {
 // 页面加载时
 onMounted(() => {
 	setFilterRoutes();
-	// 销毁变量，防止鼠标再次移入时，保留了上次的记录
+	// 销毁变量,防止鼠标再次移入时,保留了上次的记录
 	mittBus.on('restoreDefault', () => {
 		state.liOldIndex = null;
 		state.liOldPath = null;
@@ -200,7 +200,7 @@ onBeforeRouteUpdate((to) => {
 	setColumnsMenuHighlight(to.path);
 	mittBus.emit('setSendColumnsChildren', resData);
 });
-// 监听布局配置信息的变化，动态增加菜单高亮位置移动像素
+// 监听布局配置信息的变化,动态增加菜单高亮位置移动像素
 watch(
 	[() => themeConfig.value.columnsAsideStyle, isColumnsMenuHover, isColumnsNavHover],
 	() => {

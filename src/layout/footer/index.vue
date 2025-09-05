@@ -1,11 +1,7 @@
 <template>
-	<div>
-		footer
-	</div>
+	<div>footer</div>
 </template>
 
-<script setup lang="ts" name="layoutFooter">
-
-</script>
+<script setup lang="ts" name="layoutFooter"></script>
 
 <style scoped lang="scss"></style>

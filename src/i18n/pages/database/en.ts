@@ -26,6 +26,8 @@ export default {
 		status: 'Status',
 		statusPlaceholder: 'Please enter status',
 		description: 'Description',
-		descriptionPlaceholder: 'Please enter description'
+		descriptionPlaceholder: 'Please enter description',
+		sync: 'Sync table structure',
+		sql: 'Generate t-sql'
 	}
 };

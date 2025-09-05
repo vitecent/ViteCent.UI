@@ -92,9 +92,9 @@ const props = defineProps({
 		type: String,
 		default: () => '无相关图标',
 	},
-	// 双向绑定值，默认为 modelValue，
-	// 参考：https://v3.cn.vuejs.org/guide/migration/v-model.html#%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5
-	// 参考：https://v3.cn.vuejs.org/guide/component-custom-events.html#%E5%A4%9A%E4%B8%AA-v-model-%E7%BB%91%E5%AE%9A
+	// 双向绑定值,默认为 modelValue,
+	// 参考:https://v3.cn.vuejs.org/guide/migration/v-model.html#%E8%BF%81%E7%A7%BB%E7%AD%96%E7%95%A5
+	// 参考:https://v3.cn.vuejs.org/guide/component-custom-events.html#%E5%A4%9A%E4%B8%AA-v-model-%E7%BB%91%E5%AE%9A
 	modelValue: String,
 });
 
@@ -119,13 +119,13 @@ const state = reactive({
 	},
 });
 
-// 处理 input 获取焦点时，modelValue 有值时，改变 input 的 placeholder 值
+// 处理 input 获取焦点时,modelValue 有值时,改变 input 的 placeholder 值
 const onIconFocus = () => {
 	if (!props.modelValue) return false;
 	state.fontIconSearch = '';
 	state.fontIconPlaceholder = props.modelValue;
 };
-// 处理 input 失去焦点时，为空将清空 input 值，为点击选中图标时，将取原先值
+// 处理 input 失去焦点时,为空将清空 input 值,为点击选中图标时,将取原先值
 const onIconBlur = () => {
 	const list = fontIconTabNameList();
 	setTimeout(() => {
@@ -156,7 +156,7 @@ const initModeValueEcho = () => {
 	(<string | undefined>state.fontIconPlaceholder) = props.modelValue;
 	(<string | undefined>state.fontIconPrefix) = props.modelValue;
 };
-// 处理 icon 类型，用于回显时，tab 高亮与初始化数据
+// 处理 icon 类型,用于回显时,tab 高亮与初始化数据
 const initFontIconName = () => {
 	let name = 'ali';
 	if (props.modelValue!.indexOf('iconfont') > -1) name = 'ali';
@@ -188,7 +188,7 @@ const initFontIconData = async (name: string) => {
 		});
 	}
 	// 初始化 input 的 placeholder
-	// 参考（单项数据流）：https://cn.vuejs.org/v2/guide/components-props.html?#%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E6%B5%81
+	// 参考（单项数据流）:https://cn.vuejs.org/v2/guide/components-props.html?#%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E6%B5%81
 	state.fontIconPlaceholder = props.placeholder;
 	// 初始化双向绑定回显
 	initModeValueEcho();

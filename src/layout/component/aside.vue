@@ -56,7 +56,7 @@ const setCollapseStyle = computed(() => {
 		}
 	} else {
 		if (layout === 'columns' || layout === 'classic') {
-			// 分栏布局、经典布局，菜单收起时宽度给 1px，防止切换动画消失
+			// 分栏布局、经典布局,菜单收起时宽度给 1px,防止切换动画消失
 			if (isCollapse) return [asideBrColor, 'layout-aside-pc-1'];
 			else return [asideBrColor, 'layout-aside-pc-220'];
 		} else {
@@ -106,7 +106,7 @@ const onAsideEnterLeave = (bool: Boolean) => {
 	let { layout } = themeConfig.value;
 	if (layout !== 'columns') return false;
 	if (!bool) mittBus.emit('restoreDefault');
-	// 开启 `分栏菜单鼠标悬停预加载` 才设置，防止 columnsAside.vue 监听 pinia.state
+	// 开启 `分栏菜单鼠标悬停预加载` 才设置,防止 columnsAside.vue 监听 pinia.state
 	if (themeConfig.value.isColumnsMenuHoverPreload) stores.setColumnsMenuHover(bool);
 };
 // 页面加载前
@@ -114,21 +114,21 @@ onBeforeMount(() => {
 	initMenuFixed(document.body.clientWidth);
 	setFilterRoutes();
 	// 此界面不需要取消监听(mittBus.off('setSendColumnsChildren))
-	// 因为切换布局时有的监听需要使用，取消了监听，某些操作将不生效
+	// 因为切换布局时有的监听需要使用,取消了监听,某些操作将不生效
 	mittBus.on('setSendColumnsChildren', (res: MittMenu) => {
 		state.menuList = res.children;
 	});
-	// 开启经典布局分割菜单时，设置菜单数据
+	// 开启经典布局分割菜单时,设置菜单数据
 	mittBus.on('setSendClassicChildren', (res: MittMenu) => {
 		let { layout, isClassicSplitMenu } = themeConfig.value;
 		if (layout === 'classic' && isClassicSplitMenu) {
-			// 经典布局分割菜单只要一项子级时，收起左侧导航菜单
+			// 经典布局分割菜单只要一项子级时,收起左侧导航菜单
 			res.children.length <= 1 ? (themeConfig.value.isCollapse = true) : (themeConfig.value.isCollapse = false);
 			state.menuList = [];
 			state.menuList = res.children;
 		}
 	});
-	// 开启经典布局分割菜单时，重新处理菜单数据
+	// 开启经典布局分割菜单时,重新处理菜单数据
 	mittBus.on('getBreadcrumbIndexSetFilterRoutes', () => {
 		setFilterRoutes();
 	});
@@ -138,7 +138,7 @@ onBeforeMount(() => {
 		closeLayoutAsideMobileMode();
 	});
 });
-// 监听 themeConfig 配置文件的变化，更新菜单 el-scrollbar 的高度
+// 监听 themeConfig 配置文件的变化,更新菜单 el-scrollbar 的高度
 watch(
 	() => [themeConfig.value.isShowLogoChange, themeConfig.value.isShowLogo, themeConfig.value.layout, themeConfig.value.isClassicSplitMenu],
 	([isShowLogoChange, isShowLogo, layout, isClassicSplitMenu]) => {
@@ -148,7 +148,7 @@ watch(
 		if (layout === 'classic' && isClassicSplitMenu) return false;
 	}
 );
-// 监听用户权限切换，用于演示 `权限管理 -> 前端控制 -> 页面权限` 权限切换不生效
+// 监听用户权限切换,用于演示 `权限管理 -> 前端控制 -> 页面权限` 权限切换不生效
 watch(
 	() => routesList.value,
 	() => {

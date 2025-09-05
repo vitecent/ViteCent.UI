@@ -39,7 +39,7 @@
 								@keyup.enter.native.stop="onLockScreenSubmit()"
 							>
 								<template #append>
-									<el-button @click="onLockScreenSubmit">
+									<el-button @click.native.prevent="onLockScreenSubmit">
 										<el-icon class="el-input__icon">
 											<ele-Right />
 										</el-icon>
@@ -49,9 +49,9 @@
 						</div>
 					</div>
 					<div class="layout-lock-screen-login-icon">
-						<SvgIcon name="ele-Microphone" :size="20" />
-						<SvgIcon name="ele-AlarmClock" :size="20" />
-						<SvgIcon name="ele-SwitchButton" :size="20" />
+						<SvgIcon name="ele-Microphone" />
+						<SvgIcon name="ele-AlarmClock" />
+						<SvgIcon name="ele-SwitchButton" />
 					</div>
 				</div>
 			</transition>
@@ -147,7 +147,7 @@ const initGetElement = () => {
 const initTime = () => {
 	state.time.hm = formatDate(new Date(), 'HH:MM');
 	state.time.s = formatDate(new Date(), 'SS');
-	state.time.mdq = formatDate(new Date(), 'mm月dd日，WWW');
+	state.time.mdq = formatDate(new Date(), 'mm月dd日,WWW');
 };
 // 时间初始化定时器
 const initSetTime = () => {

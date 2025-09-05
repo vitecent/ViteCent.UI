@@ -3,8 +3,7 @@
 		<SvgIcon
 			class="layout-navbars-breadcrumb-icon"
 			:name="themeConfig.isCollapse ? 'ele-Expand' : 'ele-Fold'"
-			:size="16"
-			@click="onThemeConfigChange"
+			@click.native.prevent="onThemeConfigChange"
 		/>
 		<el-breadcrumb class="layout-navbars-breadcrumb-hide">
 			<transition-group name="breadcrumb">
@@ -82,7 +81,7 @@ const getBreadcrumbList = (arr: RouteItems) => {
 		});
 	});
 };
-// 当前路由字符串切割成数组，并删除第一项空内容
+// 当前路由字符串切割成数组,并删除第一项空内容
 const initRouteSplit = (path: string) => {
 	if (!themeConfig.value.isBreadcrumb) return false;
 	state.breadcrumbList = [routesList.value[0]];

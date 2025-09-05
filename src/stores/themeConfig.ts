@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 /**
  * 布局配置
- * 修改配置时：
+ * 修改配置时:
  * 1、需要每次都清理 `window.localStorage` 浏览器永久缓存
  * 2、或者点击布局配置最底部 `一键恢复默认` 按钮即可看到效果
  */
@@ -63,7 +63,7 @@ export const useThemeConfig = defineStore('themeConfig', {
 			isUniqueOpened: false,
 			// 是否开启固定 Header
 			isFixedHeader: false,
-			// 初始化变量，用于更新菜单 el-scrollbar 的高度，请勿删除
+			// 初始化变量,用于更新菜单 el-scrollbar 的高度,请勿删除
 			isFixedHeaderChange: false,
 			// 是否开启经典布局分割菜单（仅经典布局生效）
 			isClassicSplitMenu: false,
@@ -77,9 +77,9 @@ export const useThemeConfig = defineStore('themeConfig', {
 			 */
 			// 是否开启侧边栏 Logo
 			isShowLogo: true,
-			// 初始化变量，用于 el-scrollbar 的高度更新，请勿删除
+			// 初始化变量,用于 el-scrollbar 的高度更新,请勿删除
 			isShowLogoChange: true,
-			// 是否开启 Breadcrumb，强制经典、横向布局不显示
+			// 是否开启 Breadcrumb,强制经典、横向布局不显示
 			isBreadcrumb: true,
 			// 是否开启 Tagsview
 			isTagsview: false,
@@ -107,22 +107,22 @@ export const useThemeConfig = defineStore('themeConfig', {
 			/**
 			 * 其它设置
 			 */
-			// Tagsview 风格：可选值"<tags-style-one|tags-style-four|tags-style-five>"，默认 tags-style-five
+			// Tagsview 风格:可选值"<tags-style-one|tags-style-four|tags-style-five>",默认 tags-style-five
 			// 定义的值与 `/src/layout/navBars/tagsView/tagsView.vue` 中的 class 同名
 			tagsStyle: 'tags-style-five',
-			// 主页面切换动画：可选值"<slide-right|slide-left|opacitys>"，默认 slide-right
+			// 主页面切换动画:可选值"<slide-right|slide-left|opacitys>",默认 slide-right
 			animation: 'slide-right',
-			// 分栏高亮风格：可选值"<columns-round|columns-card>"，默认 columns-round
+			// 分栏高亮风格:可选值"<columns-round|columns-card>",默认 columns-round
 			columnsAsideStyle: 'columns-round',
-			// 分栏布局风格：可选值"<columns-horizontal|columns-vertical>"，默认 columns-horizontal
+			// 分栏布局风格:可选值"<columns-horizontal|columns-vertical>",默认 columns-horizontal
 			columnsAsideLayout: 'columns-vertical',
 
 			/**
 			 * 布局切换
-			 * 注意：为了演示，切换布局时，颜色会被还原成默认，代码位置：@/layout/navBars/topBar/setings.vue
-			 * 中的 `initSetLayoutChange(设置布局切换，重置主题样式)` 方法
+			 * 注意:为了演示,切换布局时,颜色会被还原成默认,代码位置:@/layout/navBars/topBar/setings.vue
+			 * 中的 `initSetLayoutChange(设置布局切换,重置主题样式)` 方法
 			 */
-			// 布局切换：可选值"<defaults|classic|transverse|columns>"，默认 defaults
+			// 布局切换:可选值"<defaults|classic|transverse|columns>",默认 defaults
 			layout: 'transverse',
 
 			/**
@@ -140,9 +140,9 @@ export const useThemeConfig = defineStore('themeConfig', {
 			globalViceTitle: '模板',
 			// 网站副标题（登录页顶部文字）
 			globalViceTitleMsg: '欢迎使用模板',
-			// 默认初始语言，可选值"<zh-cn|en>"，默认 zh-cn
+			// 默认初始语言,可选值"<zh-cn|en>",默认 zh-cn
 			globalI18n: 'zh-cn',
-			// 默认全局组件大小，可选值"<large|'default'|small>"，默认 'large'
+			// 默认全局组件大小,可选值"<large|'default'|small>",默认 'large'
 			globalComponentSize: 'default',
 		},
 	}),

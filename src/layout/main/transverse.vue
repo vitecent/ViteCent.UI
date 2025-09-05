@@ -21,11 +21,11 @@ const storesThemeConfig = useThemeConfig();
 const { themeConfig } = storeToRefs(storesThemeConfig);
 const route = useRoute();
 
-// 重置滚动条高度，更新子级 scrollbar
+// 重置滚动条高度,更新子级 scrollbar
 const updateScrollbar = () => {
 	layoutMainRef.value!.layoutMainScrollbarRef.update();
 };
-// 重置滚动条高度，由于组件是异步引入的
+// 重置滚动条高度,由于组件是异步引入的
 const initScrollBarHeight = () => {
 	nextTick(() => {
 		setTimeout(() => {
@@ -38,14 +38,14 @@ const initScrollBarHeight = () => {
 onMounted(() => {
 	initScrollBarHeight();
 });
-// 监听路由的变化，切换界面时，滚动条置顶
+// 监听路由的变化,切换界面时,滚动条置顶
 watch(
 	() => route.path,
 	() => {
 		initScrollBarHeight();
 	}
 );
-// 监听 themeConfig 配置文件的变化，更新菜单 el-scrollbar 的高度
+// 监听 themeConfig 配置文件的变化,更新菜单 el-scrollbar 的高度
 watch(
 	() => themeConfig.value.isTagsview,
 	() => {

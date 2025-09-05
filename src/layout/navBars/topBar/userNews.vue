@@ -2,7 +2,7 @@
 	<div class="layout-navbars-breadcrumb-user-news">
 		<div class="head-box">
 			<div class="head-box-title">{{ $t('message.user.newsTitle') }}</div>
-			<div class="head-box-btn" v-if="state.newsList.length > 0" @click="onAllReadClick">{{ $t('message.user.newsBtn') }}</div>
+			<div class="head-box-btn" v-if="state.newsList.length > 0" @click.native.prevent="onAllReadClick">{{ $t('message.user.newsBtn') }}</div>
 		</div>
 		<div class="content-box">
 			<template v-if="state.newsList.length > 0">

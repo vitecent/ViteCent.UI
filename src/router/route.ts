@@ -1,18 +1,18 @@
 import { RouteRecordRaw } from 'vue-router';
 
 /**
- * 建议：路由 path 路径与文件夹名称相同，找文件可浏览器地址找，方便定位文件位置
+ * 建议:路由 path 路径与文件夹名称相同,找文件可浏览器地址找,方便定位文件位置
  *
  * 路由meta对象参数说明
  * meta: {
  *      title:          菜单栏及 tagsView 栏、菜单搜索名称（国际化）
- *      isLink：        是否超链接菜单，开启外链条件，`1、isLink: 链接地址不为空 2、isIframe:false`
- *      isHide：        是否隐藏此路由
- *      isKeepAlive：   是否缓存组件状态
- *      isAffix：       是否固定在 tagsView 栏上
- *      isIframe：      是否内嵌窗口，开启条件，`1、isIframe:true 2、isLink：链接地址不为空`
- *      roles：         当前路由权限标识，取角色管理。控制路由显示、隐藏。超级管理员：admin 普通角色：common
- *      icon：          菜单、tagsView 图标，阿里：加 `iconfont xxx`，fontawesome：加 `fa xxx`
+ *      isLink:        是否超链接菜单,开启外链条件,`1、isLink: 链接地址不为空 2、isIframe:false`
+ *      isHide:        是否隐藏此路由
+ *      isKeepAlive:   是否缓存组件状态
+ *      isAffix:       是否固定在 tagsView 栏上
+ *      isIframe:      是否内嵌窗口,开启条件,`1、isIframe:true 2、isLink:链接地址不为空`
+ *      roles:         当前路由权限标识,取角色管理。控制路由显示、隐藏。超级管理员:admin 普通角色:common
+ *      icon:          菜单、tagsView 图标,阿里:加 `iconfont xxx`,fontawesome:加 `fa xxx`
  * }
  */
 
@@ -32,8 +32,8 @@ declare module 'vue-router' {
 
 /**
  * 定义动态路由
- * 前端添加路由，请在顶级节点的 `children 数组` 里添加
- * @description 未开启 isRequestRoutes 为 true 时使用（前端控制路由），开启时第一个顶级 children 的路由将被替换成接口请求回来的路由数据
+ * 前端添加路由,请在顶级节点的 `children 数组` 里添加
+ * @description 未开启 isRequestRoutes 为 true 时使用（前端控制路由）,开启时第一个顶级 children 的路由将被替换成接口请求回来的路由数据
  * @description 各字段请查看 `@/views/system/menu/component/addMenu.vue 下的 ruleForm`
  * @returns 返回路由菜单数据
  */
@@ -68,7 +68,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 					title: 'message.router.data',
 					isKeepAlive: true,
 					roles: ['admin'],
-					icon: 'ele-Coin',
+					icon: 'ele-Suitcase',
 				},
 				children: [
 					{
@@ -79,7 +79,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.dataDatabase',
 							isKeepAlive: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Coin',
 						},
 					},
 					{
@@ -90,7 +90,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addDatabase',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Coin',
 						},
 					},
 					{
@@ -101,7 +101,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editDatabase',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Coin',
 						},
 					},
 					{
@@ -112,7 +112,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.databaseDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Coin',
 						},
 					},
 					{
@@ -123,7 +123,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.dataTable',
 							isKeepAlive: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Folder',
 						},
 					},
 					{
@@ -134,7 +134,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addTable',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Folder',
 						},
 					},
 					{
@@ -145,7 +145,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editTable',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Folder',
 						},
 					},
 					{
@@ -156,7 +156,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.tableDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Folder',
 						},
 					},
 					{
@@ -167,7 +167,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.dataField',
 							isKeepAlive: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Files',
 						},
 					},
 					{
@@ -178,7 +178,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addField',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Files',
 						},
 					},
 					{
@@ -189,7 +189,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editField',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Files',
 						},
 					},
 					{
@@ -200,7 +200,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.fieldDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Files',
 						},
 					},
 				]
@@ -214,7 +214,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 					title: 'message.router.microservice',
 					isKeepAlive: true,
 					roles: ['admin'],
-					icon: 'iconfont icon-caidan',
+					icon: 'ele-Grid',
 				},
 				children: [
 					{
@@ -225,7 +225,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.microserviceService',
 							isKeepAlive: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-MostlyCloudy',
 						},
 					},
 					{
@@ -236,7 +236,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addService',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-MostlyCloudy',
 						},
 					},
 					{
@@ -247,7 +247,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editService',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-MostlyCloudy',
 						},
 					},
 					{
@@ -258,7 +258,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.serviceDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-MostlyCloudy',
 						},
 					},
 					{
@@ -269,7 +269,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.microserviceResource',
 							isKeepAlive: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Menu',
 						},
 					},
 					{
@@ -280,7 +280,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addResource',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Menu',
 						},
 					},
 					{
@@ -291,7 +291,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editResource',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Menu',
 						},
 					},
 					{
@@ -302,7 +302,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.resourceDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Menu',
 						},
 					},
 					{
@@ -313,7 +313,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.microserviceOperation',
 							isKeepAlive: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Pointer',
 						},
 					},
 					{
@@ -324,7 +324,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addOperation',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Pointer',
 						},
 					},
 					{
@@ -335,7 +335,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editOperation',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Pointer',
 						},
 					},
 					{
@@ -346,7 +346,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.operationDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Pointer',
 						},
 					},
 				]
@@ -371,7 +371,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.settingCompany',
 							isKeepAlive: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-OfficeBuilding',
 						},
 					},
 					{
@@ -382,7 +382,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addCompany',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-OfficeBuilding',
 						},
 					},
 					{
@@ -393,7 +393,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editCompany',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-OfficeBuilding',
 						},
 					},
 					{
@@ -404,7 +404,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.companyDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-OfficeBuilding',
 						},
 					},
 					{
@@ -426,7 +426,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addDepartment',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'iconfont icon-shuxingtu',
 						},
 					},
 					{
@@ -437,7 +437,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editDepartment',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'iconfont icon-shuxingtu',
 						},
 					},
 					{
@@ -448,7 +448,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.departmentDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'iconfont icon-shuxingtu',
 						},
 					},
 					{
@@ -459,7 +459,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.settingPosition',
 							isKeepAlive: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Position',
 						},
 					},
 					{
@@ -470,7 +470,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addPosition',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Position',
 						},
 					},
 					{
@@ -481,7 +481,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editPosition',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Position',
 						},
 					},
 					{
@@ -492,7 +492,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.positionDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-Position',
 						},
 					},
 					{
@@ -503,7 +503,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.settingRole',
 							isKeepAlive: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-PriceTag',
 						},
 					},
 					{
@@ -514,7 +514,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addRole',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-PriceTag',
 						},
 					},
 					{
@@ -525,7 +525,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editRole',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-PriceTag',
 						},
 					},
 					{
@@ -536,7 +536,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.roleDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-PriceTag',
 						},
 					},
 					{
@@ -547,7 +547,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.settingUser',
 							isKeepAlive: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-gerenzhongxin',
+							icon: 'ele-User',
 						},
 					},
 					{
@@ -558,7 +558,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addUser',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-User',
 						},
 					},
 					{
@@ -569,7 +569,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editUser',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-User',
 						},
 					},
 					{
@@ -580,7 +580,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.userDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'ele-User',
 						},
 					},
 					{
@@ -602,7 +602,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.addDictionary',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'iconfont icon-zhongduancanshuchaxun',
 						},
 					},
 					{
@@ -613,7 +613,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.editDictionary',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'iconfont icon-zhongduancanshuchaxun',
 						},
 					},
 					{
@@ -624,7 +624,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							title: 'message.router.dictionaryDetails',
 							isHide: true,
 							roles: ['admin'],
-							icon: 'iconfont icon-caidan',
+							icon: 'iconfont icon-zhongduancanshuchaxun',
 						},
 					},
 					{
@@ -649,7 +649,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 					isKeepAlive: true,
 					isAffix: true,
 					roles: ['admin'],
-					icon: 'iconfont icon-caidan',
+					icon: 'iconfont icon-zujian',
 				},
 			},
 			{
@@ -670,7 +670,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 
 /**
  * 定义404、401界面
- * @link 参考：https://next.router.vuejs.org/zh/guide/essentials/history-mode.html#netlify
+ * @link 参考:https://next.router.vuejs.org/zh/guide/essentials/history-mode.html#netlify
  */
 export const notFoundAndNoPower = [
 	{
@@ -707,8 +707,8 @@ export const notFoundAndNoPower = [
 
 /**
  * 定义静态路由（默认路由）
- * 此路由不要动，前端添加路由的话，请在 `dynamicRoutes 数组` 中添加
- * @description 前端控制直接改 dynamicRoutes 中的路由，后端控制不需要修改，请求接口路由数据时，会覆盖 dynamicRoutes 第一个顶级 children 的内容（全屏，不包含 layout 中的路由出口）
+ * 此路由不要动,前端添加路由的话,请在 `dynamicRoutes 数组` 中添加
+ * @description 前端控制直接改 dynamicRoutes 中的路由,后端控制不需要修改,请求接口路由数据时,会覆盖 dynamicRoutes 第一个顶级 children 的内容（全屏,不包含 layout 中的路由出口）
  * @returns 返回路由菜单数据
  */
 export const staticRoutes: Array<RouteRecordRaw> = [

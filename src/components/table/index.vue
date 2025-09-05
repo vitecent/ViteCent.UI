@@ -122,7 +122,7 @@ const props = defineProps({
 		type: Object,
 		default: () => {},
 	},
-	// 打印标题
+
 	printName: {
 		type: String,
 		default: () => '',
@@ -130,14 +130,13 @@ const props = defineProps({
 });
 
 // 定义子组件向父组件传值/事件
-const emit = defineEmits(['pageChange', 'sortHeader']);
+const emit = defineEmits(['pageChange', 'sortHeader', 'selectChange']);
 
 const state = reactive({
 	page: {
 		offset: 1,
 		limit: 10,
 	},
-	selectlist: [] as EmptyObjectType[],
 	checkListAll: true,
 	checkListIndeterminate: false,
 });
@@ -168,7 +167,7 @@ const onCheckChange = () => {
 };
 // 表格多选改变时
 const onSelectionChange = (val: EmptyObjectType[]) => {
-	state.selectlist = val;
+	emit('selectChange', val);
 };
 // 分页改变
 const onSizeChange = (val: number) => {

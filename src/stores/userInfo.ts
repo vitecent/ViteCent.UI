@@ -33,14 +33,14 @@ export const useUserInfo = defineStore('userInfo', {
 		async getApiUserInfo() {
 			return api.getUserInfo().then(res => {
 				return new Promise((resolve) => {
-					// 模拟数据，请求接口时，记得删除多余代码及对应依赖的引入
-					const userName = res.data.name;
+					// 模拟数据,请求接口时,记得删除多余代码及对应依赖的引入
+					const username = res.data.name;
 					// 模拟数据
 					let defaultRoles: Array<string> = [];
 					let defaultAuthBtnList: Array<string> = [];
-					// admin 页面权限标识，对应路由 meta.roles，用于控制路由的显示/隐藏
+					// admin 页面权限标识,对应路由 meta.roles,用于控制路由的显示/隐藏
 					let adminRoles: Array<string> = ['admin'];
-					// common 页面权限标识，对应路由 meta.roles，用于控制路由的显示/隐藏
+					// common 页面权限标识,对应路由 meta.roles,用于控制路由的显示/隐藏
 					let commonRoles: Array<string> = ['common'];
 					//  按钮权限标识
 					let authBtnList: Array<string> = res.data.auth;
@@ -54,7 +54,7 @@ export const useUserInfo = defineStore('userInfo', {
 					}
 					// 用户信息模拟数据
 					const userInfos = {
-						userName: userName,
+						userName: username,
 						photo: '/src/assets/logo-mini.svg',
 						time: new Date().getTime(),
 						roles: defaultRoles,
@@ -65,7 +65,7 @@ export const useUserInfo = defineStore('userInfo', {
 				});
 			}).catch(error => {
 				return new Promise((resolve) => {
-					// common 页面权限标识，对应路由 meta.roles，用于控制路由的显示/隐藏
+					// common 页面权限标识,对应路由 meta.roles,用于控制路由的显示/隐藏
 					let commonRoles: Array<string> = ['common'];
 					//  按钮权限标识
 					let authBtnList: Array<string> = [];

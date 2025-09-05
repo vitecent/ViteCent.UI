@@ -263,7 +263,7 @@
 				<div class="layout-breadcrumb-seting-bar-flex mt14">
 					<div class="layout-breadcrumb-seting-bar-flex-label">{{ $t('message.layout.fourWartermarkText') }}</div>
 					<div class="layout-breadcrumb-seting-bar-flex-value">
-						<el-input v-model="getThemeConfig.wartermarkText" style="width: 90px" @input="onWartermarkTextInput"></el-input>
+						<el-input v-model="getThemeConfig.wartermarkText" style="width: 90px" @input="onWartermarkTextInput" />
 					</div>
 				</div>
 
@@ -324,7 +324,7 @@
 				<el-divider content-position="left">{{ $t('message.layout.sixTitle') }}</el-divider>
 				<div class="layout-drawer-content-flex">
 					<!-- defaults 布局 -->
-					<div class="layout-drawer-content-item" @click="onSetLayout('defaults')">
+					<div class="layout-drawer-content-item" @click.native.prevent="onSetLayout('defaults')">
 						<section class="el-container el-circular" :class="{ 'drawer-layout-active': getThemeConfig.layout === 'defaults' }">
 							<aside class="el-aside" style="width: 20px"></aside>
 							<section class="el-container is-vertical">
@@ -339,7 +339,7 @@
 						</div>
 					</div>
 					<!-- classic 布局 -->
-					<div class="layout-drawer-content-item" @click="onSetLayout('classic')">
+					<div class="layout-drawer-content-item" @click.native.prevent="onSetLayout('classic')">
 						<section class="el-container is-vertical el-circular" :class="{ 'drawer-layout-active': getThemeConfig.layout === 'classic' }">
 							<header class="el-header" style="height: 10px"></header>
 							<section class="el-container">
@@ -356,7 +356,7 @@
 						</div>
 					</div>
 					<!-- transverse 布局 -->
-					<div class="layout-drawer-content-item" @click="onSetLayout('transverse')">
+					<div class="layout-drawer-content-item" @click.native.prevent="onSetLayout('transverse')">
 						<section class="el-container is-vertical el-circular" :class="{ 'drawer-layout-active': getThemeConfig.layout === 'transverse' }">
 							<header class="el-header" style="height: 10px"></header>
 							<section class="el-container">
@@ -372,7 +372,7 @@
 						</div>
 					</div>
 					<!-- columns 布局 -->
-					<div class="layout-drawer-content-item" @click="onSetLayout('columns')">
+					<div class="layout-drawer-content-item" @click.native.prevent="onSetLayout('columns')">
 						<section class="el-container el-circular" :class="{ 'drawer-layout-active': getThemeConfig.layout === 'columns' }">
 							<aside class="el-aside-dark" style="width: 10px"></aside>
 							<aside class="el-aside" style="width: 20px"></aside>
@@ -560,7 +560,7 @@ const initLayoutChangeFun = () => {
 	onBgColorPickerChange('columnsMenuBar');
 	onBgColorPickerChange('columnsMenuBarColor');
 };
-// 关闭弹窗时，初始化变量。变量用于处理 layoutScrollbarRef.value.update() 更新滚动条高度
+// 关闭弹窗时,初始化变量。变量用于处理 layoutScrollbarRef.value.update() 更新滚动条高度
 const onDrawerClose = () => {
 	getThemeConfig.value.isFixedHeaderChange = false;
 	getThemeConfig.value.isShowLogoChange = false;
@@ -596,10 +596,10 @@ const initSetStyle = () => {
 };
 onMounted(() => {
 	nextTick(() => {
-		// 判断当前布局是否不相同，不相同则初始化当前布局的样式，防止监听窗口大小改变时，布局配置logo、菜单背景等部分布局失效问题
+		// 判断当前布局是否不相同,不相同则初始化当前布局的样式,防止监听窗口大小改变时,布局配置logo、菜单背景等部分布局失效问题
 		if (!Local.get('frequency')) initLayoutChangeFun();
 		Local.set('frequency', 1);
-		// 监听窗口大小改变，非默认布局，设置成默认布局（适配移动端）
+		// 监听窗口大小改变,非默认布局,设置成默认布局（适配移动端）
 		mittBus.on('layoutMobileResize', (res: LayoutMobileResize) => {
 			getThemeConfig.value.layout = res.layout;
 			getThemeConfig.value.isDrawer = false;

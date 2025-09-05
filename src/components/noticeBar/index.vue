@@ -6,7 +6,7 @@
 				<div class="notice-bar-warp-text" ref="noticeBarTextRef" v-if="!scrollable">{{ text }}</div>
 				<div class="notice-bar-warp-slot" v-else><slot /></div>
 			</div>
-			<SvgIcon :name="rightIcon" v-if="rightIcon" class="notice-bar-warp-right-icon" @click="onRightIconClick" />
+			<SvgIcon :name="rightIcon" v-if="rightIcon" class="notice-bar-warp-right-icon" @click.native.prevent="onRightIconClick" />
 		</div>
 	</div>
 </template>
@@ -16,7 +16,7 @@ import { reactive, ref, onMounted, nextTick } from 'vue';
 
 // 定义父组件传过来的值
 const props = defineProps({
-	// 通知栏模式，可选值为 closeable link
+	// 通知栏模式,可选值为 closeable link
 	mode: {
 		type: String,
 		default: () => '',
@@ -36,12 +36,12 @@ const props = defineProps({
 		type: String,
 		default: () => 'var(--el-color-warning-light-9)',
 	},
-	// 字体大小，单位px
+	// 字体大小,单位px
 	size: {
 		type: [Number, String],
 		default: () => 14,
 	},
-	// 通知栏高度，单位px
+	// 通知栏高度,单位px
 	height: {
 		type: Number,
 		default: () => 40,

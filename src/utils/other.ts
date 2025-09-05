@@ -15,7 +15,7 @@ const SvgIcon = defineAsyncComponent(() => import('@/components/svgIcon/index.vu
 /**
  * 导出全局注册 element plus svg 图标
  * @param app vue 实例
- * @description 使用：https://element-plus.gitee.io/zh-CN/component/icon.html
+ * @description 使用:https://element-plus.gitee.io/zh-CN/component/icon.html
  */
 export function elSvg(app: App) {
 	const icons = svg as any;
@@ -79,7 +79,7 @@ export function setTagsViewNameI18n(item: any) {
  * @description data-xxx 属性用于存储页面或应用程序的私有自定义数据
  */
 export const lazyImg = (el: string, arr: EmptyArrayType) => {
-	const io = new IntersectionObserver((res) => {
+	const io = new IntersectionObserver(res => {
 		res.forEach((v: any) => {
 			if (v.isIntersecting) {
 				const { img, key } = v.target.dataset;
@@ -144,7 +144,7 @@ export function isMobile() {
 }
 
 /**
- * 判断数组对象中所有属性是否为空，为空则删除当前行对象
+ * 判断数组对象中所有属性是否为空,为空则删除当前行对象
  * @description @感谢大黄
  * @param list 数组对象
  * @returns 删除空值后的数组对象
@@ -184,7 +184,7 @@ export function handleOpenLink(val: RouteItem) {
  * @method globalComponentSize() element plus 全局组件大小
  * @method deepClone 对象深克隆
  * @method isMobile 判断是否是移动端
- * @method handleEmpty 判断数组对象中所有属性是否为空，为空则删除当前行对象
+ * @method handleEmpty 判断数组对象中所有属性是否为空,为空则删除当前行对象
  * @method handleOpenLink 打开外部链接
  */
 const other = {

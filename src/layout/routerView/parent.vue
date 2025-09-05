@@ -61,7 +61,7 @@ const getIframeListRoutes = async () => {
 		}
 	});
 };
-// 页面加载前，处理缓存，页面刷新时路由缓存处理
+// 页面加载前,处理缓存,页面刷新时路由缓存处理
 onBeforeMount(() => {
 	state.keepAliveNameList = keepAliveNames.value;
 	mittBus.on('onTagsViewRefreshRouterView', (fullPath: string) => {
@@ -78,9 +78,7 @@ onBeforeMount(() => {
 // 页面加载时
 onMounted(() => {
 	getIframeListRoutes();
-	 
-	 
-	 
+
 	nextTick(() => {
 		setTimeout(() => {
 			if (themeConfig.value.isCacheTagsView) {
@@ -94,7 +92,7 @@ onMounted(() => {
 onUnmounted(() => {
 	mittBus.off('onTagsViewRefreshRouterView', () => {});
 });
-// 监听路由变化，防止 tagsView 多标签时，切换动画消失
+// 监听路由变化,防止 tagsView 多标签时,切换动画消失
 watch(
 	() => route.fullPath,
 	() => {

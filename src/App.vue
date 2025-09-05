@@ -34,7 +34,7 @@ const { themeConfig } = storeToRefs(storesThemeConfig);
 
 // 设置锁屏时组件显示隐藏
 const setLockScreen = computed(() => {
-	// 防止锁屏后，刷新出现不相关界面
+	// 防止锁屏后,刷新出现不相关界面
 
 	return themeConfig.value.isLockScreen ? themeConfig.value.lockScreenTime > 1 : themeConfig.value.lockScreenTime >= 0;
 });
@@ -46,7 +46,7 @@ const getGlobalComponentSize = computed(() => {
 const getGlobalI18n = computed(() => {
 	return messages.value[locale.value];
 });
-// 设置初始化，防止刷新时恢复默认
+// 设置初始化,防止刷新时恢复默认
 onBeforeMount(() => {
 	// 设置批量第三方 icon 图标
 	setIntroduction.cssCdn();
@@ -71,11 +71,11 @@ onMounted(() => {
 		}
 	});
 });
-// 页面销毁时，关闭监听布局配置/i18n监听
+// 页面销毁时,关闭监听布局配置/i18n监听
 onUnmounted(() => {
 	mittBus.off('openSetingsDrawer', () => {});
 });
-// 监听路由的变化，设置网站标题
+// 监听路由的变化,设置网站标题
 watch(
 	() => route.path,
 	() => {

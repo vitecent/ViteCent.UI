@@ -1,6 +1,6 @@
 /**
- * 工具类集合，适用于平时开发
- * 新增多行注释信息，鼠标放到方法名即可查看
+ * 工具类集合,适用于平时开发
+ * 新增多行注释信息,鼠标放到方法名即可查看
  */
 
 /**
@@ -11,11 +11,11 @@
 export function verifyNumberPercentage(val: string): string {
 	// 匹配空格
 	let v = val.replace(/(^\s*)|(\s*$)/g, '');
-	// 只能是数字和小数点，不能是其他输入
+	// 只能是数字和小数点,不能是其他输入
 	v = v.replace(/[^\d]/g, '');
 	// 不能以0开始
 	v = v.replace(/^0/g, '');
-	// 数字超过100，赋值成最大值100
+	// 数字超过100,赋值成最大值100
 	v = v.replace(/^[1-9]\d\d{1,3}$/, '100');
 	// 返回结果
 	return v;
@@ -28,7 +28,7 @@ export function verifyNumberPercentage(val: string): string {
  */
 export function verifyNumberPercentageFloat(val: string): string {
 	let v = verifyNumberIntegerAndFloat(val);
-	// 数字超过100，赋值成最大值100
+	// 数字超过100,赋值成最大值100
 	v = v.replace(/^[1-9]\d\d{1,3}$/, '100');
 	// 超过100之后不给再输入值
 	v = v.replace(/^100\.$/, '100');
@@ -44,11 +44,11 @@ export function verifyNumberPercentageFloat(val: string): string {
 export function verifyNumberIntegerAndFloat(val: string) {
 	// 匹配空格
 	let v = val.replace(/(^\s*)|(\s*$)/g, '');
-	// 只能是数字和小数点，不能是其他输入
+	// 只能是数字和小数点,不能是其他输入
 	v = v.replace(/[^\d.]/g, '');
 	// 以0开始只能输入一个
 	v = v.replace(/^0{2}$/g, '0');
-	// 保证第一位只能是数字，不能是点
+	// 保证第一位只能是数字,不能是点
 	v = v.replace(/^\./g, '');
 	// 小数只能出现1位
 	v = v.replace('.', '$#$').replace(/\./g, '').replace('$#$', '.');
@@ -128,7 +128,7 @@ export function verifyNumberComma(val: string) {
 	let v: any = verifyNumberIntegerAndFloat(val);
 	// 字符串转成数组
 	v = v.toString().split('.');
-	// \B 匹配非单词边界，两边都是单词字符或者两边都是非单词字符
+	// \B 匹配非单词边界,两边都是单词字符或者两边都是非单词字符
 	v[0] = v[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	// 数组转字符串
 	v = v.join('.');
@@ -144,7 +144,7 @@ export function verifyNumberComma(val: string) {
  * @returns 返回处理后的字符串
  */
 export function verifyTextColor(val: string, text = '', color = 'red') {
-	// 返回内容，添加颜色
+	// 返回内容,添加颜色
 	let v = text.replace(new RegExp(val, 'gi'), `<span style='color: ${color}'>${val}</span>`);
 	// 返回结果
 	return v;
@@ -153,17 +153,17 @@ export function verifyTextColor(val: string, text = '', color = 'red') {
 /**
  * 数字转中文大写
  * @param val 当前值字符串
- * @param unit 默认：仟佰拾亿仟佰拾万仟佰拾元角分
+ * @param unit 默认:仟佰拾亿仟佰拾万仟佰拾元角分
  * @returns 返回处理后的字符串
  */
 export function verifyNumberCnUppercase(val: any, unit = '仟佰拾亿仟佰拾万仟佰拾元角分', v = '') {
-	// 当前内容字符串添加 2个0，为什么??
+	// 当前内容字符串添加 2个0,为什么??
 	val += '00';
-	// 返回某个指定的字符串值在字符串中首次出现的位置，没有出现，则该方法返回 -1
+	// 返回某个指定的字符串值在字符串中首次出现的位置,没有出现,则该方法返回 -1
 	let lookup = val.indexOf('.');
-	// substring：不包含结束下标内容，substr：包含结束下标内容
+	// substring:不包含结束下标内容,substr:包含结束下标内容
 	if (lookup >= 0) val = val.substring(0, lookup) + val.substr(lookup + 1, 2);
-	// 根据内容 val 的长度，截取返回对应大写
+	// 根据内容 val 的长度,截取返回对应大写
 	unit = unit.substr(unit.length - val.length);
 	// 循环截取拼接大写
 	for (let i = 0; i < val.length; i++) {
@@ -207,7 +207,7 @@ export function verifyTelPhone(val: string) {
 }
 
 /**
- * 登录账号 (字母开头，允许5-16字节，允许字母数字下划线)
+ * 登录账号 (字母开头,允许5-16字节,允许字母数字下划线)
  * @param val 当前值字符串
  * @returns 返回 true: 登录账号正确
  */
@@ -219,7 +219,7 @@ export function verifyAccount(val: string) {
 }
 
 /**
- * 密码 (以字母开头，长度在6~16之间，只能包含字母、数字和下划线)
+ * 密码 (以字母开头,长度在6~16之间,只能包含字母、数字和下划线)
  * @param val 当前值字符串
  * @returns 返回 true: 密码正确
  */
@@ -231,7 +231,7 @@ export function verifyPassword(val: string) {
 }
 
 /**
- * 强密码 (字母+数字+特殊字符，长度在6-16之间)
+ * 强密码 (字母+数字+特殊字符,长度在6-16之间)
  * @param val 当前值字符串
  * @returns 返回 true: 强密码正确
  */
@@ -246,18 +246,18 @@ export function verifyPasswordPowerful(val: string) {
 /**
  * 密码强度
  * @param val 当前值字符串
- * @description 弱：纯数字，纯字母，纯特殊字符
- * @description 中：字母+数字，字母+特殊字符，数字+特殊字符
- * @description 强：字母+数字+特殊字符
- * @returns 返回处理后的字符串：弱、中、强
+ * @description 弱:纯数字,纯字母,纯特殊字符
+ * @description 中:字母+数字,字母+特殊字符,数字+特殊字符
+ * @description 强:字母+数字+特殊字符
+ * @returns 返回处理后的字符串:弱、中、强
  */
 export function verifyPasswordStrength(val: string) {
 	let v = '';
-	// 弱：纯数字，纯字母，纯特殊字符
+	// 弱:纯数字,纯字母,纯特殊字符
 	if (/^(?:\d+|[a-zA-Z]+|[!@#$%^&\.*]+){6,16}$/.test(val)) v = '弱';
-	// 中：字母+数字，字母+特殊字符，数字+特殊字符
+	// 中:字母+数字,字母+特殊字符,数字+特殊字符
 	if (/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val)) v = '中';
-	// 强：字母+数字+特殊字符
+	// 强:字母+数字+特殊字符
 	if (/^(?![a-zA-z]+$)(?!\d+$)(?![!@#$%^&\.*]+$)(?![a-zA-z\d]+$)(?![a-zA-z!@#$%^&\.*]+$)(?![\d!@#$%^&\.*]+$)[a-zA-Z\d!@#$%^&\.*]{6,16}$/.test(val))
 		v = '强';
 	// 返回结果
@@ -354,7 +354,7 @@ export function verifyUrl(val: string) {
 /**
  * 车牌号
  * @param val 当前值字符串
- * @returns 返回 true：车牌号正确
+ * @returns 返回 true:车牌号正确
  */
 export function verifyCarNum(val: string) {
 	// false: 车牌号不正确
@@ -364,6 +364,6 @@ export function verifyCarNum(val: string) {
 		)
 	)
 		return false;
-	// true：车牌号正确
+	// true:车牌号正确
 	else return true;
 }

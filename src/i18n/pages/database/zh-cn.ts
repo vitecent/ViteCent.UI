@@ -26,6 +26,8 @@ export default {
 		status: '状态',
 		statusPlaceholder: '请输入状态',
 		description: '描述',
-		descriptionPlaceholder: '请输入描述'
+		descriptionPlaceholder: '请输入描述',
+		sync: '同步结构',
+		sql: '生成脚本'
 	}
 };

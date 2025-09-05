@@ -47,7 +47,7 @@ const props = defineProps({
 const iframeRef = ref();
 const route = useRoute();
 
-// 处理 list 列表，当打开时，才进行加载
+// 处理 list 列表,当打开时,才进行加载
 const setIframeList = computed(() => {
 	return (<RouteItems>props.list).filter((v: RouteItem) => v.meta?.isIframeOpen);
 });
@@ -68,7 +68,7 @@ const closeIframeLoading = (val: string, item: RouteItem) => {
 		});
 	});
 };
-// 监听路由变化，初始化 iframe 数据，防止多个 iframe 时，切换不生效
+// 监听路由变化,初始化 iframe 数据,防止多个 iframe 时,切换不生效
 watch(
 	() => route.fullPath,
 	(val) => {
@@ -81,7 +81,7 @@ watch(
 		immediate: true,
 	}
 );
-// 监听 iframe refreshKey 变化，用于 tagsview 右键菜单刷新
+// 监听 iframe refreshKey 变化,用于 tagsview 右键菜单刷新
 watch(
 	() => props.refreshKey,
 	() => {

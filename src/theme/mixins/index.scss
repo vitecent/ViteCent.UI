@@ -29,13 +29,13 @@
 	-webkit-box-orient: vertical;
 }
 
-/* 滚动条(页面未使用) div 中使用：
+/* 滚动条(页面未使用) div 中使用:
   ------------------------------- */
 // .test {
 //   @include scrollBar;
 // }
 @mixin scrollBar {
-	// 滚动条凹槽的颜色，还可以设置边框属性
+	// 滚动条凹槽的颜色,还可以设置边框属性
 	&::-webkit-scrollbar-track-piece {
 		background-color: #f8f8f8;
 	}

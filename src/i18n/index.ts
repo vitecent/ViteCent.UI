@@ -6,9 +6,9 @@ import { useThemeConfig } from '@/stores/themeConfig';
 // 定义语言国际化内容
 
 /**
- * 说明：
- * 须在 pages 下新建文件夹（建议 `要国际化界面目录` 与 `i18n 目录` 相同，方便查找），
- * 注意国际化定义的字段，不要与原有的定义字段相同。
+ * 说明:
+ * 须在 pages 下新建文件夹（建议 `要国际化界面目录` 与 `i18n 目录` 相同,方便查找）,
+ * 注意国际化定义的字段,不要与原有的定义字段相同。
  * 1、/src/i18n/lang 下的 ts 为框架的国际化内容
  * 2、/src/i18n/pages 下的 ts 为各界面的国际化内容
  */
@@ -31,7 +31,7 @@ for (const path in modules) {
 	else itemize[key![2]] = modules[path];
 }
 
-// 合并数组对象（非标准数组对象，数组中对象的每项 key、value 都不同）
+// 合并数组对象（非标准数组对象,数组中对象的每项 key、value 都不同）
 function mergeArrObj(list: any, key: string) {
 	let obj = {};
 	list[key].forEach((i: EmptyObjectType) => {

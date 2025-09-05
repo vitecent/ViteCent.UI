@@ -32,7 +32,7 @@ const props = defineProps({
 		default: () => '请输入内容...',
 	},
 	// https://www.wangeditor.com/v5/getting-started.html#mode-%E6%A8%A1%E5%BC%8F
-	// 模式，可选 <default|simple>，默认 default
+	// 模式,可选 <default|simple>,默认 default
 	mode: {
 		type: String,
 		default: () => 'default',
@@ -42,9 +42,9 @@ const props = defineProps({
 		type: String,
 		default: () => '310px',
 	},
-	// 双向绑定，用于获取 editor.getHtml()
+	// 双向绑定,用于获取 editor.getHtml()
 	getHtml: String,
-	// 双向绑定，用于获取 editor.getText()
+	// 双向绑定,用于获取 editor.getText()
 	getText: String,
 });
 
@@ -88,7 +88,7 @@ watch(
 		deep: true,
 	}
 );
-// 监听双向绑定值改变，用于回显
+// 监听双向绑定值改变,用于回显
 watch(
 	() => props.getHtml,
 	(val) => {

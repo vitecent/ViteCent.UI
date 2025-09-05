@@ -1,76 +1,45 @@
 <template>
-	<el-form :rules="state.rules" ref="formRef" class="login-content-form">
-		<el-form-item class="login-animation1">
+	<el-form :model="state.ruleForm" :rules="state.rules" ref="formRef" class="login-content-form">
+		<el-form-item class="login-animation1" prop="username">
 			<el-input
 				text
 				:placeholder="$t('message.account.usernamePlaceholder')"
-				v-model="state.ruleForm.userName"
-				prop="userName"
-				clearable
+				v-model="state.ruleForm.username"
 				autocomplete="off"
-				@keyup.enter="onSignIn"
+				maxlength="16"
+				show-word-limit
+				clearable
+				@keyup.enter="onValidate"
 			>
-				<template #prefix>
-					<el-icon class="el-input__icon"><ele-User /></el-icon>
-				</template>
+				<template #prefix> <SvgIcon name="ele-User" /> </template>
 			</el-input>
 		</el-form-item>
-		<el-form-item class="login-animation2">
+		<el-form-item class="login-animation2" prop="password">
 			<el-input
-				:type="state.isShowPassword ? 'text' : 'password'"
+				type="password"
 				:placeholder="$t('message.account.passwordPlaceholder')"
 				v-model="state.ruleForm.password"
-				prop="password"
-				clearable
 				autocomplete="off"
-				@keyup.enter="onSignIn"
+				show-password
+				clearable
+				@keyup.enter="onValidate"
 			>
-				<template #prefix>
-					<el-icon class="el-input__icon"><ele-Unlock /></el-icon>
-				</template>
-				<template #suffix>
-					<i
-						class="iconfont el-input__icon login-content-password"
-						:class="state.isShowPassword ? 'icon-yincangmima' : 'icon-xianshimima'"
-						@click="state.isShowPassword = !state.isShowPassword"
-					>
-					</i>
-				</template>
+				<template #prefix> <SvgIcon name="ele-Key" /> </template>
 			</el-input>
 		</el-form-item>
-		<el-form-item class="login-animation3">
-			<el-col :span="15">
-				<el-input
-					text
-					maxlength="4"
-					:placeholder="$t('message.account.codePlaceholder')"
-					v-model="state.ruleForm.code"
-					prop="code"
-					clearable
-					autocomplete="off"
-					@keyup.enter="onSignIn"
-				>
-					<template #prefix>
-						<el-icon class="el-input__icon"><ele-Position /></el-icon>
-					</template>
-				</el-input>
-			</el-col>
-			<el-col :span="1"></el-col>
-			<el-col :span="8">
-				<el-button class="login-content-code" v-waves>1234</el-button>
-			</el-col>
-		</el-form-item>
 		<el-form-item class="login-animation4">
-			<el-button type="primary" class="login-content-submit" round v-waves @click="onSignIn" :loading="state.loading.signIn">
-				<span>{{ $t('message.account.accountBtnText') }}</span>
+			<el-button type="primary" class="login-content-submit" round v-waves @click.native.prevent="onValidate">
+				{{ $t('message.account.accountBtnText') }}
 			</el-button>
 		</el-form-item>
+		<div class="font12 mt30 login-animation4 login-msg">{{ $t('message.mobile.msgText') }}</div>
+		<Vcode :show="state.isShow" @success="onSuccess" @close="onClose" />
 	</el-form>
 </template>
 
 <script setup lang="ts" name="loginAccount">
-import { reactive, computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { reactive, computed, ref } from 'vue';
+
 import { ElMessage } from 'element-plus';
 import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
@@ -79,54 +48,32 @@ import { initFrontEndControlRoutes } from '@/router/frontEnd';
 import { initBackEndControlRoutes } from '@/router/backEnd';
 import { Session } from '@/utils/storage';
 import { formatAxis } from '@/utils/formatTime';
-import { NextLoading } from '@/utils/loading';
-import { useLoginApi } from '@/api/login/index';
 
-// 定义变量内容
+import Vcode from 'vue3-puzzle-vcode';
+
+import { useLoginApi } from '@/api/login/index';
+var api = useLoginApi();
+
 const { t } = useI18n();
 const storesThemeConfig = useThemeConfig();
 const { themeConfig } = storeToRefs(storesThemeConfig);
+
+import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
-var api = useLoginApi();
 
+const formRef = ref();
+
+// 定义变量内容
 const state = reactive({
-	isShowPassword: false,
+	isShow: false,
 	ruleForm: {
-		userName: 'admin',
+		username: 'admin',
 		password: '123qwe',
-		code: '1234',
 	},
 	rules: {
-		username: { required: true, message: t('message.account.username'), trigger: 'blur' },
-		password: { required: true, message: t('message.account.password'), trigger: 'blur' },
-		code: { required: true, message: t('message.account.code'), trigger: 'blur' },
-	},
-	colors: ['#009688', '#409EFF', '#67C23A', '#E6A23C', '#F56C6C', '#909399'],
-	options: [
-		{
-			value: '1',
-			label: 'Option1',
-		},
-		{
-			value: '2',
-			label: 'Option2',
-		},
-		{
-			value: '3',
-			label: 'Option3',
-		},
-		{
-			value: '4',
-			label: 'Option4',
-		},
-		{
-			value: '5',
-			label: 'Option5',
-		},
-	],
-	loading: {
-		signIn: false,
+		username: { required: true, message: t('message.account.usernamePlaceholder'), trigger: 'blur' },
+		password: { required: true, message: t('message.account.passwordPlaceholder'), trigger: 'blur' },
 	},
 });
 
@@ -134,9 +81,30 @@ const state = reactive({
 const currentTime = computed(() => {
 	return formatAxis(new Date());
 });
+
+//开启验证
+const onSuccess = () => {
+	state.isShow = false;
+	onLogin();
+};
+
+//关闭验证
+const onClose = () => {
+	state.isShow = false;
+};
+
+//验证
+const onValidate = () => {
+	if (!formRef.value) return;
+	formRef.value.validate((valid: boolean) => {
+		if (valid) {
+			state.isShow = true;
+		}
+	});
+};
+
 // 登录
-const onSignIn = async () => {
-	state.loading.signIn = true;
+const onLogin = async () => {
 	api
 		.login(state.ruleForm)
 		.then(async (res) => {
@@ -147,31 +115,30 @@ const onSignIn = async () => {
 			Session.set('expireTime', data.expireTime);
 
 			if (!themeConfig.value.isRequestRoutes) {
-				// 前端控制路由，2、请注意执行顺序
+				// 前端控制路由,2、请注意执行顺序
 				const isNoPower = await initFrontEndControlRoutes();
-				signInSuccess(isNoPower);
+				LoginSuccess(isNoPower);
 			} else {
-				// 模拟后端控制路由，isRequestRoutes 为 true，则开启后端控制路由
-				// 添加完动态路由，再进行 router 跳转，否则可能报错 No match found for location with path "/"
+				// 模拟后端控制路由,isRequestRoutes 为 true,则开启后端控制路由
+				// 添加完动态路由,再进行 router 跳转,否则可能报错 No match found for location with path "/"
 				const isNoPower = await initBackEndControlRoutes();
-				// 执行完 initBackEndControlRoutes，再执行 signInSuccess
-				signInSuccess(isNoPower);
+				// 执行完 initBackEndControlRoutes,再执行 LoginSuccess
+				LoginSuccess(isNoPower);
 			}
 		})
-		.catch(() => {
-			state.loading.signIn = false;
-		});
+		.catch(() => {});
 };
+
 // 登录成功后的跳转
-const signInSuccess = (isNoPower: boolean | undefined) => {
+const LoginSuccess = (isNoPower: boolean | undefined) => {
 	if (isNoPower) {
-		ElMessage.warning('抱歉，您没有登录权限');
+		ElMessage.warning('抱歉,您没有登录权限');
 		Session.clear();
 	} else {
 		// 初始化登录成功时间问候语
 		let currentTimeInfo = currentTime.value;
-		// 登录成功，跳到转首页
-		// 如果是复制粘贴的路径，非首页/登录页，那么登录成功后重定向到对应的路径中
+		// 登录成功,跳到转首页
+		// 如果是复制粘贴的路径,非首页/登录页,那么登录成功后重定向到对应的路径中
 		if (route.query?.redirect) {
 			router.push({
 				path: <string>route.query?.redirect,
@@ -181,12 +148,9 @@ const signInSuccess = (isNoPower: boolean | undefined) => {
 			router.push('/');
 		}
 		// 登录成功提示
-		const signInText = t('message.signInText');
-		ElMessage.success(`${currentTimeInfo}，${signInText}`);
-		// 添加 loading，防止第一次进入界面时出现短暂空白
-		NextLoading.start();
+		const loginText = t('message.signInText');
+		ElMessage.success(`${currentTimeInfo},${loginText}`);
 	}
-	state.loading.signIn = false;
 };
 </script>
 

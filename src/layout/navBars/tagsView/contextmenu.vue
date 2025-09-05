@@ -17,7 +17,7 @@
 						tabindex="-1"
 						:key="k"
 						v-if="!v.affix"
-						@click="onCurrentContextmenuClick(v.contextMenuClickId)"
+						@click.native.prevent="onCurrentContextmenuClick(v.contextMenuClickId)"
 					>
 						<SvgIcon :name="v.icon" />
 						<span>{{ $t(v.txt) }}</span>
@@ -83,7 +83,7 @@ const dropdowns = computed(() => {
 const onCurrentContextmenuClick = (contextMenuClickId: number) => {
 	emit('currentContextmenuClick', Object.assign({}, { contextMenuClickId }, state.item));
 };
-// 打开右键菜单：判断是否固定，固定则不显示关闭按钮
+// 打开右键菜单:判断是否固定,固定则不显示关闭按钮
 const openContextmenu = (item: RouteItem) => {
 	state.item = item;
 	item.meta?.isAffix ? (state.dropdownList[1].affix = true) : (state.dropdownList[1].affix = false);
@@ -100,7 +100,7 @@ const closeContextmenu = () => {
 onMounted(() => {
 	document.body.addEventListener('click', closeContextmenu);
 });
-// 页面卸载时，移除右键菜单监听事件
+// 页面卸载时,移除右键菜单监听事件
 onUnmounted(() => {
 	document.body.removeEventListener('click', closeContextmenu);
 });
