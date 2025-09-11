@@ -94,7 +94,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/data/database/edit/:id',
+						path: '/data/database/edit',
 						name: 'editDatabase',
 						component: () => import('@/views/data/database/edit.vue'),
 						meta: {
@@ -105,11 +105,22 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/data/database/details/:id',
+						path: '/data/database/details',
 						name: 'databaseDetails',
 						component: () => import('@/views/data/database/details.vue'),
 						meta: {
 							title: 'message.router.databaseDetails',
+							isHide: true,
+							roles: ['admin'],
+							icon: 'ele-Coin',
+						},
+					},
+					{
+						path: '/data/database/copy',
+						name: 'copyDatabase',
+						component: () => import('@/views/data/database/copy.vue'),
+						meta: {
+							title: 'message.router.copyDatabase',
 							isHide: true,
 							roles: ['admin'],
 							icon: 'ele-Coin',
@@ -138,7 +149,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/data/table/edit/:id',
+						path: '/data/table/edit',
 						name: 'editTable',
 						component: () => import('@/views/data/table/edit.vue'),
 						meta: {
@@ -149,7 +160,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/data/table/details/:id',
+						path: '/data/table/details',
 						name: 'tableDetails',
 						component: () => import('@/views/data/table/details.vue'),
 						meta: {
@@ -182,7 +193,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/data/field/edit/:id',
+						path: '/data/field/edit',
 						name: 'editField',
 						component: () => import('@/views/data/field/edit.vue'),
 						meta: {
@@ -193,7 +204,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/data/field/details/:id',
+						path: '/data/field/details',
 						name: 'fieldDetails',
 						component: () => import('@/views/data/field/details.vue'),
 						meta: {
@@ -240,7 +251,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/microservice/service/edit/:id',
+						path: '/microservice/service/edit',
 						name: 'editService',
 						component: () => import('@/views/microservice/service/edit.vue'),
 						meta: {
@@ -251,7 +262,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/microservice/service/details/:id',
+						path: '/microservice/service/details',
 						name: 'serviceDetails',
 						component: () => import('@/views/microservice/service/details.vue'),
 						meta: {
@@ -284,7 +295,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/microservice/resource/edit/:id',
+						path: '/microservice/resource/edit',
 						name: 'editResource',
 						component: () => import('@/views/microservice/resource/edit.vue'),
 						meta: {
@@ -295,7 +306,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/microservice/resource/details/:id',
+						path: '/microservice/resource/details',
 						name: 'resourceDetails',
 						component: () => import('@/views/microservice/resource/details.vue'),
 						meta: {
@@ -328,7 +339,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/microservice/operation/edit/:id',
+						path: '/microservice/operation/edit',
 						name: 'editOperation',
 						component: () => import('@/views/microservice/operation/edit.vue'),
 						meta: {
@@ -339,7 +350,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/microservice/operation/details/:id',
+						path: '/microservice/operation/details',
 						name: 'operationDetails',
 						component: () => import('@/views/microservice/operation/details.vue'),
 						meta: {
@@ -386,7 +397,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/company/edit/:id',
+						path: '/setting/company/edit',
 						name: 'editCompany',
 						component: () => import('@/views/setting/company/edit.vue'),
 						meta: {
@@ -397,7 +408,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/company/details/:id',
+						path: '/setting/company/details',
 						name: 'companyDetails',
 						component: () => import('@/views/setting/company/details.vue'),
 						meta: {
@@ -430,7 +441,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/department/edit/:id',
+						path: '/setting/department/edit',
 						name: 'editDepartment',
 						component: () => import('@/views/setting/department/edit.vue'),
 						meta: {
@@ -441,7 +452,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/department/details/:id',
+						path: '/setting/department/details',
 						name: 'departmentDetails',
 						component: () => import('@/views/setting/department/details.vue'),
 						meta: {
@@ -474,7 +485,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/position/edit/:id',
+						path: '/setting/position/edit',
 						name: 'editPosition',
 						component: () => import('@/views/setting/position/edit.vue'),
 						meta: {
@@ -485,7 +496,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/position/details/:id',
+						path: '/setting/position/details',
 						name: 'positionDetails',
 						component: () => import('@/views/setting/position/details.vue'),
 						meta: {
@@ -518,7 +529,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/role/edit/:id',
+						path: '/setting/role/edit',
 						name: 'editRole',
 						component: () => import('@/views/setting/role/edit.vue'),
 						meta: {
@@ -529,7 +540,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/role/details/:id',
+						path: '/setting/role/details',
 						name: 'roleDetails',
 						component: () => import('@/views/setting/role/details.vue'),
 						meta: {
@@ -562,7 +573,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/user/edit/:id',
+						path: '/setting/user/edit',
 						name: 'editUser',
 						component: () => import('@/views/setting/user/edit.vue'),
 						meta: {
@@ -573,7 +584,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/user/details/:id',
+						path: '/setting/user/details',
 						name: 'userDetails',
 						component: () => import('@/views/setting/user/details.vue'),
 						meta: {
@@ -606,7 +617,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/dictionary/edit/:id',
+						path: '/setting/dictionary/edit',
 						name: 'editDictionary',
 						component: () => import('@/views/setting/dictionary/edit.vue'),
 						meta: {
@@ -617,7 +628,7 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 						},
 					},
 					{
-						path: '/setting/dictionary/details/:id',
+						path: '/setting/dictionary/details',
 						name: 'dictionaryDetails',
 						component: () => import('@/views/setting/dictionary/details.vue'),
 						meta: {

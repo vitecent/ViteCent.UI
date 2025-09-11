@@ -65,6 +65,8 @@ service.interceptors.response.use(
 		// 对响应数据做点什么
 		const res = response.data;
 		if (res.code && res.code !== 200) {
+			if (res.message)
+				ElMessage.error(res.message);
 			return Promise.reject(service.interceptors.response);
 		} else {
 			return res;

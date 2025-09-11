@@ -2,7 +2,7 @@
 export default {
 	database: {
 		type: '类型',
-		typePlaceholder: '请选择类型',
+		typePlaceholder: '请输入类型',
 		code: '编号',
 		codePlaceholder: '请输入编号',
 		name: '名称',
@@ -18,7 +18,7 @@ export default {
 		password: '密码',
 		passwordPlaceholder: '请输入密码',
 		charSet: '编码',
-		charSetPlaceholder: '请选择编码',
+		charSetPlaceholder: '请输入编码',
 		color: '颜色',
 		colorPlaceholder: '请输入颜色',
 		sort: '排序',
@@ -28,6 +28,8 @@ export default {
 		description: '描述',
 		descriptionPlaceholder: '请输入描述',
 		sync: '同步结构',
-		sql: '生成脚本'
+		syncConfirm: '该操作将覆盖原有数据，是否继续?',
+		syncSuccess: '同步成功',
+		syncError: '同步失败',
 	}
 };

@@ -1,6 +1,6 @@
 <template>
 	<section class="database-container">
-		<h3 class="mb30">{{ $t('message.router.addDatabase') }}</h3>
+		<h3 class="mb30">{{ $t('message.router.copyDatabase') }}</h3>
 		<el-form :model="state.form" :rules="state.rules" label-position="top" label-width="100px" ref="formRef">
 			<el-row :gutter="10">
 				<el-col :md="12" class="mb15">
@@ -118,7 +118,7 @@
 				<el-col>
 					<el-form-item>
 						<el-button type="info" @click.native.prevent="onCancel">{{ $t('message.common.cancel') }}</el-button>
-						<el-button type="primary" @click.native.prevent="onAdd">{{ $t('message.common.add') }}</el-button>
+						<el-button type="primary" @click.native.prevent="onCopy">{{ $t('message.common.copy') }}</el-button>
 						<el-checkbox v-model="state.flag" class="ml10 mr10" />跳转到列表
 					</el-form-item>
 				</el-col>
@@ -128,7 +128,7 @@
 </template>
 
 <script setup lang="ts" name="addDatabase">
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import { ElMessage } from 'element-plus';
 
 import { useI18n } from 'vue-i18n';
@@ -137,7 +137,8 @@ const { t } = useI18n();
 import { useDatabaseApi } from '@/api/database';
 var api = useDatabaseApi();
 
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+const route = useRoute();
 const router = useRouter();
 
 const formRef = ref<RefType>();
@@ -145,7 +146,7 @@ const formRef = ref<RefType>();
 // 定义变量内容
 const state = reactive({
 	flag: true,
-
+	id: '',
 	form: {} as Database,
 	rules: {
 		type: { required: true, message: t('message.database.typePlaceholder'), trigger: 'blur' },
@@ -163,18 +164,19 @@ const state = reactive({
 });
 
 //新增
-const onAdd = () => {
+const onCopy = () => {
 	if (!formRef.value) return;
 	formRef.value.validate((valid: boolean) => {
 		if (valid) {
 			api
 				.add(state.form)
 				.then((res) => {
-					ElMessage.success(t('message.common.addSuccess'));
+					ElMessage.success(t('message.common.copySuccess'));
 
 					state.form = {} as Database;
 
 					if (state.flag) router.push({ name: 'dataDatabase' });
+					else initData();
 				})
 				.catch((error) => {});
 		}
@@ -184,6 +186,24 @@ const onAdd = () => {
 //取消
 const onCancel = () => {
 	router.push({ name: 'dataDatabase' });
+};
+
+// 页面加载时
+onMounted(() => {
+	const id = route.query.id as string;
+	state.id = id;
+
+	initData();
+});
+
+//加载数据
+const initData = () => {
+	api
+		.get({ id: state.id })
+		.then((res) => {
+			state.form = res.data;
+		})
+		.catch((error) => {});
 };
 </script>
 

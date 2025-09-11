@@ -42,6 +42,13 @@ export function useDatabaseApi() {
                 method: 'post',
                 data: params,
             });
+        },
+        sync: (params?: object) => {
+            return request({
+                url: '/api/Database/BaseDatabase/Init',
+                method: 'post',
+                data: params,
+            });
         }
     }
 }

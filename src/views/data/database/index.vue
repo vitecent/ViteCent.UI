@@ -44,15 +44,20 @@
 							<el-button link type="primary"><SvgIcon name="ele-More" /></el-button>
 						</template>
 						<template #default>
-							<el-tooltip :content="$t('message.common.copy')"
-								><el-button link type="primary"><SvgIcon name="ele-CopyDocument" /></el-button
-							></el-tooltip>
-							<el-tooltip :content="$t('message.database.sync')"
-								><el-button link type="primary"><SvgIcon name="ele-Drizzling" /></el-button
-							></el-tooltip>
-							<el-tooltip :content="$t('message.database.sql')"
-								><el-button link type="primary"><SvgIcon name="ele-Paperclip" /></el-button
-							></el-tooltip>
+							<el-space wrap>
+								<el-tooltip :content="$t('message.common.copy')"
+									><el-button link type="primary" @click.native.prevent="onCopy(scope)"><SvgIcon name="ele-CopyDocument" /></el-button
+								></el-tooltip>
+								<el-tooltip :content="$t('message.database.sync')"
+									><el-button link type="primary" @click.native.prevent="onSync(scope)"><SvgIcon name="ele-Drizzling" /></el-button
+								></el-tooltip>
+								<el-tooltip :content="$t('message.router.dataTable')"
+									><el-button link type="primary" @click.native.prevent="onTable(scope)"><SvgIcon name="ele-Folder" /></el-button
+								></el-tooltip>
+								<el-tooltip :content="$t('message.router.builder')"
+									><el-button link type="primary" @click.native.prevent="onBuilder(scope)"><SvgIcon name="iconfont icon-zujian" /></el-button
+								></el-tooltip>
+							</el-space>
 						</template>
 					</el-popover>
 				</template>
@@ -63,7 +68,7 @@
 
 <script setup lang="ts" name="database">
 import { defineAsyncComponent, reactive, onMounted } from 'vue';
-import { ElMessage } from 'element-plus';
+import { ElMessage, ElMessageBox } from 'element-plus';
 
 import { useI18n } from 'vue-i18n';
 const { t } = useI18n();
@@ -119,9 +124,11 @@ const initData = () => {
 		state.param.args.push({
 			field: 'name',
 			value: state.form.name,
+			method: 2,
 		});
 
 	state.data.data = [];
+
 	api
 		.page(state.param)
 		.then((res) => {
@@ -138,7 +145,7 @@ const onAdd = () => {
 
 // 修改
 const onEdit = (row: EmptyObjectType) => {
-	router.push({ name: 'editDatabase', params: { id: row.scope.id } });
+	router.push({ name: 'editDatabase', query: { id: row.scope.id } });
 };
 
 // 删除
@@ -150,9 +157,7 @@ const onDelete = (row: EmptyObjectType) => {
 
 			initData();
 		})
-		.catch((error) => {
-			ElMessage.error(t('message.common.deleteError'));
-		});
+		.catch((error) => {});
 };
 
 //批量删除
@@ -162,7 +167,40 @@ const onDeleteSelect = () => {
 
 // 详情
 const onDetails = (row: EmptyObjectType) => {
-	router.push({ name: 'databaseDetails', params: { id: row.scope.id } });
+	router.push({ name: 'databaseDetails', query: { id: row.scope.id } });
+};
+
+// 复制
+const onCopy = (row: EmptyObjectType) => {
+	router.push({ name: 'copyDatabase', query: { id: row.scope.id } });
+};
+
+//同步
+const onSync = (row: EmptyObjectType) => {
+	ElMessageBox({
+		title: t('message.database.sync'),
+		message: t('message.database.syncConfirm'),
+		showCancelButton: true,
+	})
+		.then(async () => {
+			api
+				.sync({ id: row.scope.id })
+				.then((res) => {
+					ElMessage.success(t('message.database.syncSuccess'));
+				})
+				.catch((error) => {});
+		})
+		.catch(() => {});
+};
+
+//查看表
+const onTable = (row: EmptyObjectType) => {
+	router.push({ name: 'dataTable', query: { databaseId: row.scope.id } });
+};
+
+//生成代码
+const onBuilder = (row: EmptyObjectType) => {
+	router.push({ name: 'builder', query: { databaseId: row.scope.id } });
 };
 
 //重置

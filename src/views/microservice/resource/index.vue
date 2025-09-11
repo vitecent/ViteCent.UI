@@ -82,7 +82,7 @@ const state = reactive<EmptyObjectType>({
 			{ key: 'charSet', title: t('message.resource.charSet'), type: 'text', isCheck: true },
 		],
 		data: [] as Resource[],
-		printName: t('message.router.dataResource'),
+		printName: t('message.router.microserviceResource'),
 	},
 	form: {
 		name: '',
@@ -103,6 +103,7 @@ const initData = () => {
 		state.param.args.push({
 			field: 'name',
 			value: state.form.name,
+			method: 2,
 		});
 
 	state.data.data = [];
@@ -122,7 +123,7 @@ const onAdd = () => {
 
 // 修改
 const onEdit = (row: EmptyObjectType) => {
-	router.push({ name: 'editResource', params: { id: row.scope.id } });
+	router.push({ name: 'editResource', query: { id: row.scope.id } });
 };
 
 // 删除
@@ -134,9 +135,7 @@ const onDelete = (row: EmptyObjectType) => {
 
 			initData();
 		})
-		.catch((error) => {
-			ElMessage.error(t('message.common.deleteError'));
-		});
+		.catch((error) => {});
 };
 
 //批量删除
@@ -146,7 +145,7 @@ const onDeleteSelect = () => {
 
 // 详情
 const onDetails = (row: EmptyObjectType) => {
-	router.push({ name: 'resourceDetails', params: { id: row.scope.id } });
+	router.push({ name: 'resourceDetails', query: { id: row.scope.id } });
 };
 
 //重置

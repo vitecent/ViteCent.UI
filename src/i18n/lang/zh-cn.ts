@@ -7,6 +7,7 @@ export default {
 		addDatabase: '新增数据库',
 		editDatabase: '修改数据库',
 		databaseDetails: '数据库详情',
+		copyDatabase: '复制数据库',
 		dataTable: '数据表管理',
 		addTable: '新增数据表',
 		editTable: '修改数据表',
@@ -192,6 +193,8 @@ export default {
 		reset: '重置',
 		details: '详情',
 		enable: '启用',
-		disable: '禁用'
+		disable: '禁用',
+		yes: '是',
+		no: '否'
 	}
 };

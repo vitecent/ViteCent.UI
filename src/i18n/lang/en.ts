@@ -7,6 +7,7 @@ export default {
 		addDatabase: 'Add Database',
 		editDatabase: 'Edit Database',
 		databaseDetails: 'Database Details',
+		copyDatabase: 'Copy Database',
 		dataTable: 'Table',
 		addTable: 'Add Table',
 		editTable: 'Edit Table',
@@ -193,6 +194,8 @@ export default {
 		reset: 'Reset',
 		details: 'Details',
 		enable: 'Enable',
-		disable: 'Disable'
+		disable: 'Disable',
+		yes: 'Y',
+		no: 'N'
 	}
 };

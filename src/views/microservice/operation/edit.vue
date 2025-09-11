@@ -3,28 +3,22 @@
 		<h3 class="mb30">{{ $t('message.router.editOperation') }}</h3>
 		<el-form :model="state.form" :rules="state.rules" label-position="top" label-width="100px" ref="formRef">
 			<el-row :gutter="10">
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.type')" prop="type">
-						<el-select
-							v-model="state.form.type"
-							:placeholder="$t('message.operation.typePlaceholder')"
-							:options="state.options"
-							filterable
-							clearable
-						></el-select>
+						<el-input v-model="state.form.type" :placeholder="$t('message.operation.typePlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.code')" prop="code">
 						<el-input v-model="state.form.code" :placeholder="$t('message.operation.codePlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.name')" prop="name">
 						<el-input v-model="state.form.name" :placeholder="$t('message.operation.namePlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.abbreviation')" prop="abbreviation">
 						<el-input
 							v-model="state.form.abbreviation"
@@ -35,22 +29,22 @@
 						/>
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.server')" prop="server">
 						<el-input v-model="state.form.server" :placeholder="$t('message.operation.serverPlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.port')" prop="port">
 						<el-input v-model="state.form.port" :placeholder="$t('message.operation.portPlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.user')" prop="user">
 						<el-input v-model="state.form.user" :placeholder="$t('message.operation.userPlaceholder')" maxlength="50" show-word-limit clearable />
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.password')" prop="password">
 						<el-input
 							v-model="state.form.password"
@@ -62,23 +56,23 @@
 						/>
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.charSet')" prop="charSet">
-						<el-select
+						<el-input
 							v-model="state.form.charSet"
 							:placeholder="$t('message.operation.charSetPlaceholder')"
-							:options="state.options"
-							filterable
+							maxlength="50"
+							show-word-limit
 							clearable
-						></el-select>
+						/>
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.color')" prop="color">
 						<el-color-picker v-model="state.form.color" :predefine="state.colors"></el-color-picker>
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.sort')" prop="sort">
 						<el-input-number
 							:min="1"
@@ -89,14 +83,14 @@
 						></el-input-number>
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" :md="12" class="mb15">
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.operation.status')" prop="status">
 						<el-switch
 							v-model="state.form.status"
 							:active-text="$t('message.common.enable')"
 							:inactive-text="$t('message.common.disable')"
 							:active-value="1"
-							:inactive-value="0"
+							:inactive-value="2"
 							inline-prompt
 						>
 							<template #active-action>
@@ -108,7 +102,7 @@
 						</el-switch>
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24" class="mb30">
+				<el-col class="mb30">
 					<el-form-item :label="$t('message.operation.description')" prop="description">
 						<el-input
 							:rows="3"
@@ -121,7 +115,7 @@
 						/>
 					</el-form-item>
 				</el-col>
-				<el-col :sm="24">
+				<el-col>
 					<el-form-item>
 						<el-button type="info" @click.native.prevent="onCancel">{{ $t('message.common.cancel') }}</el-button>
 						<el-button type="primary" @click.native.prevent="onEdit">{{ $t('message.common.edit') }}</el-button>
@@ -147,11 +141,11 @@ import { useRoute, useRouter } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
 
-// 定义变量内容
 const formRef = ref<RefType>();
+
+// 定义变量内容
 const state = reactive({
 	flag: true,
-
 	id: '',
 	form: {} as Operation,
 	rules: {
@@ -167,28 +161,6 @@ const state = reactive({
 		description: { required: true, message: t('message.operation.descriptionPlaceholder'), trigger: 'blur' },
 	},
 	colors: ['#009688', '#409EFF', '#67C23A', '#E6A23C', '#F56C6C', '#909399'],
-	options: [
-		{
-			value: '1',
-			label: 'Option1',
-		},
-		{
-			value: '2',
-			label: 'Option2',
-		},
-		{
-			value: '3',
-			label: 'Option3',
-		},
-		{
-			value: '4',
-			label: 'Option4',
-		},
-		{
-			value: '5',
-			label: 'Option5',
-		},
-	],
 });
 
 //新增
@@ -203,24 +175,22 @@ const onEdit = () => {
 
 					state.form = {} as Operation;
 
-					if (state.flag) router.push({ name: 'dataOperation' });
+					if (state.flag) router.push({ name: 'microserviceOperation' });
 					else initData();
 				})
-				.catch((error) => {
-					ElMessage.error(t('message.common.editError'));
-				});
+				.catch((error) => {});
 		}
 	});
 };
 
 //取消
 const onCancel = () => {
-	router.push({ name: 'dataOperation' });
+	router.push({ name: 'microserviceOperation' });
 };
 
 // 页面加载时
 onMounted(() => {
-	const id = route.params.id as string;
+	const id = route.query.id as string;
 	state.id = id;
 
 	initData();
@@ -239,7 +209,7 @@ const initData = () => {
 
 <style scoped lang="scss">
 .operation-container {
-	max-width: 1000px;
+	max-width: 1366px;
 	margin: 0 auto;
 	padding: 15px;
 	color: var(--el-text-color-primary);

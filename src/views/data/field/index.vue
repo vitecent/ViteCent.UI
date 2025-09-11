@@ -55,7 +55,8 @@ const { t } = useI18n();
 import { useFieldApi } from '@/api/field';
 var api = useFieldApi();
 
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+const route = useRoute();
 const router = useRouter();
 
 // 引入组件
@@ -64,6 +65,8 @@ const Table = defineAsyncComponent(() => import('@/components/table/index.vue'))
 // 定义变量内容
 const state = reactive<EmptyObjectType>({
 	data: {
+		databaseId: '',
+		tableId: '',
 		config: {
 			total: 0,
 			isSerialNo: true,
@@ -71,15 +74,11 @@ const state = reactive<EmptyObjectType>({
 			isOperate: true,
 		},
 		header: [
-			{ key: 'type', title: t('message.field.type'), type: 'text', isCheck: true },
+			{ key: 'databaseName', title: t('message.field.databaseName'), type: 'text', isCheck: true },
+			{ key: 'tableName', title: t('message.field.tableName'), type: 'text', isCheck: true },
 			{ key: 'code', title: t('message.field.code'), type: 'text', isCheck: true },
 			{ key: 'name', title: t('message.field.name'), type: 'text', isCheck: true },
 			{ key: 'abbreviation', title: t('message.field.abbreviation'), type: 'text', isCheck: true },
-			{ key: 'server', title: t('message.field.server'), type: 'text', isCheck: true },
-			{ key: 'port', title: t('message.field.port'), type: 'text', isCheck: true },
-			{ key: 'user', title: t('message.field.user'), type: 'text', isCheck: true },
-			{ key: 'password', title: t('message.field.password'), type: 'text', isCheck: true },
-			{ key: 'charSet', title: t('message.field.charSet'), type: 'text', isCheck: true },
 		],
 		data: [] as Field[],
 		printName: t('message.router.dataField'),
@@ -99,13 +98,27 @@ const state = reactive<EmptyObjectType>({
 const initData = () => {
 	state.param.args = [];
 
+	if (!!state.databaseId)
+		state.param.args.push({
+			field: 'databaseId',
+			value: state.databaseId,
+		});
+
+	if (!!state.tableId)
+		state.param.args.push({
+			field: 'tableId',
+			value: state.tableId,
+		});
+
 	if (!!state.form.name)
 		state.param.args.push({
 			field: 'name',
 			value: state.form.name,
+			method: 2,
 		});
 
 	state.data.data = [];
+
 	api
 		.page(state.param)
 		.then((res) => {
@@ -122,7 +135,7 @@ const onAdd = () => {
 
 // 修改
 const onEdit = (row: EmptyObjectType) => {
-	router.push({ name: 'editField', params: { id: row.scope.id } });
+	router.push({ name: 'editField', query: { id: row.scope.id } });
 };
 
 // 删除
@@ -134,9 +147,7 @@ const onDelete = (row: EmptyObjectType) => {
 
 			initData();
 		})
-		.catch((error) => {
-			ElMessage.error(t('message.common.deleteError'));
-		});
+		.catch((error) => {});
 };
 
 //批量删除
@@ -146,7 +157,7 @@ const onDeleteSelect = () => {
 
 // 详情
 const onDetails = (row: EmptyObjectType) => {
-	router.push({ name: 'fieldDetails', params: { id: row.scope.id } });
+	router.push({ name: 'fieldDetails', query: { id: row.scope.id } });
 };
 
 //重置
@@ -176,6 +187,12 @@ const onSelect = (val: EmptyObjectType[]) => {
 
 // 页面加载时
 onMounted(() => {
+	const databaseId = route.query.databaseId as string;
+	state.databaseId = databaseId;
+
+	const tableId = route.query.tableId as string;
+	state.tableId = tableId;
+
 	initData();
 });
 </script>

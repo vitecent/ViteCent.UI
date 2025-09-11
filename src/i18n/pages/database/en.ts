@@ -2,7 +2,7 @@
 export default {
 	database: {
 		type: 'Type',
-		typePlaceholder: 'Please select type',
+		typePlaceholder: 'Please enter type',
 		code: 'Code',
 		codePlaceholder: 'Please enter code',
 		name: 'Name',
@@ -18,7 +18,7 @@ export default {
 		password: 'Password',
 		passwordPlaceholder: 'Please enter password',
 		charSet: 'CharSet',
-		charSetPlaceholder: 'Please select charSet',
+		charSetPlaceholder: 'Please enter charSet',
 		color: 'Color',
 		colorPlaceholder: 'Please enter color',
 		sort: 'Sort',
@@ -28,6 +28,8 @@ export default {
 		description: 'Description',
 		descriptionPlaceholder: 'Please enter description',
 		sync: 'Sync table structure',
-		sql: 'Generate t-sql'
+		syncConfirm: 'Are you sure you want to sync it?',
+		syncSuccess: 'Sync succeed',
+		syncError: 'Sync fail',
 	}
 };
