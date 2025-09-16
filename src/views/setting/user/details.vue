@@ -76,10 +76,10 @@ const onconfirm = () => {
 
 // 页面加载时
 onMounted(() => {
-	const id = route.params.id;
+	const id = route.query.id;
 
 	api
-		.get({ id: id })
+		.get({ id: state.id })
 		.then((res) => {
 			state.form = res.data;
 		})

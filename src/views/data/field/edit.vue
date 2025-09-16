@@ -41,6 +41,23 @@
 					</el-form-item>
 				</el-col>
 				<el-col :md="12" class="mb15">
+					<el-form-item :label="$t('message.field.type')" prop="type">
+						<el-input v-model="state.form.type" :placeholder="$t('message.field.typePlaceholder')" maxlength="50" show-word-limit clearable />
+					</el-form-item>
+				</el-col>
+				<el-col :md="12" class="mb15">
+					<el-form-item :label="$t('message.field.length')" prop="length">
+						<el-input-number
+							:min="0"
+							:max="9999"
+							v-model="state.form.length"
+							:placeholder="$t('message.field.lengthPlaceholder')"
+							:disabled="state.form.add == 2"
+							clearable
+						></el-input-number>
+					</el-form-item>
+				</el-col>
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.field.color')" prop="color">
 						<el-color-picker v-model="state.form.color" :predefine="state.colors"></el-color-picker>
 					</el-form-item>
@@ -160,6 +177,44 @@
 					</el-form-item>
 				</el-col>
 				<el-col :md="8" class="mb15">
+					<el-form-item :label="$t('message.field.nullable')" prop="nullable">
+						<el-switch
+							v-model="state.form.nullable"
+							:active-text="$t('message.common.yes')"
+							:inactive-text="$t('message.common.no')"
+							:active-value="1"
+							:inactive-value="2"
+							inline-prompt
+						>
+							<template #active-action>
+								<SvgIcon name="ele-Check" />
+							</template>
+							<template #inactive-action>
+								<SvgIcon name="ele-Close" />
+							</template>
+						</el-switch>
+					</el-form-item>
+				</el-col>
+				<el-col :md="16" class="mb15">
+					<el-form-item :label="$t('message.field.foreignKey')" prop="foreignKey">
+						<el-switch
+							v-model="state.form.foreignKey"
+							:active-text="$t('message.common.yes')"
+							:inactive-text="$t('message.common.no')"
+							:active-value="1"
+							:inactive-value="2"
+							inline-prompt
+						>
+							<template #active-action>
+								<SvgIcon name="ele-Check" />
+							</template>
+							<template #inactive-action>
+								<SvgIcon name="ele-Close" />
+							</template>
+						</el-switch>
+					</el-form-item>
+				</el-col>
+				<el-col :md="8" class="mb15">
 					<el-form-item :label="$t('message.field.add')" prop="add">
 						<el-switch
 							v-model="state.form.add"
@@ -178,6 +233,7 @@
 						</el-switch>
 					</el-form-item>
 				</el-col>
+
 				<el-col :md="8" class="mb15">
 					<el-form-item :label="$t('message.field.addWidth')" prop="addWidth">
 						<el-input-number
@@ -185,6 +241,7 @@
 							:max="999"
 							v-model="state.form.addWidth"
 							:placeholder="$t('message.field.addWidthPlaceholder')"
+							:disabled="state.form.add == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -196,6 +253,7 @@
 							:max="99"
 							v-model="state.form.addSort"
 							:placeholder="$t('message.field.addSortPlaceholder')"
+							:disabled="state.form.add == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -226,6 +284,7 @@
 							:max="999"
 							v-model="state.form.editWidth"
 							:placeholder="$t('message.field.editWidthPlaceholder')"
+							:disabled="state.form.edit == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -237,6 +296,7 @@
 							:max="99"
 							v-model="state.form.editSort"
 							:placeholder="$t('message.field.editSortPlaceholder')"
+							:disabled="state.form.edit == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -267,6 +327,7 @@
 							:max="999"
 							v-model="state.form.detailWidth"
 							:placeholder="$t('message.field.detailWidthPlaceholder')"
+							:disabled="state.form.detail == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -278,6 +339,7 @@
 							:max="99"
 							v-model="state.form.detailSort"
 							:placeholder="$t('message.field.detailSortPlaceholder')"
+							:disabled="state.form.detail == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -308,6 +370,7 @@
 							:max="999"
 							v-model="state.form.tableWidth"
 							:placeholder="$t('message.field.tableWidthPlaceholder')"
+							:disabled="state.form.table == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -319,6 +382,7 @@
 							:max="99"
 							v-model="state.form.tableSort"
 							:placeholder="$t('message.field.tableSortPlaceholder')"
+							:disabled="state.form.table == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -349,6 +413,7 @@
 							:max="999"
 							v-model="state.form.listWidth"
 							:placeholder="$t('message.field.listWidthPlaceholder')"
+							:disabled="state.form.list == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -360,6 +425,7 @@
 							:max="99"
 							v-model="state.form.listSort"
 							:placeholder="$t('message.field.listSortPlaceholder')"
+							:disabled="state.form.list == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -390,6 +456,7 @@
 							:max="999"
 							v-model="state.form.printWidth"
 							:placeholder="$t('message.field.printWidthPlaceholder')"
+							:disabled="state.form.print == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -401,6 +468,7 @@
 							:max="99"
 							v-model="state.form.printSort"
 							:placeholder="$t('message.field.printSortPlaceholder')"
+							:disabled="state.form.print == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -431,6 +499,7 @@
 							:max="999"
 							v-model="state.form.exportWidth"
 							:placeholder="$t('message.field.exportWidthPlaceholder')"
+							:disabled="state.form.export == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -442,6 +511,7 @@
 							:max="99"
 							v-model="state.form.exportSort"
 							:placeholder="$t('message.field.exportSortPlaceholder')"
+							:disabled="state.form.export == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -472,6 +542,7 @@
 							:max="99"
 							v-model="state.form.importWidth"
 							:placeholder="$t('message.field.importWidthPlaceholder')"
+							:disabled="state.form.import == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -483,6 +554,7 @@
 							:max="99"
 							v-model="state.form.importSort"
 							:placeholder="$t('message.field.importSortPlaceholder')"
+							:disabled="state.form.import == 2"
 							clearable
 						></el-input-number>
 					</el-form-item>
@@ -562,6 +634,8 @@ const formRef = ref<RefType>();
 const state = reactive({
 	flag: true,
 	id: '',
+	databaseId: '',
+	tableId: '',
 	form: {} as Field,
 	rules: {
 		databaseId: { required: true, message: t('message.field.databaseNamePlaceholder'), trigger: 'blur' },
@@ -619,23 +693,41 @@ const onEdit = () => {
 
 					state.form = {} as Field;
 
-					if (state.flag) router.push({ name: 'dataField' });
+					let query = {} as EmptyObjectType;
+
+					if (!!state.databaseId) query.databaseId = state.databaseId;
+
+					if (state.flag) router.push({ name: 'dataField', query });
 					else initData();
 				})
 				.catch((error) => {});
+		} else {
+			ElMessage.warning(t('message.common.validPlaceholder'));
 		}
 	});
 };
 
 //取消
 const onCancel = () => {
-	router.push({ name: 'dataField' });
+	let query = {} as EmptyObjectType;
+
+	if (!!state.databaseId) query.databaseId = state.databaseId;
+
+	if (!!state.tableId) query.tableId = state.tableId;
+
+	router.push({ name: 'dataField', query });
 };
 
 // 页面加载时
 onMounted(() => {
 	const id = route.query.id as string;
 	state.id = id;
+
+	const databaseId = route.query.databaseId as string;
+	state.databaseId = databaseId;
+
+	const tableId = route.query.tableId as string;
+	state.tableId = tableId;
 
 	initData();
 });

@@ -107,7 +107,7 @@
 </template>
 
 <script setup lang="ts" name="addTable">
-import { reactive, ref } from 'vue';
+import { reactive, ref, onMounted } from 'vue';
 import { ElMessage } from 'element-plus';
 
 import { useI18n } from 'vue-i18n';
@@ -116,7 +116,8 @@ const { t } = useI18n();
 import { useTableApi } from '@/api/table';
 var api = useTableApi();
 
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+const route = useRoute();
 const router = useRouter();
 
 const formRef = ref<RefType>();
@@ -124,7 +125,7 @@ const formRef = ref<RefType>();
 // 定义变量内容
 const state = reactive({
 	flag: true,
-
+	databaseId: '',
 	form: {} as Table,
 	rules: {
 		databaseId: { required: true, message: t('message.table.databaseNamePlaceholder'), trigger: 'blur' },
@@ -149,17 +150,33 @@ const onAdd = () => {
 
 					state.form = {} as Table;
 
-					if (state.flag) router.push({ name: 'dataTable' });
+					let query = {} as EmptyObjectType;
+
+					if (!!state.databaseId) query.databaseId = state.databaseId;
+
+					if (state.flag) router.push({ name: 'dataTable', query });
 				})
 				.catch((error) => {});
+		} else {
+			ElMessage.warning(t('message.common.validPlaceholder'));
 		}
 	});
 };
 
 //取消
 const onCancel = () => {
-	router.push({ name: 'dataTable' });
+	let query = {} as EmptyObjectType;
+
+	if (!!state.databaseId) query.databaseId = state.databaseId;
+
+	router.push({ name: 'dataTable', query });
 };
+
+// 页面加载时
+onMounted(() => {
+	const databaseId = route.query.databaseId as string;
+	state.databaseId = databaseId;
+});
 </script>
 
 <style scoped lang="scss">

@@ -99,6 +99,8 @@ const onValidate = () => {
 	formRef.value.validate((valid: boolean) => {
 		if (valid) {
 			state.isShow = true;
+		} else {
+			ElMessage.warning(t('message.common.validPlaceholder'));
 		}
 	});
 };

@@ -126,6 +126,7 @@ const formRef = ref<RefType>();
 const state = reactive({
 	flag: true,
 	id: '',
+	databaseId: '',
 	form: {} as Table,
 	rules: {
 		databaseId: { required: true, message: t('message.table.databaseNamePlaceholder'), trigger: 'blur' },
@@ -150,23 +151,36 @@ const onEdit = () => {
 
 					state.form = {} as Table;
 
-					if (state.flag) router.push({ name: 'dataTable' });
+					let query = {} as EmptyObjectType;
+
+					if (!!state.databaseId) query.databaseId = state.databaseId;
+
+					if (state.flag) router.push({ name: 'dataTable', query });
 					else initData();
 				})
 				.catch((error) => {});
+		} else {
+			ElMessage.warning(t('message.common.validPlaceholder'));
 		}
 	});
 };
 
 //取消
 const onCancel = () => {
-	router.push({ name: 'dataTable' });
+	let query = {} as EmptyObjectType;
+
+	if (!!state.databaseId) query.databaseId = state.databaseId;
+
+	router.push({ name: 'dataTable', query });
 };
 
 // 页面加载时
 onMounted(() => {
 	const id = route.query.id as string;
 	state.id = id;
+
+	const databaseId = route.query.databaseId as string;
+	state.databaseId = databaseId;
 
 	initData();
 });

@@ -19,6 +19,16 @@
 					<el-form-item :label="$t('message.field.abbreviation')" prop="abbreviation"> {{ state.form.abbreviation }} </el-form-item>
 				</el-col>
 				<el-col :md="12" class="mb15">
+					<el-form-item :label="$t('message.field.type')" prop="type">
+						{{ state.form.type }}
+					</el-form-item>
+				</el-col>
+				<el-col :md="12" class="mb15">
+					<el-form-item :label="$t('message.field.length')" prop="length">
+						{{ state.form.length }}
+					</el-form-item>
+				</el-col>
+				<el-col :md="12" class="mb15">
 					<el-form-item :label="$t('message.field.color')" prop="color"> {{ state.form.color }} </el-form-item>
 				</el-col>
 				<el-col :md="8" class="mb15">
@@ -49,6 +59,14 @@
 				<el-col :md="8" class="mb15">
 					<el-form-item :label="$t('message.field.versionField')" prop="versionField">
 						{{ state.form.versionField }}
+					</el-form-item>
+				</el-col>
+				<el-col :md="8" class="mb15">
+					<el-form-item :label="$t('message.field.nullable')" prop="nullable"> <{{ state.form.nullable }} </el-form-item>
+				</el-col>
+				<el-col :md="16" class="mb15">
+					<el-form-item :label="$t('message.field.foreignKey')" prop="foreignKey">
+						{{ state.form.foreignKey }}
 					</el-form-item>
 				</el-col>
 				<el-col :md="8" class="mb15">
@@ -204,20 +222,36 @@ const router = useRouter();
 
 // 定义变量内容
 const state = reactive({
+	id: '',
+	databaseId: '',
+	tableId: '',
 	form: {} as Field,
 });
 
 //确认
 const onconfirm = () => {
-	router.push({ name: 'dataField' });
+	let query = {} as EmptyObjectType;
+
+	if (!!state.databaseId) query.databaseId = state.databaseId;
+
+	if (!!state.tableId) query.tableId = state.tableId;
+
+	router.push({ name: 'dataField', query });
 };
 
 // 页面加载时
 onMounted(() => {
-	const id = route.params.id;
+	const id = route.query.id as string;
+	state.id = id;
+
+	const databaseId = route.query.databaseId as string;
+	state.databaseId = databaseId;
+
+	const tableId = route.query.tableId as string;
+	state.tableId = tableId;
 
 	api
-		.get({ id: id })
+		.get({ id: state.id })
 		.then((res) => {
 			state.form = res.data;
 		})

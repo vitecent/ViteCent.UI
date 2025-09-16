@@ -638,17 +638,6 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 							icon: 'iconfont icon-zhongduancanshuchaxun',
 						},
 					},
-					{
-						path: '/setting/logs',
-						name: 'settingLogs',
-						component: () => import('@/views/setting/logs/index.vue'),
-						meta: {
-							title: 'message.router.settingLogs',
-							isKeepAlive: true,
-							roles: ['admin'],
-							icon: 'iconfont icon-fuwenbenkuang',
-						},
-					},
 				]
 			},
 			{

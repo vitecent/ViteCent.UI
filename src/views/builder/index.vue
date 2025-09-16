@@ -542,7 +542,7 @@
 				</el-tab-pane>
 			</el-tabs>
 			<el-form-item class="mt30">
-				<el-button type="primary" @click.native.prevent="onBuild">{{ $t('message.builder.build') }}</el-button>
+				<el-button type="primary" @click.native.prevent="onBuild" :loading="state.loading">{{ $t('message.builder.build') }}</el-button>
 			</el-form-item>
 		</el-form>
 	</section>
@@ -568,8 +568,9 @@ const formRef = ref<RefType>();
 
 // 定义变量内容
 const state = reactive({
-	activeName: 'base',
+	activeName: 'api',
 	databaseId: '',
+	loading: false,
 	form: {
 		database: {} as BuilderDatabase,
 		data: {} as BuilderData,
@@ -637,12 +638,19 @@ const onBuild = () => {
 					return;
 				}
 			}
+
+			state.loading = true;
 			api
 				.build(state.form)
 				.then((res) => {
 					ElMessage.success(t('message.builder.buildSuccess'));
+					state.loading = false;
 				})
-				.catch((error) => {});
+				.catch((error) => {
+					state.loading = false;
+				});
+		} else {
+			ElMessage.warning(t('message.common.validPlaceholder'));
 		}
 	});
 };

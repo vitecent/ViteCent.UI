@@ -17,6 +17,7 @@
 		"@wangeditor/editor-for-vue": "^5.1.12",
 		"axios": "^1.6.8",
 		"cropperjs": "^1.6.1",
+		"crypto-js": "^4.2.0",
 		"element-plus": "^2.6.1",
 		"js-table2excel": "^1.1.2",
 		"mitt": "^3.0.1",

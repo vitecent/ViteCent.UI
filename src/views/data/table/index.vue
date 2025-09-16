@@ -135,12 +135,20 @@ const initData = () => {
 
 // 新增
 const onAdd = () => {
-	router.push({ name: 'addTable' });
+	let query = {} as EmptyObjectType;
+
+	if (!!state.databaseId) query.databaseId = state.databaseId;
+
+	router.push({ name: 'addTable', query });
 };
 
 // 修改
 const onEdit = (row: EmptyObjectType) => {
-	router.push({ name: 'editTable', query: { id: row.scope.id } });
+	let query = { id: row.scope.id } as EmptyObjectType;
+
+	if (!!state.databaseId) query.databaseId = state.databaseId;
+
+	router.push({ name: 'editTable', query });
 };
 
 // 删除
@@ -162,7 +170,11 @@ const onDeleteSelect = () => {
 
 // 详情
 const onDetails = (row: EmptyObjectType) => {
-	router.push({ name: 'tableDetails', query: { id: row.scope.id } });
+	let query = { id: row.scope.id } as EmptyObjectType;
+
+	if (!!state.databaseId) query.databaseId = state.databaseId;
+
+	router.push({ name: 'tableDetails', query });
 };
 
 //表详情

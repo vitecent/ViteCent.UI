@@ -16,6 +16,8 @@ declare type Field = {
     index: string | number,
     splitField: string | number,
     versionField: string | number,
+    foreignKey: string | number,
+    nullable: string | number,
     add: string | number,
     addWidth: string | number,
     addSort: string | number,

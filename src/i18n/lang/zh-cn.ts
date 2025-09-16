@@ -54,7 +54,6 @@ export default {
 		addDictionary: '新增字典',
 		editDictionary: '修改字典',
 		dictionaryDetails: '字典详情',
-		settingLogs: '日志管理',
 		builder: '工具',
 		about: '关于',
 		login: '登录',
@@ -195,6 +194,7 @@ export default {
 		enable: '启用',
 		disable: '禁用',
 		yes: '是',
-		no: '否'
+		no: '否',
+		validPlaceholder: '请完善表单信息',
 	}
 };

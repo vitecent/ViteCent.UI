@@ -54,7 +54,6 @@ export default {
 		addDictionary: 'Add Dictionary',
 		editDictionary: 'Edit Dictionary',
 		dictionaryDetails: 'Dictionary Details',
-		settingLogs: 'Logs',
 		builder: 'Builder',
 		about: 'About',
 		login: 'Login',
@@ -196,6 +195,7 @@ export default {
 		enable: 'Enable',
 		disable: 'Disable',
 		yes: 'Y',
-		no: 'N'
+		no: 'N',
+		validPlaceholder: 'Please complete the form',
 	}
 };

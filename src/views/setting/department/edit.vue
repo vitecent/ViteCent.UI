@@ -185,6 +185,8 @@ const onEdit = () => {
 					else initData();
 				})
 				.catch((error) => {});
+		} else {
+			ElMessage.warning(t('message.common.validPlaceholder'));
 		}
 	});
 };

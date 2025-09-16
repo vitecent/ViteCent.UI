@@ -54,20 +54,30 @@ const router = useRouter();
 
 // 定义变量内容
 const state = reactive({
+	id: '',
+	databaseId: '',
 	form: {} as Table,
 });
 
 //确认
 const onconfirm = () => {
-	router.push({ name: 'dataTable' });
+	let query = {} as EmptyObjectType;
+
+	if (!!state.databaseId) query.databaseId = state.databaseId;
+
+	router.push({ name: 'dataTable', query });
 };
 
 // 页面加载时
 onMounted(() => {
-	const id = route.params.id;
+	const id = route.query.id as string;
+	state.id = id;
+
+	const databaseId = route.query.databaseId as string;
+	state.databaseId = databaseId;
 
 	api
-		.get({ id: id })
+		.get({ id: state.id })
 		.then((res) => {
 			state.form = res.data;
 		})

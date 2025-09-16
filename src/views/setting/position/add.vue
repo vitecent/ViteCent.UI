@@ -183,6 +183,8 @@ const onAdd = () => {
 					if (state.flag) router.push({ name: 'settingPosition' });
 				})
 				.catch((error) => {});
+		} else {
+			ElMessage.warning(t('message.common.validPlaceholder'));
 		}
 	});
 };

@@ -189,6 +189,8 @@ const onAdd = () => {
 					if (state.flag) router.push({ name: 'settingDictionary' });
 				})
 				.catch((error) => {});
+		} else {
+			ElMessage.warning(t('message.common.validPlaceholder'));
 		}
 	});
 };
